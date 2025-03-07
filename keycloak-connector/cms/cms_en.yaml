@@ -1,0 +1,21 @@
+Dialogs:
+  RegistrationConfirmation:
+    ConfirmationMessage: Thanks for submitting a new user registration on our application portal.
+    DuplicatedApplicationMessage: A registration linked to this email is already in progress. Please wait for completion before submitting a new request.
+    DuplicatedApplicationSummary: Registration in Progress
+    DupllicatedUserMailMessage: An account with this email already exists. If you forgot your password, you can reset it.
+    DupllicatedUserMailSummary: Account Already Exists
+    Title: Registraion Confirmation
+  UserRegistration:
+    Title: User Registration
+  component:
+    UserInformation:
+      AccountNumber: Account number
+      AdditionalInfo: Additional Information
+      CompanyName: Company name
+      ContactNumber: Contact number
+      Email: Email address
+      FirstName: First name
+      LastName: Last name
+Labels:
+  Register: Register
