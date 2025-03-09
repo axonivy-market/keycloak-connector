@@ -8,9 +8,23 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start()",
+      "name" : "start(RejectReason)",
       "config" : {
         "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "rejectionReason", "type" : "com.axonivy.connector.keycloak.enums.RejectReason", "desc" : "" }
+          ],
+          "map" : {
+            "out.rejectReason" : "param.rejectionReason"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "application", "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication", "desc" : "" }
+          ],
+          "map" : { }
+        },
         "guid" : "1956FD935A8DE68E"
       },
       "visual" : {
@@ -29,9 +43,15 @@
     }, {
       "id" : "f6",
       "type" : "HtmlDialogMethodStart",
-      "name" : "register()",
+      "name" : "register(String)",
       "config" : {
         "signature" : "register",
+        "input" : {
+          "params" : [
+            { "name" : "application", "type" : "String", "desc" : "" }
+          ],
+          "map" : { }
+        },
         "guid" : "195707FD3AC64C3E"
       },
       "visual" : {

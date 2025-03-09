@@ -18,7 +18,7 @@
         for="firstName" />
 
       <p:inputText id="firstName" required="true" styleClass="w-full"
-        value="#{application.firstName}" />
+        value="#{cc.attrs.application.firstName}" />
     </div>
     <div class="field col-12 md:col-6">
       <p:outputLabel
@@ -26,7 +26,7 @@
         for="lastName" />
 
       <p:inputText id="lastName" required="true" styleClass="w-full"
-        value="#{application.lastName}" />
+        value="#{cc.attrs.application.lastName}" />
     </div>
     <div class="field col-12 md:col-6">
       <p:outputLabel
@@ -35,7 +35,7 @@
 
       <p:inputText id="emailAddress" required="true" styleClass="w-full"
         validatorMessage="#{ivy.cms.co('/uk.phd.core/Validation/invalidEmail')}"
-        value="#{application.email}">
+        value="#{cc.attrs.application.email}">
         <f:validateRegex
           pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
       </p:inputText>
@@ -46,7 +46,7 @@
         for="contactNumber" />
 
       <p:inputText id="contactNumber" required="true"
-        styleClass="w-full" value="#{application.contactPhone}" />
+        styleClass="w-full" value="#{cc.attrs.application.phoneNumber}" />
     </div>
 
     <h:panelGroup rendered="#{isEndCustomerEndpoint}">
@@ -56,7 +56,7 @@
           for="companyName" />
 
         <p:inputText id="companyName" styleClass="w-full"
-          required="true" value="#{application.companyName}" />
+          required="true" value="#{cc.attrs.application.companyName}" />
       </div>
       <div class="field col-12 md:col-6 field-chips">
         <p:outputLabel
@@ -64,7 +64,7 @@
           for="accountNumbers" />
 
         <p:chips id="accountNumbers" styleClass="w-full" required="true"
-          value="#{application.accountNumbers}" />
+          value="#{cc.attrs.application.accountNumbers}" />
       </div>
     </h:panelGroup>
     <div class="field col-12">
@@ -76,7 +76,7 @@
         styleClass="w-full" counter="display" maxlength="500"
         autoResize="true"
         counterTemplate=""
-        value="#{application.additionalInfo}" />
+        value="#{cc.attrs.application.additionalInformation}" />
       <h:outputText id="display" class="block"
         rendered="#{not isReadOnly}" />
     </div>

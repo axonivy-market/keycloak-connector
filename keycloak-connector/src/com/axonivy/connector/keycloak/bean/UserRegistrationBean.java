@@ -1,5 +1,6 @@
 package com.axonivy.connector.keycloak.bean;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -20,7 +21,13 @@ public class UserRegistrationBean {
   public static final String SHOW_DIALOG_SCRIPT = "PF('error-message').show()";
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
-  private RegistrationApplicationRepository applicationRepo = RegistrationApplicationRepository.getInstance();
+  private RegistrationApplicationRepository applicationRepo;
+
+  @PostConstruct
+  private void init() {
+    application = new RegistrationApplication();
+    applicationRepo = RegistrationApplicationRepository.getInstance();
+  }
 
   public RegistrationApplication getApplication() {
     return application;
@@ -42,9 +49,8 @@ public class UserRegistrationBean {
           Ivy.cms().co("/Dialogs/RegistrationConfirmation/DuplicatedApplicationMessage"));
       return;
     }
-    String ApplicationId = applicationRepo.save(application);
-
-    FaceContexts.invokeMethodByExpression(REGISTER_LOGIC, null, null);
+    String applicationId = applicationRepo.save(application);
+    FaceContexts.invokeMethodByExpression(REGISTER_LOGIC, new Object[] { applicationId }, null);
   }
 
   private void showErrorMessage(String errorSummary, String errorMessage) {

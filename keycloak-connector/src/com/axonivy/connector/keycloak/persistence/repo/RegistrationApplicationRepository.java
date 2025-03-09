@@ -25,7 +25,7 @@ public class RegistrationApplicationRepository {
   }
 
   public boolean isEmailExisted(String mail) {
-    return createSearchQuery().textField("eMail").isEqualToIgnoringCase(mail).limit(DEFAULT_SEARCH_LIMIT).execute()
+    return createSearchQuery().textField("email").isEqualToIgnoringCase(mail).limit(DEFAULT_SEARCH_LIMIT).execute()
         .count() != 0L;
   }
 

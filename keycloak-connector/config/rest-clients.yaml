@@ -3,7 +3,7 @@ RestClients:
   #This is a REST API reference for the Keycloak Admin REST API.
   Keycloak (Keycloak Admin REST API):
     UUID: f609430c-21e8-4851-9aac-d7a5ececc750
-    Url: https://www.keycloak.org/
+    Url: ${ivy.var.keycloakConnector.url}
     Icon: res:/webContent/icons/keycloak.png
     Features:
     - ch.ivyteam.ivy.rest.client.mapper.JsonFeature

@@ -2,5 +2,14 @@
   "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
   "simpleName" : "UserRegistrationData",
   "namespace" : "com.axonivy.connector.keycloak.connector.UserRegistration",
-  "isBusinessCaseData" : false
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "application",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "rejectReason",
+    "type" : "com.axonivy.connector.keycloak.enums.RejectReason",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
 }

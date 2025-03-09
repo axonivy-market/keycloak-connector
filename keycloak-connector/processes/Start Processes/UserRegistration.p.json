@@ -25,13 +25,24 @@
       "type" : "DialogCall",
       "name" : "Registration form",
       "config" : {
-        "dialog" : "com.axonivy.connector.keycloak.connector.UserRegistration:start()"
+        "dialog" : "com.axonivy.connector.keycloak.connector.UserRegistration:start(com.axonivy.connector.keycloak.enums.RejectReason)",
+        "call" : {
+          "map" : {
+            "param.rejectionReason" : "in.rejectionReason"
+          }
+        },
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.application" : "result.application"
+          }
+        }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 264 }
       },
       "connect" : [
-        { "id" : "f4", "to" : "f1", "color" : "default" }
+        { "id" : "f4", "to" : "f7", "color" : "default" }
       ]
     }, {
       "id" : "f5",
@@ -41,18 +52,73 @@
         "page" : "view/ConfirmationPage.xhtml"
       },
       "visual" : {
-        "at" : { "x" : 512, "y" : 264 },
+        "at" : { "x" : 768, "y" : 264 },
         "labelOffset" : { "x" : 17, "y" : 57 }
       }
     }, {
       "id" : "f1",
       "type" : "Script",
-      "name" : "Send Signal: Review Registration Process",
+      "name" : "Send Signal: Registration Approval",
+      "visual" : {
+        "at" : { "x" : 660, "y" : 263 },
+        "size" : { "width" : 152, "height" : 62 }
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f5", "color" : "default" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "Script",
+      "name" : "validate registration",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.keycloak.service.UserServices;",
+            "import com.axonivy.connector.keycloak.enums.RejectReason;",
+            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationApplicationRepository;",
+            "",
+            "RegistrationApplicationRepository applicationRepo = RegistrationApplicationRepository.getInstance();",
+            "Boolean isApplicationExisted = applicationRepo.isEmailExisted(in.application.email);",
+            "String realmName = ivy.var.get(\"keycloakConnector.realmName\");",
+            "Boolean isUserExisted = UserServices.isExistedUserEmail(in.application.email, realmName);",
+            "if (isApplicationExisted) {",
+            "  in.rejectionReason = RejectReason.EXISTED_REGISTRATION;",
+            "} else if (isUserExisted) {",
+            "  in.rejectionReason = RejectReason.EXISTED_USER;",
+            "} else {",
+            "  applicationRepo.save(in.application);",
+            "}"
+          ]
+        }
+      },
       "visual" : {
         "at" : { "x" : 384, "y" : 264 }
       },
       "connect" : [
-        { "id" : "f6", "to" : "f5", "color" : "default" }
+        { "id" : "f8", "to" : "f9", "color" : "default" }
+      ]
+    }, {
+      "id" : "f9",
+      "type" : "Alternative",
+      "name" : "is valid registration?",
+      "config" : {
+        "conditions" : {
+          "f10" : "in.isValidRegistration"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 512, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f10", "to" : "f1", "label" : {
+            "name" : "yes",
+            "offset" : { "x" : -3, "y" : -10 }
+          }, "color" : "default" },
+        { "id" : "f11", "to" : "f3", "via" : [ { "x" : 512, "y" : 192 }, { "x" : 224, "y" : 192 } ], "label" : {
+            "name" : "no",
+            "segment" : 1.58,
+            "offset" : { "x" : 182, "y" : 30 }
+          } }
       ]
     } ],
   "layout" : {
