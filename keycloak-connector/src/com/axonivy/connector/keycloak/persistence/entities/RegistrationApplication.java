@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class RegistrationApplication implements Serializable {
 	private static final long serialVersionUID = 4238392914201477447L;
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -66,4 +67,12 @@ public class RegistrationApplication implements Serializable {
 	public void setAdditionalInformation(String additionalInformation) {
 		this.additionalInformation = additionalInformation;
 	}
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 }

@@ -3,6 +3,7 @@ package com.axonivy.connector.keycloak.service;
 import com.axonivy.connector.keycloak.bo.UserQuery;
 import com.axonivy.connector.keycloak.constants.ProcessPaths;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.process.call.SubProcessCall;
 import ch.ivyteam.ivy.process.call.SubProcessCallResult;
 
@@ -17,5 +18,10 @@ public class UserServices {
 
     }
     return false;
+  }
+  
+  public static void sendUserApprovalSignal(String applicationId) {
+    Ivy.wf().signals().create().data(applicationId).makeCurrentTaskPersistent()
+        .send(ProcessPaths.REGISTRATION_APPROVAL_SIGNAL);
   }
 }

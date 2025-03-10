@@ -15,5 +15,9 @@
     "name" : "application",
     "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "applicationId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

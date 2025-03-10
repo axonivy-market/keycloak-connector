@@ -9,4 +9,5 @@ public class ProcessPaths {
   public static final String UPDATE_USERS_PASSWORD_START_NAME = "updatePassword";
   public static final String REALM_NAME_PARAM = "realmNamme";
   public static final String USER_QUERY_PARAM = "userQuery";
+  public static final String REGISTRATION_APPROVAL_SIGNAL = "com:axonivy:keycloak:application:approval";
 }
