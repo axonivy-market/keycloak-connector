@@ -1,13 +1,91 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:ic="http://ivyteam.ch/jsf/component" xmlns:p="http://primefaces.org/ui"
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui"
   xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">RegistrationApproval</ui:define>
     <ui:define name="content">
-      <ic:com.axonivy.connector.keycloak.connector.component.UserInformation/>
+      <ic:com.axonivy.connector.keycloak.connector.component.UserInformation />
+      <br />
 
+      <h:form id="form">
+        <p:growl showDetail="true" />
+        <p:fieldset
+          legend="oleAssignmentAndDecision">
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-6">
+              <p:outputLabel
+                value="userRole"
+                for="userRole" />
+
+              <p:selectOneMenu id="userRole" styleClass="w-full"
+                required="#{registrationReviewBean.adminDecision eq 'GRANT_ACCESS'}"
+                requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewUserRoleEmpty')}"
+                disabled="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
+                value="#{registrationReviewBean.userRole}">
+                <p:ajax update="@this" process="@this" />
+                <f:selectItem
+                  itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/selectUserRole')}"
+                  itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{registrationReviewBean.userRoles}" var="role"
+                  itemValue="#{role}" itemLabel="#{role.getCmsName()}" />
+              </p:selectOneMenu>
+            </div>
+            <div class="field col-2 md:col-2" />
+            <div class="field col-10 md:col-4">
+              <p:outputLabel
+                value="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/adminDecision')}"
+                for="adminDecision" />
+
+              <p:selectOneRadio id="adminDecision"
+                layout="pageDirection" required="true"
+                styleClass="w-full"
+                requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewAdminDecisionEmpty')}"
+                value="#{registrationReviewBean.reviewActivity.adminDecision}">
+                <f:selectItems value="#{registrationReviewBean.adminDecisions}"
+                  var="decision" itemValue="#{decision}"
+                  itemLabel="#{ivy.cms.co(decision.cmsKey)}" />
+                <p:ajax listener="#{logic.onAdminDecision}"
+                  update="form" />
+              </p:selectOneRadio>
+            </div>
+            <div class="field col-12">
+              <p:outputLabel
+                value="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/comment')}"
+                for="comment" />
+              <p:inputTextarea id="comment" rows="4" autoResize="true"
+                required="#{registrationReviewBean.reviewActivity.adminDecision eq 'REJECT_ACCESS'}"
+                requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewCommentEmpty')}"
+                styleClass="w-full"
+                value="#{registrationReviewBean.reviewActivity.comment}" />
+            </div>
+
+            <div class="field col-12">
+              <p:selectBooleanCheckbox
+                value="#{registrationReviewBean.reviewActivity.validationConfirmation}"
+                required="true" styleClass="w-full"
+                itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/validationConfirmation')}">
+                <p:ajax update="submit" />
+              </p:selectBooleanCheckbox>
+
+            </div>
+          </div>
+        </p:fieldset>
+        <br />
+        <div class="command-btns">
+          <p:commandLink id="cancel" actionListener="#{logic.cancel}"
+            process="@this"
+            value="#{ivy.cms.co('/uk.phd.core/Common/btnCancel')}" />
+          <p:commandButton id="submit" actionListener="#{logic.submit}"
+            disabled="#{not registrationReviewBean.reviewActivity.validationConfirmation}"
+            value="#{ivy.cms.co('/uk.phd.core/Common/btnSubmit')}"
+            update="form" process="form" />
+        </div>
+      </h:form>
     </ui:define>
   </ui:composition>
 </h:body>

@@ -131,9 +131,18 @@
     }, {
       "id" : "f12",
       "type" : "SignalStartEvent",
+      "name" : "com:axonivy:keycloak:application:approval",
+      "config" : {
+        "signalCode" : "com:axonivy:keycloak:application:approval",
+        "attachToBusinessCase" : false,
+        "output" : {
+          "map" : { },
+          "code" : "out.applicationId = signal.getSignalData() as String;"
+        }
+      },
       "visual" : {
         "at" : { "x" : 80, "y" : 832 },
-        "labelOffset" : { "x" : 13, "y" : 33 }
+        "labelOffset" : { "x" : 89, "y" : 57 }
       },
       "connect" : [
         { "id" : "f14", "to" : "f13" }
@@ -160,16 +169,31 @@
     }, {
       "id" : "f17",
       "type" : "Alternative",
+      "name" : "is rejected ?",
+      "config" : {
+        "conditions" : {
+          "f24" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.RejectReason.ADMIN_REJECTION",
+          "f20" : ""
+        }
+      },
       "visual" : {
-        "at" : { "x" : 528, "y" : 832 },
-        "labelOffset" : { "x" : 14, "y" : 34 }
+        "at" : { "x" : 528, "y" : 832 }
       },
       "connect" : [
-        { "id" : "f20", "to" : "f19" }
+        { "id" : "f20", "to" : "f19", "label" : {
+            "name" : "no",
+            "offset" : { "x" : -15, "y" : -5 }
+          } },
+        { "id" : "f24", "to" : "f23", "via" : [ { "x" : 728, "y" : 832 } ], "label" : {
+            "name" : "yes",
+            "segment" : 0.84,
+            "offset" : { "x" : -55, "y" : 16 }
+          } }
       ]
     }, {
       "id" : "f19",
       "type" : "Script",
+      "name" : "Create new user profile",
       "visual" : {
         "at" : { "x" : 528, "y" : 552 }
       },
@@ -186,9 +210,13 @@
     }, {
       "id" : "f23",
       "type" : "Script",
+      "name" : "delete current registration application",
       "visual" : {
-        "at" : { "x" : 648, "y" : 664 }
-      }
+        "at" : { "x" : 728, "y" : 680 }
+      },
+      "connect" : [
+        { "id" : "f25", "to" : "f21" }
+      ]
     } ],
   "layout" : {
     "lanes" : [ {
