@@ -8,8 +8,7 @@
     "type" : "String"
   }, {
     "name" : "user",
-    "type" : "org.keycloak.www.client.UserRepresentation",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "org.keycloak.www.client.UserRepresentation"
   }, {
     "name" : "users",
     "type" : "List<org.keycloak.www.client.UserRepresentation>"
@@ -20,5 +19,8 @@
     "name" : "userQuery",
     "type" : "com.axonivy.connector.keycloak.bo.UserQuery",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "error",
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
   } ]
 }

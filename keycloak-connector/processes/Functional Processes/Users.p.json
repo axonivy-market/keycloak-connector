@@ -43,7 +43,7 @@
       "config" : {
         "method" : "POST",
         "target" : {
-          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users",
           "templateParams" : {
             "realm" : "in.realmName"
@@ -87,6 +87,15 @@
             "out.realmName" : "param.realmName",
             "out.userQuery" : "param.userQuery"
           }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "users", "type" : "List<org.keycloak.www.client.UserRepresentation>", "desc" : "" },
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+          ],
+          "map" : {
+            "result.users" : "in.#users"
+          }
         }
       },
       "visual" : {
@@ -101,7 +110,7 @@
       "name" : "get users",
       "config" : {
         "target" : {
-          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users",
           "templateParams" : {
             "realm" : "in.realmName"
@@ -125,7 +134,10 @@
         },
         "response" : {
           "entity" : {
-            "type" : "java.util.List<org.keycloak.www.client.UserRepresentation>"
+            "type" : "java.util.List<org.keycloak.www.client.UserRepresentation>",
+            "map" : {
+              "out.users" : "result"
+            }
           }
         }
       },
@@ -135,6 +147,14 @@
       "boundaries" : [ {
           "id" : "f12",
           "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
           "visual" : {
             "at" : { "x" : 320, "y" : 272 },
             "labelOffset" : { "x" : 13, "y" : 33 }
@@ -183,7 +203,7 @@
       "config" : {
         "method" : "DELETE",
         "target" : {
-          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users/{user-id}",
           "templateParams" : {
             "realm" : "in.realmName",
@@ -261,7 +281,7 @@
       "config" : {
         "method" : "PUT",
         "target" : {
-          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users/{user-id}",
           "templateParams" : {
             "realm" : "in.realmName",
@@ -344,7 +364,7 @@
       "config" : {
         "method" : "PUT",
         "target" : {
-          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users/{user-id}/reset-password",
           "templateParams" : {
             "realm" : "in.realmName",

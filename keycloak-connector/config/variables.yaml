@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
   keyCloakConnector:
-    url: ""
-    username: ""
+    url: http://localhost:8090
+    username: admin
     #[password]
     password: ${decrypt:}
-    realmName: ""
+    realmName: master

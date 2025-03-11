@@ -5,26 +5,27 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.lang.StringUtils;
-import com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication;
+
+import com.axonivy.connector.keycloak.persistence.entities.Registration;
 
 @ViewScoped
 @ManagedBean
 public class UserRegistrationBean {
-  private RegistrationApplication application;
+  private Registration application;
   public static final String SHOW_DIALOG_SCRIPT = "PF('error-message').show()";
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
 
   @PostConstruct
   private void init() {
-    application = new RegistrationApplication();
+    application = new Registration();
   }
 
-  public RegistrationApplication getApplication() {
+  public Registration getApplication() {
     return application;
   }
 
-  public void setApplication(RegistrationApplication application) {
+  public void setApplication(Registration application) {
     this.application = application;
   }
 

@@ -7,13 +7,10 @@
     "name" : "isValidRegistration",
     "type" : "Boolean"
   }, {
-    "name" : "rejectionReason",
-    "type" : "com.axonivy.connector.keycloak.enums.RejectReason"
+    "name" : "registration",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
   }, {
-    "name" : "application",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication"
-  }, {
-    "name" : "applicationId",
+    "name" : "registrationId",
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
   } ]

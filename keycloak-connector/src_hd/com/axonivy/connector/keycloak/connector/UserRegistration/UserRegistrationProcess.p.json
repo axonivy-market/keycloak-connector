@@ -8,20 +8,21 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start(RejectReason)",
+      "name" : "start(Registration)",
       "config" : {
         "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "rejectionReason", "type" : "com.axonivy.connector.keycloak.enums.RejectReason", "desc" : "" }
+            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
           ],
           "map" : {
-            "out.rejectReason" : "param.rejectionReason"
-          }
+            "out.registration" : "param.registration"
+          },
+          "code" : "ivy.log.warn(param.registration);"
         },
         "result" : {
           "params" : [
-            { "name" : "application", "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication", "desc" : "" }
+            { "name" : "application", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
           ],
           "map" : { }
         },

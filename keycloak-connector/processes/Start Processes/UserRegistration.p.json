@@ -9,37 +9,34 @@
       "type" : "RequestStart",
       "name" : "register",
       "config" : {
-        "signature" : "register",
-        "request" : {
-          "isVisibleOnStartList" : false
-        }
+        "signature" : "register"
       },
       "visual" : {
         "at" : { "x" : 80, "y" : 264 }
       },
       "connect" : [
-        { "id" : "f2", "to" : "f3" }
+        { "id" : "f2", "to" : "f24" }
       ]
     }, {
       "id" : "f3",
       "type" : "DialogCall",
       "name" : "Registration form",
       "config" : {
-        "dialog" : "com.axonivy.connector.keycloak.connector.UserRegistration:start(com.axonivy.connector.keycloak.enums.RejectReason)",
+        "dialog" : "com.axonivy.connector.keycloak.connector.UserRegistration:start(com.axonivy.connector.keycloak.persistence.entities.Registration)",
         "call" : {
           "map" : {
-            "param.rejectionReason" : "in.rejectionReason"
+            "param.registration" : "in.registration"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.application" : "result.application"
+            "out.registration" : "in.registration"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 264 }
+        "at" : { "x" : 368, "y" : 264 }
       },
       "connect" : [
         { "id" : "f4", "to" : "f7", "color" : "default" }
@@ -52,7 +49,7 @@
         "page" : "view/ConfirmationPage.xhtml"
       },
       "visual" : {
-        "at" : { "x" : 528, "y" : 264 },
+        "at" : { "x" : 672, "y" : 264 },
         "labelOffset" : { "x" : 1, "y" : -31 }
       }
     }, {
@@ -63,12 +60,12 @@
         "output" : {
           "code" : [
             "import com.axonivy.connector.keycloak.service.UserServices;",
-            "UserServices.sendUserApprovalSignal(in.applicationId);"
+            "UserServices.sendUserApprovalSignal(in.registrationId);"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 528, "y" : 432 },
+        "at" : { "x" : 672, "y" : 432 },
         "size" : { "width" : 152, "height" : 62 }
       },
       "connect" : [
@@ -83,24 +80,30 @@
           "code" : [
             "import com.axonivy.connector.keycloak.service.UserServices;",
             "import com.axonivy.connector.keycloak.enums.RejectReason;",
-            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationApplicationRepository;",
+            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
             "",
-            "RegistrationApplicationRepository applicationRepo = RegistrationApplicationRepository.getInstance();",
-            "Boolean isApplicationExisted = applicationRepo.isEmailExisted(in.application.email);",
+            "RegistrationRepository registrationRepo = RegistrationRepository.getInstance();",
+            "Boolean isApplicationExisted = registrationRepo.isEmailExisted(in.registration.email);",
             "String realmName = ivy.var.get(\"keycloakConnector.realmName\");",
-            "Boolean isUserExisted = UserServices.isExistedUserEmail(in.application.email, realmName);",
-            "if (isApplicationExisted) {",
-            "  in.rejectionReason = RejectReason.EXISTED_REGISTRATION;",
-            "} else if (isUserExisted) {",
-            "  in.rejectionReason = RejectReason.EXISTED_USER;",
+            "Boolean isUserExisted = UserServices.isExistedUserEmail(in.registration.email, realmName);",
+            "// if (isApplicationExisted) {",
+            "//   in.registration.rejectReason = RejectReason.EXISTED_REGISTRATION;",
+            "//     ivy.log.warn(\"isApplicationExisted : \" + isApplicationExisted);",
+            "",
+            "// } else",
+            " if (isUserExisted) {",
+            "  in.registration.rejectReason = RejectReason.EXISTED_USER;",
+            "      ivy.log.warn(\"isUserExisted : \" + isUserExisted);",
+            "",
             "} else {",
-            "  in.applicationId = applicationRepo.save(in.application);",
+            "  in.isValidRegistration = true;",
+            "  in.registrationId = registrationRepo.save(in.registration);",
             "}"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 432 }
+        "at" : { "x" : 368, "y" : 432 }
       },
       "connect" : [
         { "id" : "f8", "to" : "f9", "color" : "default" }
@@ -115,17 +118,17 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 360, "y" : 432 }
+        "at" : { "x" : 504, "y" : 432 }
       },
       "connect" : [
         { "id" : "f10", "to" : "f1", "label" : {
             "name" : "yes",
             "offset" : { "x" : -3, "y" : -10 }
           }, "color" : "default" },
-        { "id" : "f11", "to" : "f3", "via" : [ { "x" : 360, "y" : 264 } ], "label" : {
+        { "id" : "f11", "to" : "f3", "via" : [ { "x" : 504, "y" : 264 } ], "label" : {
             "name" : "no",
             "segment" : 1.44,
-            "offset" : { "x" : 44, "y" : 139 }
+            "offset" : { "x" : 76, "y" : 97 }
           } }
       ]
     }, {
@@ -137,7 +140,10 @@
         "attachToBusinessCase" : false,
         "output" : {
           "map" : { },
-          "code" : "out.applicationId = signal.getSignalData() as String;"
+          "code" : [
+            "out.registrationId = signal.getSignalData() as String;",
+            "ivy.log.warn(out.registrationId);"
+          ]
         }
       },
       "visual" : {
@@ -152,8 +158,8 @@
       "type" : "Alternative",
       "config" : {
         "conditions" : {
-          "f23" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.AdminDecision.REJECT_ACCESS",
-          "f20" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.AdminDecision.GRANT_ACCESS",
+          "f23" : "in.registration.adminDecision == com.axonivy.connector.keycloak.enums.AdminDecision.REJECT_ACCESS",
+          "f20" : "in.registration.adminDecision == com.axonivy.connector.keycloak.enums.AdminDecision.GRANT_ACCESS",
           "f29" : ""
         }
       },
@@ -197,7 +203,18 @@
       "type" : "UserTask",
       "name" : "Registration approval",
       "config" : {
-        "dialog" : "com.axonivy.connector.keycloak.connector.RegistrationApproval:start(String)"
+        "dialog" : "com.axonivy.connector.keycloak.connector.RegistrationApproval:start(String)",
+        "call" : {
+          "map" : {
+            "param.registrationId" : "in.registrationId"
+          }
+        },
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.registration" : "result.registration"
+          }
+        }
       },
       "visual" : {
         "at" : { "x" : 368, "y" : 832 }
@@ -219,6 +236,15 @@
       "id" : "f18",
       "type" : "Script",
       "name" : "Init task data",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
+            "in.registration = RegistrationRepository.getInstance().findById(in.registrationId);",
+            "ivy.log.warn(in.registration.firstName);"
+          ]
+        }
+      },
       "visual" : {
         "at" : { "x" : 208, "y" : 832 }
       },
@@ -232,6 +258,24 @@
       "visual" : {
         "at" : { "x" : 320, "y" : 600 }
       }
+    }, {
+      "id" : "f24",
+      "type" : "Script",
+      "name" : "Initial Registration",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.keycloak.persistence.entities.Registration;",
+            "in.registration = new Registration();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 208, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f25", "to" : "f3", "color" : "default" }
+      ]
     } ],
   "layout" : {
     "lanes" : [ {

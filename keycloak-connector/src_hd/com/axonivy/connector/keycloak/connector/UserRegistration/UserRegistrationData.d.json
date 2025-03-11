@@ -4,12 +4,12 @@
   "namespace" : "com.axonivy.connector.keycloak.connector.UserRegistration",
   "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "application",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication",
+    "name" : "registration",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "rejectReason",
-    "type" : "com.axonivy.connector.keycloak.enums.RejectReason",
+    "name" : "registrationId",
+    "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
   } ]
 }

@@ -9,18 +9,18 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">RegistrationApproval</ui:define>
     <ui:define name="content">
-      <ic:com.axonivy.connector.keycloak.connector.component.UserInformation />
+      <p:fieldset legend="user information">
+        <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
+          registration="#{data.registration}" />
+      </p:fieldset>
       <br />
 
       <h:form id="form">
         <p:growl showDetail="true" />
-        <p:fieldset
-          legend="oleAssignmentAndDecision">
+        <p:fieldset legend="roleAssignmentAndDecision">
           <div class="formgrid grid">
             <div class="field col-12 md:col-6">
-              <p:outputLabel
-                value="userRole"
-                for="userRole" />
+              <p:outputLabel value="userRole" for="userRole" />
 
               <p:selectOneMenu id="userRole" styleClass="w-full"
                 required="#{registrationReviewBean.adminDecision eq 'GRANT_ACCESS'}"
@@ -31,8 +31,9 @@
                 <f:selectItem
                   itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/selectUserRole')}"
                   itemValue="" noSelectionOption="true" />
-                <f:selectItems value="#{registrationReviewBean.userRoles}" var="role"
-                  itemValue="#{role}" itemLabel="#{role.getCmsName()}" />
+                <f:selectItems
+                  value="#{registrationReviewBean.userRoles}" var="role"
+                  itemValue="#{role}" itemLabel="#{role}" />
               </p:selectOneMenu>
             </div>
             <div class="field col-2 md:col-2" />
@@ -45,10 +46,11 @@
                 layout="pageDirection" required="true"
                 styleClass="w-full"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewAdminDecisionEmpty')}"
-                value="#{registrationReviewBea.adminDecision}">
-                <f:selectItems value="#{registrationReviewBean.adminDecisions}"
+                value="#{registrationReviewBean.adminDecision}">
+                <f:selectItems
+                  value="#{registrationReviewBean.adminDecisions}"
                   var="decision" itemValue="#{decision}"
-                  itemLabel="#{ivy.cms.co(decision.cmsKey)}" />
+                  itemLabel="#{decision}" />
               </p:selectOneRadio>
             </div>
             <div class="field col-12">
@@ -67,23 +69,25 @@
                 value="#{registrationReviewBean.isValidationConfirmation}"
                 required="true" styleClass="w-full"
                 itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/validationConfirmation')}">
-                <p:ajax update="submit" />
               </p:selectBooleanCheckbox>
+              <div class="command-btns">
+                <p:commandLink id="cancel"
+                  actionListener="#{logic.proceed}" process="@this"
+                  value="#{ivy.cms.co('/uk.phd.core/Common/btnCancel')}" />
+                <p:commandButton id="submit"
+                  actionListener="#{registrationReviewBean.submit}"
+                  disabled="#{not registrationReviewBean.isValidationConfirmation}"
+                  value="#{ivy.cms.co('/uk.phd.core/Common/btnSubmit')}"
+                  update="form" process="form" />
+              </div>
 
             </div>
           </div>
         </p:fieldset>
         <br />
-        <div class="command-btns">
-          <p:commandLink id="cancel" actionListener="#{logic.cancel}"
-            process="@this"
-            value="#{ivy.cms.co('/uk.phd.core/Common/btnCancel')}" />
-          <p:commandButton id="submit" actionListener="#{registrationReviewBean.submit}"
-            disabled="#{not registrationReviewBean.isValidationConfirmation}"
-            value="#{ivy.cms.co('/uk.phd.core/Common/btnSubmit')}"
-            update="form" process="form" />
-        </div>
+
       </h:form>
+
     </ui:define>
   </ui:composition>
 </h:body>

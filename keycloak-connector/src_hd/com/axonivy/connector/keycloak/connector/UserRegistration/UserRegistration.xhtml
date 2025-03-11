@@ -12,10 +12,10 @@
       <h:outputStylesheet name="user-registration.css"
         library="ivy-dialog" />
       <h1>#{ivy.cms.co('/uk.phd.userregistration/Title/userRegistration')}</h1>
-      <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
-        application="#{userRegistrationBean.application}" />
       <h:form id="form">
-        <p:growl showDetail="true" />
+      #{data.registration}
+        <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
+          registration="#{data.registration}" />
         <div class="command-btns">
           <p:commandButton id="register"
             actionListener="#{logic.register}"

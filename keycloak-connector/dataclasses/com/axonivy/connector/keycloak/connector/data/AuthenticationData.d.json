@@ -5,7 +5,12 @@
   "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "realmName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
+  }, {
+    "name" : "token",
+    "type" : "org.keycloak.www.client.AuthAccessToken"
+  }, {
+    "name" : "error",
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
   } ]
 }

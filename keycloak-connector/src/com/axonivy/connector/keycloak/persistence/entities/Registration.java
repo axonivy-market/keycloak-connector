@@ -1,9 +1,11 @@
 package com.axonivy.connector.keycloak.persistence.entities;
 import java.io.Serializable;
 
-public class RegistrationApplication implements Serializable {
+import com.axonivy.connector.keycloak.enums.AdminDecision;
+import com.axonivy.connector.keycloak.enums.RejectReason;
+
+public class Registration implements Serializable {
 	private static final long serialVersionUID = 4238392914201477447L;
-	private String id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -11,6 +13,8 @@ public class RegistrationApplication implements Serializable {
 	private String companyName;
 	private String accountNumber;
 	private String additionalInformation;
+	private RejectReason rejectReason;
+	private AdminDecision adminDecision;
 
 	public String getFirstName() {
 		return firstName;
@@ -68,11 +72,19 @@ public class RegistrationApplication implements Serializable {
 		this.additionalInformation = additionalInformation;
 	}
 
-  public String getId() {
-    return id;
+  public RejectReason getRejectReason() {
+    return rejectReason;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setRejectReason(RejectReason rejectReason) {
+    this.rejectReason = rejectReason;
+  }
+
+  public AdminDecision getAdminDecision() {
+    return adminDecision;
+  }
+
+  public void setAdminDecision(AdminDecision adminDecision) {
+    this.adminDecision = adminDecision;
   }
 }

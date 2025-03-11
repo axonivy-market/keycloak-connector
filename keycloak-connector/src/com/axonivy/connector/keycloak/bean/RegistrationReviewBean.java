@@ -9,17 +9,11 @@ import javax.faces.bean.ViewScoped;
 import org.apache.commons.lang.StringUtils;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
-import com.axonivy.connector.keycloak.persistence.entities.RegistrationApplication;
-import com.axonivy.connector.keycloak.persistence.repo.RegistrationApplicationRepository;
-import com.axonivy.connector.keycloak.utils.FaceContexts;
 
 @ViewScoped
 @ManagedBean
 public class RegistrationReviewBean {
-  private RegistrationApplication application;
   public static final String SHOW_DIALOG_SCRIPT = "PF('error-message').show()";
-  private static final String APPLICATION_ID= "#{data.applicationId}";
-  private static final String SUBMIT_LOGIC  = "";
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
   private AdminDecision adminDecision;
@@ -29,20 +23,10 @@ public class RegistrationReviewBean {
 
   @PostConstruct
   private void init() {
-    String applicationId = FaceContexts.evaluateValueExpression(APPLICATION_ID, String.class);
-    application = RegistrationApplicationRepository.getInstance().findById(applicationId);
   }
-  
+
   public void submit() {
-    
-  }
 
-  public RegistrationApplication getApplication() {
-    return application;
-  }
-
-  public void setApplication(RegistrationApplication application) {
-    this.application = application;
   }
 
   public String getErrorSummary() {
