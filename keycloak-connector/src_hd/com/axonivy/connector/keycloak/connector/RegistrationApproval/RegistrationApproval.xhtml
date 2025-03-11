@@ -45,12 +45,10 @@
                 layout="pageDirection" required="true"
                 styleClass="w-full"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewAdminDecisionEmpty')}"
-                value="#{registrationReviewBean.reviewActivity.adminDecision}">
+                value="#{registrationReviewBea.adminDecision}">
                 <f:selectItems value="#{registrationReviewBean.adminDecisions}"
                   var="decision" itemValue="#{decision}"
                   itemLabel="#{ivy.cms.co(decision.cmsKey)}" />
-                <p:ajax listener="#{logic.onAdminDecision}"
-                  update="form" />
               </p:selectOneRadio>
             </div>
             <div class="field col-12">
@@ -58,15 +56,15 @@
                 value="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/comment')}"
                 for="comment" />
               <p:inputTextarea id="comment" rows="4" autoResize="true"
-                required="#{registrationReviewBean.reviewActivity.adminDecision eq 'REJECT_ACCESS'}"
+                required="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewCommentEmpty')}"
                 styleClass="w-full"
-                value="#{registrationReviewBean.reviewActivity.comment}" />
+                value="#{registrationReviewBean.comment}" />
             </div>
 
             <div class="field col-12">
               <p:selectBooleanCheckbox
-                value="#{registrationReviewBean.reviewActivity.validationConfirmation}"
+                value="#{registrationReviewBean.isValidationConfirmation}"
                 required="true" styleClass="w-full"
                 itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/validationConfirmation')}">
                 <p:ajax update="submit" />
@@ -80,8 +78,8 @@
           <p:commandLink id="cancel" actionListener="#{logic.cancel}"
             process="@this"
             value="#{ivy.cms.co('/uk.phd.core/Common/btnCancel')}" />
-          <p:commandButton id="submit" actionListener="#{logic.submit}"
-            disabled="#{not registrationReviewBean.reviewActivity.validationConfirmation}"
+          <p:commandButton id="submit" actionListener="#{registrationReviewBean.submit}"
+            disabled="#{not registrationReviewBean.isValidationConfirmation}"
             value="#{ivy.cms.co('/uk.phd.core/Common/btnSubmit')}"
             update="form" process="form" />
         </div>

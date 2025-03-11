@@ -145,49 +145,34 @@
         "labelOffset" : { "x" : 89, "y" : 57 }
       },
       "connect" : [
-        { "id" : "f14", "to" : "f13" }
-      ]
-    }, {
-      "id" : "f13",
-      "type" : "TaskSwitchEvent",
-      "visual" : {
-        "at" : { "x" : 224, "y" : 832 },
-        "labelOffset" : { "x" : 14, "y" : 34 }
-      },
-      "connect" : [
-        { "id" : "f16", "to" : "f15" }
-      ]
-    }, {
-      "id" : "f15",
-      "type" : "DialogCall",
-      "visual" : {
-        "at" : { "x" : 360, "y" : 832 }
-      },
-      "connect" : [
-        { "id" : "f18", "to" : "f17" }
+        { "id" : "f13", "to" : "f18" }
       ]
     }, {
       "id" : "f17",
       "type" : "Alternative",
-      "name" : "is rejected ?",
       "config" : {
         "conditions" : {
-          "f24" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.RejectReason.ADMIN_REJECTION",
-          "f20" : ""
+          "f23" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.AdminDecision.REJECT_ACCESS",
+          "f20" : "in.rejectionReason == com.axonivy.connector.keycloak.enums.AdminDecision.GRANT_ACCESS",
+          "f29" : ""
         }
       },
       "visual" : {
-        "at" : { "x" : 528, "y" : 832 }
+        "at" : { "x" : 504, "y" : 832 }
       },
       "connect" : [
         { "id" : "f20", "to" : "f19", "label" : {
-            "name" : "no",
-            "offset" : { "x" : -15, "y" : -5 }
+            "name" : "approve",
+            "offset" : { "x" : 25, "y" : 51 }
           } },
-        { "id" : "f24", "to" : "f23", "via" : [ { "x" : 728, "y" : 832 } ], "label" : {
-            "name" : "yes",
-            "segment" : 0.84,
-            "offset" : { "x" : -55, "y" : 16 }
+        { "id" : "f29", "to" : "f28", "label" : {
+            "name" : "cancel",
+            "offset" : { "x" : 16, "y" : 47 }
+          } },
+        { "id" : "f23", "to" : "f14", "via" : [ { "x" : 672, "y" : 832 } ], "label" : {
+            "name" : "reject",
+            "segment" : 1.1,
+            "offset" : { "x" : -111, "y" : 10 }
           } }
       ]
     }, {
@@ -195,28 +180,58 @@
       "type" : "Script",
       "name" : "Create new user profile",
       "visual" : {
-        "at" : { "x" : 528, "y" : 552 }
+        "at" : { "x" : 504, "y" : 600 }
       },
       "connect" : [
-        { "id" : "f22", "to" : "f21" }
+        { "id" : "f22", "to" : "f14" }
       ]
     }, {
       "id" : "f21",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 728, "y" : 552 },
+        "at" : { "x" : 816, "y" : 600 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
-      "id" : "f23",
-      "type" : "Script",
-      "name" : "delete current registration application",
+      "id" : "f26",
+      "type" : "UserTask",
+      "name" : "Registration approval",
+      "config" : {
+        "dialog" : "com.axonivy.connector.keycloak.connector.RegistrationApproval:start(String)"
+      },
       "visual" : {
-        "at" : { "x" : 728, "y" : 680 }
+        "at" : { "x" : 368, "y" : 832 }
       },
       "connect" : [
-        { "id" : "f25", "to" : "f21" }
+        { "id" : "f15", "to" : "f17" }
       ]
+    }, {
+      "id" : "f14",
+      "type" : "Script",
+      "name" : "Delete current application id",
+      "visual" : {
+        "at" : { "x" : 672, "y" : 600 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f21", "color" : "default" }
+      ]
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "Init task data",
+      "visual" : {
+        "at" : { "x" : 208, "y" : 832 }
+      },
+      "connect" : [
+        { "id" : "f27", "to" : "f26", "color" : "default" }
+      ]
+    }, {
+      "id" : "f28",
+      "type" : "Script",
+      "name" : "Back to task list",
+      "visual" : {
+        "at" : { "x" : 320, "y" : 600 }
+      }
     } ],
   "layout" : {
     "lanes" : [ {

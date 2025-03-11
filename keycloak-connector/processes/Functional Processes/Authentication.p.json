@@ -1,0 +1,71 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "1958344B75567E7B",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.keycloak.connector.data.AuthenticationData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call(String)",
+      "config" : {
+        "signature" : "call",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
+          "path" : "/realms/{realm}/protocol/openid-connect/token",
+          "templateParams" : {
+            "realm" : "in.realmName"
+          }
+        },
+        "body" : {
+          "type" : "FORM",
+          "mediaType" : "application/x-www-form-urlencoded",
+          "form" : {
+            "" : [ "" ]
+          },
+          "entity" : {
+            "type" : "Keycloak.OpenidconnectTokenBody"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "Keycloak.AuthAccesToken"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    } ]
+}

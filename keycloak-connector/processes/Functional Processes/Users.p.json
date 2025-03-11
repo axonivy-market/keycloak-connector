@@ -43,7 +43,7 @@
       "config" : {
         "method" : "POST",
         "target" : {
-          "clientId" : "f609430c-21e8-4851-9aac-d7a5ececc750",
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
           "path" : "/admin/realms/{realm}/users",
           "templateParams" : {
             "realm" : "in.realmName"
@@ -101,7 +101,7 @@
       "name" : "get users",
       "config" : {
         "target" : {
-          "clientId" : "f609430c-21e8-4851-9aac-d7a5ececc750",
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
           "path" : "/admin/realms/{realm}/users",
           "templateParams" : {
             "realm" : "in.realmName"
@@ -183,7 +183,7 @@
       "config" : {
         "method" : "DELETE",
         "target" : {
-          "clientId" : "f609430c-21e8-4851-9aac-d7a5ececc750",
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
           "path" : "/admin/realms/{realm}/users/{user-id}",
           "templateParams" : {
             "realm" : "in.realmName",
@@ -261,7 +261,7 @@
       "config" : {
         "method" : "PUT",
         "target" : {
-          "clientId" : "f609430c-21e8-4851-9aac-d7a5ececc750",
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
           "path" : "/admin/realms/{realm}/users/{user-id}",
           "templateParams" : {
             "realm" : "in.realmName",
@@ -344,7 +344,7 @@
       "config" : {
         "method" : "PUT",
         "target" : {
-          "clientId" : "f609430c-21e8-4851-9aac-d7a5ececc750",
+          "clientId" : "6dc92257-c106-4f16-8d3c-efce33bb650d",
           "path" : "/admin/realms/{realm}/users/{user-id}/reset-password",
           "templateParams" : {
             "realm" : "in.realmName",

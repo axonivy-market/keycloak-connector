@@ -32,4 +32,8 @@ public class RegistrationApplicationRepository {
   private Query<RegistrationApplication> createSearchQuery() {
     return Ivy.repo().search(getType());
   }
+
+  public RegistrationApplication findById(String id) {
+    return Ivy.repo().find(id, getType());
+  }
 }

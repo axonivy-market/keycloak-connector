@@ -8,9 +8,17 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start()",
+      "name" : "start(String)",
       "config" : {
         "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "applicationId", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.applicationId" : "param.applicationId"
+          }
+        },
         "guid" : "1957030D91CB6832"
       },
       "visual" : {
@@ -27,24 +35,62 @@
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
     }, {
-      "id" : "f3",
-      "type" : "HtmlDialogEventStart",
-      "name" : "close",
-      "config" : {
-        "guid" : "1957030D92039DD3"
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 160 }
-      },
-      "connect" : [
-        { "id" : "f5", "to" : "f4" }
-      ]
-    }, {
       "id" : "f4",
       "type" : "HtmlDialogExit",
       "visual" : {
         "at" : { "x" : 224, "y" : 160 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "cancel()",
+      "config" : {
+        "signature" : "cancel",
+        "result" : {
+          "params" : [
+            { "name" : "decision", "type" : "com.axonivy.connector.keycloak.enums.AdminDecision", "desc" : "" }
+          ],
+          "map" : { }
+        },
+        "guid" : "19583115CB73191B"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 160 },
+        "labelOffset" : { "x" : 11, "y" : 35 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "submit(AdminDecision)",
+      "config" : {
+        "signature" : "submit",
+        "input" : {
+          "params" : [
+            { "name" : "decision", "type" : "com.axonivy.connector.keycloak.enums.AdminDecision", "desc" : "" }
+          ],
+          "map" : {
+            "out.adminDecision" : "param.decision"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "decision", "type" : "com.axonivy.connector.keycloak.enums.AdminDecision", "desc" : "" }
+          ],
+          "map" : {
+            "result.decision" : "in.adminDecision"
+          }
+        },
+        "guid" : "195831177D9A2DC4"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 272 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f4", "via" : [ { "x" : 224, "y" : 272 } ] }
+      ]
     } ]
 }

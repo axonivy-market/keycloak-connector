@@ -1,5 +1,7 @@
 package com.axonivy.connector.keycloak.utils;
 
+import java.util.Objects;
+
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -41,6 +43,17 @@ public class FaceContexts {
       return returnedType != null ? returnedType.cast(result) : (E) result;
     } catch (ELException | ClassCastException e) {
       throw new UnsupportedOperationException("Cannot invoke method expression", e);
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static <E> E evaluateValueExpression(String valueExpressionLiteal, Class<E> returnedType) {
+    Application application = getApplication();
+    try {
+      Object value = application.evaluateExpressionGet(getCurrentInstance(), valueExpressionLiteal, returnedType);
+      return Objects.nonNull(returnedType) ? returnedType.cast(value) : (E) value;
+    } catch (ELException |ClassCastException e) {
+      throw new UnsupportedOperationException("Cannot evaluate value expression", e);
     }
   }
 }
