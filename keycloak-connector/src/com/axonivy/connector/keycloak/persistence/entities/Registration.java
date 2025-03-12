@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
 import com.axonivy.connector.keycloak.enums.RejectReason;
+import com.axonivy.connector.keycloak.enums.UserStatus;
 
 public class Registration implements Serializable {
 	private static final long serialVersionUID = 4238392914201477447L;
@@ -13,8 +14,9 @@ public class Registration implements Serializable {
 	private String companyName;
 	private String accountNumber;
 	private String additionalInformation;
+	private String userRole;
 	private RejectReason rejectReason;
-	private AdminDecision adminDecision;
+	private UserStatus userStatus;
 
 	public String getFirstName() {
 		return firstName;
@@ -80,11 +82,19 @@ public class Registration implements Serializable {
     this.rejectReason = rejectReason;
   }
 
-  public AdminDecision getAdminDecision() {
-    return adminDecision;
+  public String getUserRole() {
+    return userRole;
   }
 
-  public void setAdminDecision(AdminDecision adminDecision) {
-    this.adminDecision = adminDecision;
+  public void setUserRole(String userRole) {
+    this.userRole = userRole;
+  }
+
+  public UserStatus getUserStatus() {
+    return userStatus;
+  }
+
+  public void setUserStatus(UserStatus userStatus) {
+    this.userStatus = userStatus;
   }
 }

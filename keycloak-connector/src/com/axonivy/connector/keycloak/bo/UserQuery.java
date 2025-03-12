@@ -15,23 +15,26 @@ public class UserQuery {
   private String search;
   private String username;
 
-  public UserQuery(String eMail, Boolean emailVerified, Boolean enabled, Boolean exact, Integer first, String firstName,
-      String idpAlias, String idpUserId, String lastName, Integer max, String q, String search, String username) {
-    super();
-    this.eMail = eMail;
-    this.emailVerified = emailVerified;
-    this.enabled = enabled;
-    this.exact = exact;
-    this.first = first;
-    this.firstName = firstName;
-    this.idpAlias = idpAlias;
-    this.idpUserId = idpUserId;
-    this.lastName = lastName;
-    this.max = max;
-    this.q = q;
-    this.search = search;
-    this.username = username;
+  public UserQuery() {
   }
+
+//  public UserQuery(String eMail, Boolean emailVerified, Boolean enabled, Boolean exact, Integer first, String firstName,
+//      String idpAlias, String idpUserId, String lastName, Integer max, String q, String search, String username) {
+//    super();
+//    this.eMail = eMail;
+//    this.emailVerified = emailVerified;
+//    this.enabled = enabled;
+//    this.exact = exact;
+//    this.first = first;
+//    this.firstName = firstName;
+//    this.idpAlias = idpAlias;
+//    this.idpUserId = idpUserId;
+//    this.lastName = lastName;
+//    this.max = max;
+//    this.q = q;
+//    this.search = search;
+//    this.username = username;
+//  }
 
   public UserQuery(UserQueryBuilder userQueryBuilder) {
     this.eMail = userQueryBuilder.eMail;

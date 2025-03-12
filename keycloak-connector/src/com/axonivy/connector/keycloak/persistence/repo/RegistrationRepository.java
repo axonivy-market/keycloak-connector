@@ -1,5 +1,7 @@
 package com.axonivy.connector.keycloak.persistence.repo;
 
+import java.util.List;
+
 import com.axonivy.connector.keycloak.persistence.entities.Registration;
 
 import ch.ivyteam.ivy.business.data.store.search.Query;
@@ -29,11 +31,20 @@ public class RegistrationRepository {
         .count() != 0L;
   }
 
-  private Query<Registration> createSearchQuery() {
+  public Registration findBymail(String mail) {
+    return createSearchQuery().textField("email").isEqualToIgnoringCase(mail).limit(DEFAULT_SEARCH_LIMIT).execute()
+        .getFirst();
+  }
+
+  public Query<Registration> createSearchQuery() {
     return Ivy.repo().search(getType());
   }
 
   public Registration findById(String id) {
     return Ivy.repo().find(id, getType());
+  }
+  
+  public List<Registration> getQueryResult(Query<Registration> query) {
+    return query.execute().getAll();
   }
 }
