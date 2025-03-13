@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.keycloak.www.client.UserRepresentation;
 
+import com.axonivy.connector.keycloak.bo.TokenRequest;
 import com.axonivy.connector.keycloak.bo.UserQuery;
 import com.axonivy.connector.keycloak.constants.ProcessPaths;
 
@@ -47,4 +48,6 @@ public class UserServices {
     return (UserRepresentation) Optional.ofNullable(callResult)
         .map(result -> (List<UserRepresentation>) result.get("user")).map(users -> users.get(0)).orElse(null);
   }
+  
+
 }
