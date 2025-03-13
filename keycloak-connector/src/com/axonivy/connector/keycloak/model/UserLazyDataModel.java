@@ -13,45 +13,54 @@ import com.axonivy.connector.keycloak.persistence.entities.Registration;
 import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;
 
 import ch.ivyteam.ivy.business.data.store.search.Query;
+import ch.ivyteam.ivy.environment.Ivy;
+
 
 public class UserLazyDataModel extends LazyDataModel<Registration> {
 
   private static final long serialVersionUID = 1L;
-  private RegistrationRepository repo;
+  private static RegistrationRepository repo = RegistrationRepository.getInstance();
 
   @Override
   public Registration getRowData(String rowKey) {
-    return repo.findBymail(rowKey);
+    return RegistrationRepository.getInstance().findBymail(rowKey);
   }
 
   @Override
   public String getRowKey(Registration registration) {
-    return registration.getAccountNumber();
+    return registration.getEmail();
   }
 
   // TODO: convert sorting & filter to user query
   @Override
   public List<Registration> load(int first, int pageSize, Map<String, SortMeta> sortBy,
       Map<String, FilterMeta> filterBy) {
-    List<Registration> registration = new ArrayList<>();
+    sortBy.keySet().stream().forEach(a -> Ivy.log().warn("sortBy "+a));
+    filterBy.keySet().stream().forEach(a -> Ivy.log().warn("filterBy "+a));
+    Ivy.log().warn("load");
+
+    List<Registration> registrations = new ArrayList<>();
     Query<Registration> query = convertSortAndFilterCriteriaToQuery(first, pageSize, sortBy, filterBy);
-    List<Registration> results = repo.getQueryResult(query);
+    List<Registration> results = List.of(RegistrationRepository.getInstance().findBymail("work.with.dino.888@gmail.com"));
+//        repo.getQueryResult(query);
     if (CollectionUtils.isNotEmpty(results)) {
-      registration.addAll(results);
+      registrations.addAll(results);
     }
-    return registration;
+    return registrations;
   }
 
   @Override
   public int count(Map<String, FilterMeta> filterBy) {
     // TODO Auto-generated method stub
-    return 0;
+    return 1;
   }
 
   // TODO: convert search criteria to user query of keycloak
   private Query<Registration> convertSortAndFilterCriteriaToQuery(int first, int pageSize, Map<String, SortMeta> sortBy,
       Map<String, FilterMeta> filterBy) {
     Query<Registration> query = repo.createSearchQuery();
+    query.limit(first, pageSize);
     return query;
   }
+
 }

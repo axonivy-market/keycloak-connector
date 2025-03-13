@@ -13,42 +13,39 @@
       <h:form id="form">
         <p:messages />
         <p:dataTable id="userDetails" var="detail"
-          value="#{userManagementBean.dataModel}" lazy="true" paginator="true"
-          rows="10" stripedRows="true" paginatorAlwaysVisible="true"
-          paginatorPosition="bottom" filterEvent="enter"
+          value="#{userManagementBean.dataModel}" lazy="true"
+          paginator="true" rows="10" stripedRows="true"
+          paginatorAlwaysVisible="true" paginatorPosition="bottom"
           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
           rowsPerPageTemplate="5,10,15" widgetVar="userDetails"
           resizableColumns="true" sortMode="single" scrollable="true"
-          scrollHeight="70vh" rowKey="#{detail.email}">
-          <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/username')}"
-            sortBy="#{detail.username}" filterBy="#{detail.username}"
+          scrollHeight="70vh" rowKey="#{detail.id}">
+          
+          <p:column headerText="#{ivy.cms.co('/Labels/Username')}"
+            sortBy="#{detail.userName}" filterBy="#{_.USERNAME}"
             styleClass="col-username">
-            <h:outputText value="#{detail.username}" />
+            <h:outputText value="#{detail.userName}" />
           </p:column>
-
-          <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/email')}"
-            sortBy="#{detail.email}" filterBy="#{detail.email}"
-            styleClass="col-email">
+          <p:column headerText="#{ivy.cms.co('/Labels/Email')}"
+            sortBy="#{detail.email}" filterBy="#{_.MAIL}">
             <h:outputText value="#{detail.email}" />
           </p:column>
 
-          <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/firstName')}"
+          <p:column headerText="#{ivy.cms.co('/Labels/FirstName')}"
             sortBy="#{detail.firstName}" filterBy="#{detail.firstName}"
             styleClass="col-firstname">
             <h:outputText value="#{detail.firstName}" />
           </p:column>
 
           <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/lastName')}"
+            headerText="#{ivy.cms.co('/Labels/LastName')}"
             sortBy="#{detail.lastName}" filterBy="#{detail.lastName}"
             styleClass="col-lastname">
             <h:outputText value="#{detail.lastName}" />
           </p:column>
+          <!-- 
           <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/userRole')}"
+            headerText="#{ivy.cms.co('/Labels/UserRoles')}"
             sortBy="#{_.ROLE}" filterBy="#{_.ROLE}"
             styleClass="col-user-role">
             <f:facet name="filter">
@@ -61,7 +58,6 @@
             </f:facet>
             <h:outputText value="#{detail.role.getCmsName()}" />
           </p:column>
-<!-- This is a comment in XHTML 
 
           <p:column
             headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/accountNumbers')}"
@@ -70,6 +66,7 @@
             <h:outputText value="#{detail.userAccountNumbers}"
               title="#{detail.userAccountNumbers}" />
           </p:column>
+          -->
 
           <p:column
             headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/status')}"
@@ -80,31 +77,31 @@
                 widgetVar="STATUS_FILTER"
                 onchange="PF('userDetails').filter()">
                 <f:selectItem noSelectionOption="true" />
-                <f:selectItems value="#{data.bean.userStatus}"
+                <f:selectItems value="#{userManagementBean.userStatus}"
                   var="item" itemLabel="#{item.cmsName}"
                   itemValue="#{item}" />
               </p:selectOneMenu>
             </f:facet>
-            <h:outputText value="#{detail.status.cmsName}" />
+            <h:outputText value="#{detail.userStatus.cmsName}" />
           </p:column>
--->
+          <!-- 
           <p:column styleClass="col-action">
             <p:commandLink id="openUserDetail"
               title="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/titleEditUser')}"
-              rendered="#{data.bean.isRenderEditButton(detail.status)}"
+              rendered="#{true}"
               process="@this"
               actionListener="#{logic.editUser(detail.id)}">
               <h:outputText class="fa fa-edit" />
             </p:commandLink>
           </p:column>
+          -->
         </p:dataTable>
 
         <br />
 
         <div class="command-btns">
           <p:commandButton id="close" actionListener="#{logic.close}"
-            process="@this"
-            value="#{ivy.cms.co('/uk.phd.core/Common/btnClose')}" />
+            process="@this" value="#{ivy.cms.co('/Labels/Close')}" />
         </div>
 
       </h:form>

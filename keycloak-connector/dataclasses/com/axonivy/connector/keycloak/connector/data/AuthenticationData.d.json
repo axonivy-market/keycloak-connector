@@ -12,5 +12,9 @@
   }, {
     "name" : "error",
     "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+  }, {
+    "name" : "refreshToken",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

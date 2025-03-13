@@ -20,6 +20,14 @@
             "out.realmName" : "param.realmName",
             "out.user" : "param.user"
           }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+          ],
+          "map" : {
+            "result.error" : "in.#error"
+          }
         }
       },
       "visual" : {
@@ -61,6 +69,14 @@
       "boundaries" : [ {
           "id" : "f5",
           "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
           "visual" : {
             "at" : { "x" : 320, "y" : 104 },
             "labelOffset" : { "x" : 13, "y" : 33 }

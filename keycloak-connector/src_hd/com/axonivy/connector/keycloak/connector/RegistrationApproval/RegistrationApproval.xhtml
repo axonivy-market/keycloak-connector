@@ -7,11 +7,11 @@
   xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
   <ui:composition template="/layouts/basic-10.xhtml">
-    <ui:define name="title">RegistrationApproval</ui:define>
+    <ui:define name="title">#{ivy.cms.co('/Dialogs/RegistrationApproval/Title')}</ui:define>
     <ui:define name="content">
-      <p:fieldset legend="user information">
+      <p:fieldset legend="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserInformationFieldsetLabel')}">
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
-          registration="#{data.registration}" />
+          registration="#{data.registration}" readOnly="true"/>
       </p:fieldset>
       <br />
 
@@ -20,16 +20,16 @@
         <p:fieldset legend="roleAssignmentAndDecision">
           <div class="formgrid grid">
             <div class="field col-12 md:col-6">
-              <p:outputLabel value="userRole" for="userRole" />
+              <p:outputLabel value="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserRole')}" for="userRole" />
 
               <p:selectOneMenu id="userRole" styleClass="w-full"
                 required="#{registrationReviewBean.adminDecision eq 'GRANT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewUserRoleEmpty')}"
                 disabled="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
-                value="#{registrationReviewBean.userRole}">
+                value="#{data.registration.userRole}">
                 <p:ajax update="@this" process="@this" />
                 <f:selectItem
-                  itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/selectUserRole')}"
+                  itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/SelectUserRole')}"
                   itemValue="" noSelectionOption="true" />
                 <f:selectItems
                   value="#{registrationReviewBean.userRoles}" var="role"
@@ -39,45 +39,44 @@
             <div class="field col-2 md:col-2" />
             <div class="field col-10 md:col-4">
               <p:outputLabel
-                value="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/adminDecision')}"
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/AdminDecision')}"
                 for="adminDecision" />
 
               <p:selectOneRadio id="adminDecision"
                 layout="pageDirection" required="true"
                 styleClass="w-full"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewAdminDecisionEmpty')}"
-                value="#{registrationReviewBean.adminDecision}">
+                value="#{data.registration.adminDecision}">
                 <f:selectItems
                   value="#{registrationReviewBean.adminDecisions}"
                   var="decision" itemValue="#{decision}"
-                  itemLabel="#{decision}" />
+                  itemLabel="#{decision.cmsName}" />
               </p:selectOneRadio>
             </div>
             <div class="field col-12">
               <p:outputLabel
-                value="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/comment')}"
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/Comment')}"
                 for="comment" />
               <p:inputTextarea id="comment" rows="4" autoResize="true"
                 required="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewCommentEmpty')}"
                 styleClass="w-full"
-                value="#{registrationReviewBean.comment}" />
+                value="#{data.registration.comment}" />
             </div>
 
             <div class="field col-12">
               <p:selectBooleanCheckbox
                 value="#{registrationReviewBean.isValidationConfirmation}"
                 required="true" styleClass="w-full"
-                itemLabel="#{ivy.cms.co('/uk.phd.documents.user/ReviewRegistration/validationConfirmation')}">
+                itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/ValidationConfirmation')}">
               </p:selectBooleanCheckbox>
               <div class="command-btns">
                 <p:commandLink id="cancel"
-                  actionListener="#{logic.proceed}" process="@this"
-                  value="#{ivy.cms.co('/uk.phd.core/Common/btnCancel')}" />
+                  actionListener="#{logic.cancel}" process="@this"
+                  value="#{ivy.cms.co('/Labels/Cancel')}" />
                 <p:commandButton id="submit"
-                  actionListener="#{registrationReviewBean.submit}"
-                  disabled="#{not registrationReviewBean.isValidationConfirmation}"
-                  value="#{ivy.cms.co('/uk.phd.core/Common/btnSubmit')}"
+                  actionListener="#{logic.proceed}"
+                  value="#{ivy.cms.co('/Labels/Submit')}"
                   update="form" process="form" />
               </div>
 

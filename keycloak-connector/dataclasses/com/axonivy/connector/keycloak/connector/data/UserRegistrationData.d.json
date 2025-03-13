@@ -13,5 +13,15 @@
     "name" : "registrationId",
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "requestState",
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState"
+  }, {
+    "name" : "keycloakUser",
+    "type" : "org.keycloak.www.client.UserRepresentation"
+  }, {
+    "name" : "isFailedInCreatingKeycloakUser",
+    "type" : "Boolean",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

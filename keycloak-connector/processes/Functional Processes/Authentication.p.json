@@ -108,15 +108,17 @@
     }, {
       "id" : "f3",
       "type" : "CallSubStart",
-      "name" : "refreshToken(String)",
+      "name" : "refreshToken(String,String)",
       "config" : {
         "signature" : "refreshToken",
         "input" : {
           "params" : [
-            { "name" : "realmName", "type" : "String", "desc" : "" }
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "refreshToken", "type" : "String", "desc" : "" }
           ],
           "map" : {
-            "out.realmName" : "param.realmName"
+            "out.realmName" : "param.realmName",
+            "out.refreshToken" : "param.refreshToken"
           }
         },
         "result" : {

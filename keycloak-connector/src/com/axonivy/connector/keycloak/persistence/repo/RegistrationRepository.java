@@ -22,8 +22,8 @@ public class RegistrationRepository {
     return Registration.class;
   }
 
-  public String save(Registration application) {
-    return Ivy.repo().save(application).getId();
+  public String save(Registration registration) {
+    return Ivy.repo().save(registration).getId();
   }
 
   public boolean isEmailExisted(String mail) {

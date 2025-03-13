@@ -11,5 +11,9 @@
     "name" : "registrationId",
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "requestState",
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

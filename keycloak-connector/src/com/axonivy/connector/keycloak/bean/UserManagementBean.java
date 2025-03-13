@@ -1,5 +1,6 @@
 package com.axonivy.connector.keycloak.bean;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -12,6 +13,12 @@ import com.axonivy.connector.keycloak.model.UserLazyDataModel;
 public class UserManagementBean {
   private UserStatus[] userStatus;
   private UserLazyDataModel dataModel;
+
+  @PostConstruct
+  public void init() {
+    dataModel = new UserLazyDataModel();
+    userStatus = UserStatus.values();
+  }
 
 
   public UserStatus[] getUserStatus() {

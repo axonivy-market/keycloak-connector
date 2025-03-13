@@ -10,14 +10,13 @@ import org.keycloak.www.client.UserRepresentation;
 import com.axonivy.connector.keycloak.bo.UserQuery;
 import com.axonivy.connector.keycloak.constants.ProcessPaths;
 
-import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.process.call.SubProcessCall;
 import ch.ivyteam.ivy.process.call.SubProcessCallResult;
 
 public class UserServices {
 
   // TODO: remove comment after testing
-  public static boolean isExistedUserEmail(String mail, String realmName) {
+  public boolean isExistedUserEmail(String mail, String realmName) {
     UserQuery query = new UserQuery.UserQueryBuilder().setEMail(mail).build();
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.GET_USERS_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, realmName)
@@ -29,14 +28,9 @@ public class UserServices {
     return false;
   }
 
-  public static void sendUserApprovalSignal(String applicationId) {
-    Ivy.wf().signals().create().data(applicationId).makeCurrentTaskPersistent()
-        .send(ProcessPaths.REGISTRATION_APPROVAL_SIGNAL);
-  }
-
   // TODO: update this method
   @SuppressWarnings("unchecked")
-  public static List<UserRepresentation> getUsersByQuery(UserQuery query) {
+  public List<UserRepresentation> getUsersByQuery(UserQuery query) {
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.GET_USERS_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, "")
         .withParam(ProcessPaths.USER_QUERY_PARAM, query).call();
@@ -45,7 +39,7 @@ public class UserServices {
 
   // TODO: complete this method
   @SuppressWarnings("unchecked")
-  public static UserRepresentation getUserById(String userId) {
+  public UserRepresentation getUserById(String userId) {
     UserQuery query = new UserQuery.UserQueryBuilder().setEMail("").build();
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.GET_USERS_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, "")

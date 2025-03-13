@@ -1,12 +1,18 @@
 Dialogs:
-  RegistrationConfirmation:
+  RegistrationApproval:
+    AdminDecision: Admin decision
+    Comment: Comment
+    SelectUserRole: Please select user role
+    Title: Registration Approval
+    UserInformationFieldsetLabel: User Information
+    UserRole: User role
+    ValidationConfirmation: I hereby agree that the stated user information have been validated.
+  UserRegistration:
     ConfirmationMessage: Thanks for submitting a new user registration on our application portal.
     DuplicatedApplicationMessage: A registration linked to this email is already in progress. Please wait for completion before submitting a new request.
     DuplicatedApplicationSummary: Registration in Progress
     DupllicatedUserMailMessage: An account with this email already exists. If you forgot your password, you can reset it.
     DupllicatedUserMailSummary: Account Already Exists
-    Title: Registraion Confirmation
-  UserRegistration:
     Title: User Registration
   component:
     UserInformation:
@@ -14,8 +20,17 @@ Dialogs:
       AdditionalInfo: Additional Information
       CompanyName: Company name
       ContactNumber: Contact number
-      Email: Email address
-      FirstName: First name
-      LastName: Last name
+Enums:
+  AdminDecision:
+    GRANT_ACCESS: Grant access
+    REJECT_ACCESS: Reject Access
 Labels:
+  Cancel: Cancel
+  Close: Close
+  Email: Email address
+  FirstName: First name
+  LastName: Last name
   Register: Register
+  Submit: Submit
+  UserRoles: User roles
+  Username: username
