@@ -1,7 +1,6 @@
 package com.axonivy.connector.keycloak.persistence.entities;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
 import com.axonivy.connector.keycloak.enums.RejectReason;
@@ -9,7 +8,6 @@ import com.axonivy.connector.keycloak.enums.UserStatus;
 
 public class Registration implements Serializable {
   private static final long serialVersionUID = 4238392914201477447L;
-  private UUID id;
   private String userName;
   private String firstName;
   private String lastName;
@@ -18,7 +16,7 @@ public class Registration implements Serializable {
   private String companyName;
   private String accountNumber;
   private String additionalInformation;
-  private String userRole;
+  private Role userRole;
   private AdminDecision adminDecision;
   private RejectReason rejectReason;
   private UserStatus userStatus;
@@ -88,11 +86,11 @@ public class Registration implements Serializable {
     this.rejectReason = rejectReason;
   }
 
-  public String getUserRole() {
+  public Role getUserRole() {
     return userRole;
   }
 
-  public void setUserRole(String userRole) {
+  public void setUserRole(Role userRole) {
     this.userRole = userRole;
   }
 
@@ -102,14 +100,6 @@ public class Registration implements Serializable {
 
   public void setUserStatus(UserStatus userStatus) {
     this.userStatus = userStatus;
-  }
-
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
   }
 
   public AdminDecision getAdminDecision() {
@@ -128,15 +118,6 @@ public class Registration implements Serializable {
     this.comment = comment;
   }
 
-  @Override
-  public String toString() {
-    return "Registration [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-        + ", phoneNumber=" + phoneNumber + ", companyName=" + companyName + ", accountNumber=" + accountNumber
-        + ", additionalInformation=" + additionalInformation + ", userRole=" + userRole + ", adminDecision="
-        + adminDecision + ", rejectReason=" + rejectReason + ", userStatus=" + userStatus + ", comment=" + comment
-        + "]";
-  }
-
   public String getUserName() {
     return userName;
   }
@@ -144,6 +125,5 @@ public class Registration implements Serializable {
   public void setUserName(String userName) {
     this.userName = userName;
   }
-  
-  
+
 }

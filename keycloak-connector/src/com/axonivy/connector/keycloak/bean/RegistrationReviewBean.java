@@ -9,6 +9,11 @@ import javax.faces.bean.ViewScoped;
 import org.apache.commons.lang.StringUtils;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
+import com.axonivy.connector.keycloak.persistence.entities.Role;
+import com.axonivy.connector.keycloak.service.RoleServices;
+import com.axonivy.connector.keycloak.utils.RoleUtils;
+
+import ch.ivyteam.ivy.environment.Ivy;
 
 @ViewScoped
 @ManagedBean
@@ -17,12 +22,15 @@ public class RegistrationReviewBean {
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
   private AdminDecision adminDecision;
-  private String userRole;
   private String comment;
   private Boolean isValidationConfirmation;
+  private List<Role> userRoles;
 
   @PostConstruct
   private void init() {
+    String realmsName = Ivy.var().get("keycloakConnector.realmName");
+    var keycloakRoles = new RoleServices().getRolesFromRealms(realmsName);
+    setUserRoles(RoleUtils.convertToSimpleKeyCloakRoles(keycloakRoles));
   }
 
   public void submit() {
@@ -53,18 +61,6 @@ public class RegistrationReviewBean {
     this.adminDecision = adminDecision;
   }
 
-  public String getUserRole() {
-    return userRole;
-  }
-
-  public void setUserRole(String userRole) {
-    this.userRole = userRole;
-  }
-
-  public List<String> getUserRoles() {
-    return List.of("admin", "user");
-  }
-
   public AdminDecision[] getAdminDecisions() {
     return AdminDecision.values();
   }
@@ -83,5 +79,13 @@ public class RegistrationReviewBean {
 
   public void setIsValidationConfirmation(Boolean isValidationConfirmation) {
     this.isValidationConfirmation = isValidationConfirmation;
+  }
+
+  public List<Role> getUserRoles() {
+    return userRoles;
+  }
+
+  public void setUserRoles(List<Role> userRoles) {
+    this.userRoles = userRoles;
   }
 }

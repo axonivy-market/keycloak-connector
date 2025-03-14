@@ -37,5 +37,4 @@ public class UserManagementBean {
   public void setDataModel(UserLazyDataModel dataModel) {
     this.dataModel = dataModel;
   }
-
 }

@@ -13,6 +13,7 @@ import ch.ivyteam.ivy.process.call.SubProcessCall;
 import ch.ivyteam.ivy.process.call.SubProcessCallResult;
 
 public class UserServices {
+  
 
   public boolean isExistedUserEmail(String mail, String realmName) {
     UserQuery query = new UserQuery.UserQueryBuilder().setEMail(mail).build();
@@ -24,7 +25,7 @@ public class UserServices {
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.GET_USERS_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, realmName)
         .withParam(ProcessPaths.USER_QUERY_PARAM, query).call();
-    return (List<UserRepresentation>) Optional.ofNullable(callResult).map(result -> result.get("users")).orElse(null);
+    return (List<UserRepresentation>) Optional.ofNullable(callResult).map(result -> result.get(ProcessPaths.USERS_RESULT)).orElse(null);
   }
 
   @SuppressWarnings("unchecked")
@@ -34,7 +35,7 @@ public class UserServices {
         .withStartName(ProcessPaths.GET_USERS_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, "")
         .withParam(ProcessPaths.USER_QUERY_PARAM, query).call();
     return (UserRepresentation) Optional.ofNullable(callResult)
-        .map(result -> (List<UserRepresentation>) result.get("user")).map(users -> users.get(0)).orElse(null);
+        .map(result -> (List<UserRepresentation>) result.get(ProcessPaths.USER_RESULT)).map(users -> users.get(0)).orElse(null);
   }
 
 }

@@ -38,5 +38,7 @@ Labels:
   UserRoles: User roles
   Username: Username
 Tasks:
+  UserApproval:
+    Name: ''
   UserRegistration:
     Name: User Registration Request

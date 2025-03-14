@@ -247,7 +247,14 @@
       "config" : {
         "output" : {
           "code" : [
+            "import com.axonivy.connector.keycloak.enums.UserStatus;",
+            "import com.axonivy.connector.keycloak.enums.AdminDecision;",
             "import com.axonivy.connector.keycloak.service.RegistrationService;",
+            "if (in.registration.adminDecision == AdminDecision.GRANT_ACCESS) {",
+            "  in.registration.setUserStatus(UserStatus.ACTIVE);",
+            "} else {",
+            "  in.registration.setUserStatus(UserStatus.REJECTED);",
+            "}",
             "new RegistrationService().save(in.registration);"
           ]
         }

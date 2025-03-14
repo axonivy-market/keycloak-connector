@@ -9,19 +9,20 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co('/Dialogs/RegistrationApproval/Title')}</ui:define>
     <ui:define name="content">
-      <p:fieldset legend="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserInformationFieldsetLabel')}">
+      <p:fieldset
+        legend="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserInformationFieldsetLabel')}">
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
-          registration="#{data.registration}" readOnly="true"/>
+          registration="#{data.registration}" readOnly="true" />
       </p:fieldset>
       <br />
-
       <h:form id="form">
         <p:growl showDetail="true" />
         <p:fieldset legend="roleAssignmentAndDecision">
           <div class="formgrid grid">
             <div class="field col-12 md:col-6">
-              <p:outputLabel value="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserRole')}" for="userRole" />
-
+              <p:outputLabel
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserRole')}"
+                for="userRole" />
               <p:selectOneMenu id="userRole" styleClass="w-full"
                 required="#{registrationReviewBean.adminDecision eq 'GRANT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewUserRoleEmpty')}"
@@ -33,7 +34,7 @@
                   itemValue="" noSelectionOption="true" />
                 <f:selectItems
                   value="#{registrationReviewBean.userRoles}" var="role"
-                  itemValue="#{role}" itemLabel="#{role}" />
+                  itemValue="#{role}" itemLabel="#{role.name}" />
               </p:selectOneMenu>
             </div>
             <div class="field col-2 md:col-2" />
@@ -41,7 +42,6 @@
               <p:outputLabel
                 value="#{ivy.cms.co('/Dialogs/RegistrationApproval/AdminDecision')}"
                 for="adminDecision" />
-
               <p:selectOneRadio id="adminDecision"
                 layout="pageDirection" required="true"
                 styleClass="w-full"
@@ -60,10 +60,8 @@
               <p:inputTextarea id="comment" rows="4" autoResize="true"
                 required="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewCommentEmpty')}"
-                styleClass="w-full"
-                value="#{data.registration.comment}" />
+                styleClass="w-full" value="#{data.registration.comment}" />
             </div>
-
             <div class="field col-12">
               <p:selectBooleanCheckbox
                 value="#{registrationReviewBean.isValidationConfirmation}"
@@ -76,17 +74,14 @@
                   value="#{ivy.cms.co('/Labels/Cancel')}" />
                 <p:commandButton id="submit"
                   actionListener="#{logic.proceed}"
-                  value="#{ivy.cms.co('/Labels/Submit')}"
-                  update="form" process="form" />
+                  value="#{ivy.cms.co('/Labels/Submit')}" update="form"
+                  process="form" />
               </div>
-
             </div>
           </div>
         </p:fieldset>
         <br />
-
       </h:form>
-
     </ui:define>
   </ui:composition>
 </h:body>
