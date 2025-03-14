@@ -3,6 +3,5 @@ Variables:
   keyCloakConnector:
     url: http://localhost:8090
     username: admin
-    #[password]
-    password: ${decrypt:}
+    password: admin
     realmName: master

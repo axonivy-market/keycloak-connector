@@ -64,7 +64,7 @@
             "client_id" : [ "in.tokenRequest.clientId" ],
             "username" : [ "in.tokenRequest.username" ],
             "password" : [ "in.tokenRequest.password" ],
-            "grant_type" : [ "in.tokenRequest.grantType.name()" ],
+            "grant_type" : [ "in.tokenRequest.grantType.getValue()" ],
             "client_secret" : [ "in.tokenRequest.clientSecret" ],
             "refresh_token" : [ "in.tokenRequest.refreshToken" ]
           },

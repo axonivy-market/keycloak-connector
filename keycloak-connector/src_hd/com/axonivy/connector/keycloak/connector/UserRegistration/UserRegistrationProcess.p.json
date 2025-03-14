@@ -17,8 +17,7 @@
           ],
           "map" : {
             "out.registration" : "param.registration"
-          },
-          "code" : "ivy.log.warn(param.registration);"
+          }
         },
         "result" : {
           "params" : [

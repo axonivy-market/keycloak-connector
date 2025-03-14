@@ -23,10 +23,12 @@
         },
         "result" : {
           "params" : [
-            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" },
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
           ],
           "map" : {
-            "result.error" : "in.#error"
+            "result.error" : "in.#error",
+            "result.responseStatusCode" : "in.#responseStatusCode"
           }
         }
       },
@@ -59,7 +61,17 @@
         },
         "body" : {
           "entity" : {
-            "type" : "org.keycloak.www.client.UserRepresentation"
+            "type" : "org.keycloak.www.client.UserRepresentation",
+            "map" : {
+              "param" : "in.user"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
           }
         }
       },

@@ -6,6 +6,7 @@ import javax.faces.bean.ViewScoped;
 
 import com.axonivy.connector.keycloak.enums.UserStatus;
 import com.axonivy.connector.keycloak.model.UserLazyDataModel;
+import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;
 
 
 @ManagedBean
@@ -16,7 +17,7 @@ public class UserManagementBean {
 
   @PostConstruct
   public void init() {
-    dataModel = new UserLazyDataModel();
+    dataModel = new UserLazyDataModel(RegistrationRepository.getInstance());
     userStatus = UserStatus.values();
   }
 

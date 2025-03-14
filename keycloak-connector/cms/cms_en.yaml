@@ -25,12 +25,18 @@ Enums:
     GRANT_ACCESS: Grant access
     REJECT_ACCESS: Reject Access
 Labels:
+  AdditionalInfo: Additional Information
   Cancel: Cancel
   Close: Close
+  ContactNumber: Contact number
   Email: Email address
   FirstName: First name
   LastName: Last name
   Register: Register
+  Status: Status
   Submit: Submit
   UserRoles: User roles
-  Username: username
+  Username: Username
+Tasks:
+  UserRegistration:
+    Name: User Registration Request

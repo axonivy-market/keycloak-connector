@@ -22,28 +22,27 @@
           scrollHeight="70vh" rowKey="#{detail.id}">
           
           <p:column headerText="#{ivy.cms.co('/Labels/Username')}"
-            sortBy="#{detail.userName}" filterBy="#{_.USERNAME}"
+            sortBy="#{_.USERNAME}" filterBy="#{_.USERNAME}"
             styleClass="col-username">
             <h:outputText value="#{detail.userName}" />
           </p:column>
           <p:column headerText="#{ivy.cms.co('/Labels/Email')}"
-            sortBy="#{detail.email}" filterBy="#{_.MAIL}">
+            sortBy="#{_.MAIL}" filterBy="#{_.MAIL}">
             <h:outputText value="#{detail.email}" />
           </p:column>
 
           <p:column headerText="#{ivy.cms.co('/Labels/FirstName')}"
-            sortBy="#{detail.firstName}" filterBy="#{detail.firstName}"
+            sortBy="#{_.FIRSTNAME}" filterBy="#{_.FIRSTNAME}"
             styleClass="col-firstname">
             <h:outputText value="#{detail.firstName}" />
           </p:column>
 
           <p:column
             headerText="#{ivy.cms.co('/Labels/LastName')}"
-            sortBy="#{detail.lastName}" filterBy="#{detail.lastName}"
+            sortBy="#{_.LASTNAME}" filterBy="#{_.LASTNAME}"
             styleClass="col-lastname">
             <h:outputText value="#{detail.lastName}" />
           </p:column>
-          <!-- 
           <p:column
             headerText="#{ivy.cms.co('/Labels/UserRoles')}"
             sortBy="#{_.ROLE}" filterBy="#{_.ROLE}"
@@ -56,20 +55,11 @@
                   itemLabel="#{item.getCmsName()}" itemValue="#{item}" />
               </p:selectOneMenu>
             </f:facet>
-            <h:outputText value="#{detail.role.getCmsName()}" />
+            <h:outputText value="#{detail.userRole}" />
           </p:column>
 
           <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/accountNumbers')}"
-            filterBy="#{_.ACCOUNT_NUMBER}" sortBy="#{_.ACCOUNT_NUMBER}"
-            styleClass="col-account-number text-overflow-ellipsis">
-            <h:outputText value="#{detail.userAccountNumbers}"
-              title="#{detail.userAccountNumbers}" />
-          </p:column>
-          -->
-
-          <p:column
-            headerText="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/status')}"
+            headerText="#{ivy.cms.co('/Labels/Status')}"
             sortBy="#{_.STATUS}" filterBy="#{_.STATUS}"
             styleClass="col-status">
             <f:facet name="filter">
@@ -84,17 +74,16 @@
             </f:facet>
             <h:outputText value="#{detail.userStatus.cmsName}" />
           </p:column>
-          <!-- 
           <p:column styleClass="col-action">
             <p:commandLink id="openUserDetail"
               title="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/titleEditUser')}"
               rendered="#{true}"
               process="@this"
-              actionListener="#{logic.editUser(detail.id)}">
+              >
+              <!-- actionListener="#{logic.editUser(detail.id)}" -->
               <h:outputText class="fa fa-edit" />
             </p:commandLink>
           </p:column>
-          -->
         </p:dataTable>
 
         <br />

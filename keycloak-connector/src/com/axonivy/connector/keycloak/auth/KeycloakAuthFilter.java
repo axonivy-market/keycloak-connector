@@ -46,7 +46,7 @@ public class KeycloakAuthFilter implements ClientRequestFilter {
   private void getToken(boolean isNewToken) {
     TokenRequest request = buildTokenRequest(isNewToken);
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.AUTTHEN_SUB_PROCESSES)
-        .withStartName(ProcessPaths.LOGIN_START_NAME).withParam(ProcessPaths.REQUEST_TOKEN_PARAM, request).call();
+        .withStartName(ProcessPaths.LOGIN_START_NAME).withParam(ProcessPaths.TOKEN_REQUEST_PARAM, request).call();
     AuthAccessToken token = (AuthAccessToken) Optional.ofNullable(callResult).map(result -> result.get("token"))
         .orElse(null);
     if (null != token) {
@@ -57,13 +57,17 @@ public class KeycloakAuthFilter implements ClientRequestFilter {
   private TokenRequest buildTokenRequest(boolean isNewTokenRequest) {
     TokenRequest request = new TokenRequest();
     request.setClientId("admin-cli");
-    request.setUsername(Ivy.var().get("keyCloakConnector.username"));
+    GrantTypeEnum grantType;
+    if (isNewTokenRequest) {
+      grantType = GrantTypeEnum.PASSWORD;
+      request.setUsername(Ivy.var().get("keyCloakConnector.username"));
+      request.setPassword(Ivy.var().get("keyCloakConnector.password"));
+    } else {
+      grantType = GrantTypeEnum.REFRESH_TOKEN;
+      request.setRefreshToken(this.refreshToken);
+    }
     request.setRealmName(Ivy.var().get("keyCloakConnector.realmName"));
-    request.setPassword(Ivy.var().get("keyCloakConnector.password"));
-    GrantTypeEnum grantType = isNewTokenRequest ? GrantTypeEnum.PASSWORD : GrantTypeEnum.REFRESH_TOKEN;
     request.setGrantType(grantType);
-    request.setRefreshToken(this.refreshToken);
-//    request.setClientSecret(this.client);
     return request;
   }
 

@@ -101,7 +101,6 @@
             "// } else",
             " if (isUserExisted) {",
             "  in.registration.rejectReason = RejectReason.EXISTED_USER;",
-            "      ivy.log.warn(\"isUserExisted : \" + isUserExisted);",
             "",
             "} else {",
             "  in.isValidRegistration = true;",
@@ -162,7 +161,8 @@
         "output" : {
           "code" : [
             "import com.axonivy.connector.keycloak.persistence.entities.Registration;",
-            "in.registration = new Registration();"
+            "in.registration = new Registration();",
+            "ivy.task.name = ivy.cms.co(\"/Tasks/UserRegistration/Name\");"
           ]
         }
       },
@@ -220,9 +220,10 @@
       "type" : "SubProcessCall",
       "name" : "create keycloak user",
       "config" : {
-        "processCall" : "Functional Processes/Users:createUser(String,org.keycloak.www.client.UserRepresentation)",
+        "processCall" : "connector/Users:createUser(String,org.keycloak.www.client.UserRepresentation)",
         "call" : {
           "map" : {
+            "param.realmName" : "ivy.var.get(\"keycloakConnector.realmName\")",
             "param.user" : "in.keycloakUser"
           }
         },
@@ -302,10 +303,7 @@
         "attachToBusinessCase" : false,
         "output" : {
           "map" : { },
-          "code" : [
-            "out.registrationId = signal.getSignalData() as String;",
-            "ivy.log.warn(out.registrationId);"
-          ]
+          "code" : "out.registrationId = signal.getSignalData() as String;"
         }
       },
       "visual" : {

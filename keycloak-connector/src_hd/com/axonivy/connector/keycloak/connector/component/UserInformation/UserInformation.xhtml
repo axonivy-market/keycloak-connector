@@ -15,7 +15,7 @@
   <div class="formgrid grid">
     <div class="field col-12 md:col-6">
       <p:outputLabel
-        value="#{ivy.cms.co('/Dialogs/component/UserInformation/FirstName')}"
+        value="#{ivy.cms.co('/Labels/FirstName')}"
         for="firstName" />
       <p:inputText id="firstName" required="true" styleClass="w-full"
         disabled="#{cc.attrs.readOnly}"
@@ -24,7 +24,7 @@
     </div>
     <div class="field col-12 md:col-6">
       <p:outputLabel
-        value="#{ivy.cms.co('/Dialogs/component/UserInformation/LastName')}"
+        value="#{ivy.cms.co('/Labels/LastName')}"
         for="lastName" />
       <p:inputText id="lastName" required="true" styleClass="w-full"
         disabled="#{cc.attrs.readOnly}"
@@ -33,7 +33,7 @@
     </div>
     <div class="field col-12 md:col-6">
       <p:outputLabel
-        value="#{ivy.cms.co('/Dialogs/component/UserInformation/Email')}"
+        value="#{ivy.cms.co('/Labels/Email')}"
         for="emailAddress" />
       <p:inputText id="emailAddress" required="true" styleClass="w-full"
         disabled="#{cc.attrs.readOnly}"
@@ -46,17 +46,17 @@
     </div>
     <div class="field col-12 md:col-6">
       <p:outputLabel
-        value="#{ivy.cms.co('/Dialogs/component/UserInformation/ContactNumber')}"
+        value="#{ivy.cms.co('/Labels/ContactNumber')}"
         for="contactNumber" />
       <p:inputText id="contactNumber" required="true"
         disabled="#{cc.attrs.readOnly}" styleClass="w-full"
         value="#{cc.attrs.registration.phoneNumber}" />
       <p:message for="contactNumber" />
     </div>
-    <h:panelGroup rendered="#{isEndCustomerEndpoint}">
+    <h:panelGroup rendered="#{readOnly}">
       <div class="field col-12 md:col-6">
         <p:outputLabel
-          value="#{ivy.cms.co('/Dialogs/component/UserInformation/CompanyName')}"
+          value="#{ivy.cms.co('/Labels/CompanyName')}"
           for="companyName" />
         <p:inputText id="companyName" styleClass="w-full"
           disabled="#{cc.attrs.readOnly}" required="true"
@@ -65,7 +65,7 @@
       </div>
       <div class="field col-12 md:col-6 field-chips">
         <p:outputLabel
-          value="#{ivy.cms.co('/Dialogs/component/UserInformation/AccountNumber')}"
+          value="#{ivy.cms.co('/Labels/AccountNumber')}"
           for="accountNumbers" />
         <p:chips id="accountNumbers" styleClass="w-full" required="true"
           disabled="#{cc.attrs.readOnly}"
@@ -75,12 +75,12 @@
     </h:panelGroup>
     <div class="field col-12">
       <p:outputLabel
-        value="#{ivy.cms.co('/Dialogs/component/UserInformation/AdditionalInfo')}"
+        value="#{ivy.cms.co('/Labels/AdditionalInfo')}"
         for="additionalInformation" />
       <p:inputTextarea id="additionalInformation" rows="4"
         disabled="#{cc.attrs.readOnly}" styleClass="w-full"
         counter="display" maxlength="500" autoResize="true"
-        counterTemplate=""
+        counterTemplate="{1}/{2}"
         value="#{cc.attrs.registration.additionalInformation}" />
       <h:outputText id="display" class="block"
         rendered="#{not isReadOnly}" />

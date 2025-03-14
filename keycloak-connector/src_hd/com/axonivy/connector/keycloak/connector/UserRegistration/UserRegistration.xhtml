@@ -9,11 +9,8 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co('/Dialogs/UserRegistration/Title')}</ui:define>
     <ui:define name="content">
-      <h:outputStylesheet name="user-registration.css"
-        library="ivy-dialog" />
       <h1>#{ivy.cms.co('/uk.phd.userregistration/Title/userRegistration')}</h1>
       <h:form id="form">
-      #{data.registration}
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
           registration="#{data.registration}" />
         <div class="command-btns">

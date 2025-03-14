@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.axonivy.connector.keycloak.persistence.entities.Registration;
 
+import ch.ivyteam.ivy.business.data.store.search.Executor;
 import ch.ivyteam.ivy.business.data.store.search.Query;
 import ch.ivyteam.ivy.environment.Ivy;
 
@@ -43,8 +44,8 @@ public class RegistrationRepository {
   public Registration findById(String id) {
     return Ivy.repo().find(id, getType());
   }
-  
-  public List<Registration> getQueryResult(Query<Registration> query) {
-    return query.execute().getAll();
+
+  public List<Registration> getExecutorResult(Executor<Registration> executor) {
+    return executor.execute().getAll();
   }
 }
