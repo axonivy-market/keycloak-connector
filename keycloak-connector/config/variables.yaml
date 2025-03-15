@@ -5,3 +5,4 @@ Variables:
     username: admin
     password: admin
     realmName: master
+    mailSender: octopus@gmail.com

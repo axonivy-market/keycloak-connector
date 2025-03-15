@@ -23,5 +23,21 @@
     "name" : "isFailedInCreatingKeycloakUser",
     "type" : "Boolean",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "taskName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "caseName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "userId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "realmName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

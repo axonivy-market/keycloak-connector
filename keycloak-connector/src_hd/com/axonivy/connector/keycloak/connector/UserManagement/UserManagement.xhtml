@@ -19,7 +19,7 @@
           paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
           rowsPerPageTemplate="5,10,15" widgetVar="userDetails"
           resizableColumns="true" sortMode="single" scrollable="true"
-          scrollHeight="70vh" rowKey="#{detail.id}">
+          scrollHeight="70vh" rowKey="#{detail.email}">
           
           <p:column headerText="#{ivy.cms.co('/Labels/Username')}"
             sortBy="#{_.USERNAME}" filterBy="#{_.USERNAME}"

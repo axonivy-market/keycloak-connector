@@ -1,6 +1,9 @@
 package com.axonivy.connector.keycloak.persistence.entities;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
+  private static final long serialVersionUID = -4241322415093698577L;
   private String id;
   private String name;
 

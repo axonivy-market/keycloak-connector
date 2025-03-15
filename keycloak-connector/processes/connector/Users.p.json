@@ -24,11 +24,11 @@
         "result" : {
           "params" : [
             { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" },
-            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+            { "name" : "userId", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "result.error" : "in.#error",
-            "result.responseStatusCode" : "in.#responseStatusCode"
+            "result.userId" : "in.#userId"
           }
         }
       },
@@ -69,9 +69,12 @@
         },
         "response" : {
           "entity" : {
-            "map" : {
-              "out.responseStatusCode" : "response.getStatus()"
-            }
+            "code" : [
+              "import com.axonivy.connector.keycloak.utils.UserUtils;",
+              "import com.axonivy.connector.keycloak.service.UserServices;",
+              "in.userId = UserUtils.extractUserId(response);",
+              "ivy.log.fatal(in.userId);"
+            ]
           }
         }
       },

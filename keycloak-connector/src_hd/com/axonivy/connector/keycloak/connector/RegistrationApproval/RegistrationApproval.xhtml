@@ -27,6 +27,7 @@
                 required="#{registrationReviewBean.adminDecision eq 'GRANT_ACCESS'}"
                 requiredMessage="#{ivy.cms.co('/uk.phd.documents.user/Validation/reviewUserRoleEmpty')}"
                 disabled="#{registrationReviewBean.adminDecision eq 'REJECT_ACCESS'}"
+                converter="roleConverter"
                 value="#{data.registration.userRole}">
                 <p:ajax update="@this" process="@this" />
                 <f:selectItem

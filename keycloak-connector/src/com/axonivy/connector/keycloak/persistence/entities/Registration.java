@@ -8,6 +8,7 @@ import com.axonivy.connector.keycloak.enums.UserStatus;
 
 public class Registration implements Serializable {
   private static final long serialVersionUID = 4238392914201477447L;
+  private String userId;
   private String userName;
   private String firstName;
   private String lastName;
@@ -124,6 +125,14 @@ public class Registration implements Serializable {
 
   public void setUserName(String userName) {
     this.userName = userName;
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
 }

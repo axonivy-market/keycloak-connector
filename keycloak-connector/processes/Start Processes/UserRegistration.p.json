@@ -143,7 +143,7 @@
       "id" : "f21",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 1360, "y" : 592 },
+        "at" : { "x" : 1392, "y" : 592 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
@@ -223,15 +223,20 @@
         "processCall" : "connector/Users:createUser(String,org.keycloak.www.client.UserRepresentation)",
         "call" : {
           "map" : {
-            "param.realmName" : "ivy.var.get(\"keycloakConnector.realmName\")",
+            "param.realmName" : "in.realmName",
             "param.user" : "in.keycloakUser"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.isFailedInCreatingKeycloakUser" : "result.error != null"
-          }
+            "out.userId" : "result.userId"
+          },
+          "code" : [
+            "import org.apache.commons.lang3.StringUtils;",
+            "in.registration.userId = result.userId;",
+            "in.isFailedInCreatingKeycloakUser = StringUtils.isNotBlank(result.userId);"
+          ]
         }
       },
       "visual" : {
@@ -260,7 +265,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 928, "y" : 592 }
+        "at" : { "x" : 960, "y" : 592 }
       },
       "connect" : [
         { "id" : "f14", "to" : "f33" }
@@ -276,26 +281,27 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 672, "y" : 1024 }
+        "at" : { "x" : 672, "y" : 896 },
+        "labelOffset" : { "x" : -24, "y" : -24 }
       },
       "connect" : [
-        { "id" : "f32", "to" : "f19", "via" : [ { "x" : 928, "y" : 1024 } ], "label" : {
-            "name" : "no",
-            "segment" : 1.22,
-            "offset" : { "x" : 25, "y" : 54 }
-          }, "color" : "default" },
-        { "id" : "f40", "to" : "f39", "via" : [ { "x" : 824, "y" : 1024 } ], "label" : {
+        { "id" : "f40", "to" : "f39", "via" : [ { "x" : 824, "y" : 896 } ], "label" : {
             "name" : "yes",
             "segment" : 1.28,
-            "offset" : { "x" : -23 }
-          } }
+            "offset" : { "x" : -63, "y" : 46 }
+          } },
+        { "id" : "f32", "to" : "f45", "label" : {
+            "name" : "no",
+            "segment" : 0.87,
+            "offset" : { "x" : -15, "y" : -49 }
+          }, "color" : "default" }
       ]
     }, {
       "id" : "f33",
       "type" : "EMail",
       "name" : "Confirmation Mail",
       "visual" : {
-        "at" : { "x" : 1120, "y" : 592 },
+        "at" : { "x" : 1152, "y" : 592 },
         "size" : { "width" : 144, "height" : 54 }
       },
       "connect" : [
@@ -327,8 +333,17 @@
       "config" : {
         "output" : {
           "code" : [
+            "import com.axonivy.connector.keycloak.persistence.entities.Registration;",
+            "import java.util.Optional;",
+            "import java.util.ArrayList;",
             "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
-            "in.registration = RegistrationRepository.getInstance().findById(in.registrationId);"
+            "in.registration = RegistrationRepository.getInstance().findById(in.registrationId);",
+            "String username = in.registration.userName;",
+            "List<String> nameParams= new ArrayList();",
+            "nameParams.add(username);",
+            "in.caseName = ivy.cms.co(\"/Cases/RegistrationApproval/name\", nameParams);",
+            "in.taskName = ivy.cms.co(\"/Tasks/RegistrationApproval/Name\",nameParams);",
+            "in.realmName = ivy.var.get(\"keycloakConnector.realmName\");"
           ]
         }
       },
@@ -348,6 +363,12 @@
           "map" : {
             "param.registrationId" : "in.registrationId"
           }
+        },
+        "task" : {
+          "name" : "<%= in.taskName %>"
+        },
+        "case" : {
+          "name" : "<%= in.caseName %>"
         },
         "output" : {
           "map" : {
@@ -436,6 +457,47 @@
         "at" : { "x" : 464, "y" : 1144 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
+    }, {
+      "id" : "f45",
+      "type" : "SubProcessCall",
+      "name" : "assign user role",
+      "config" : {
+        "processCall" : "connector/Groups:setUserGroup(String,com.axonivy.connector.keycloak.persistence.entities.Registration)",
+        "call" : {
+          "map" : {
+            "param.realmName" : "in.realmName",
+            "param.registration" : "in.registration"
+          }
+        },
+        "output" : {
+          "code" : [
+            "import org.apache.http.HttpStatus;",
+            "in.isFailedInCreatingKeycloakUser = result.statusCode != HttpStatus.SC_NO_CONTENT;"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 672, "y" : 1024 }
+      },
+      "connect" : [
+        { "id" : "f46", "to" : "f47", "color" : "default" }
+      ]
+    }, {
+      "id" : "f47",
+      "type" : "Alternative",
+      "name" : "has error",
+      "config" : {
+        "conditions" : {
+          "f48" : "true"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 824, "y" : 1024 }
+      },
+      "connect" : [
+        { "id" : "f48", "to" : "f19", "via" : [ { "x" : 960, "y" : 1024 } ], "color" : "default" },
+        { "id" : "f49", "to" : "f39" }
+      ]
     } ],
   "layout" : {
     "lanes" : [ {
@@ -447,7 +509,7 @@
             "size" : 192
           }, {
             "name" : "Ivy",
-            "size" : 376
+            "size" : 336
           }, {
             "name" : "Keycloak",
             "size" : 112
