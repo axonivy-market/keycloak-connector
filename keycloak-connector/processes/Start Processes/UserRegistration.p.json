@@ -204,7 +204,8 @@
         "output" : {
           "code" : [
             "import com.axonivy.connector.keycloak.utils.UserUtils;",
-            "in.keycloakUser = UserUtils.convertRegistrationToUser(in.registration);"
+            "in.keycloakUser = UserUtils.convertRegistrationToUser(in.registration);",
+            "in.realmName = ivy.var.get(\"keycloakConnector.realmName\");"
           ]
         }
       },
@@ -252,6 +253,7 @@
       "config" : {
         "output" : {
           "code" : [
+            "import com.axonivy.connector.keycloak.mail.MailService;",
             "import com.axonivy.connector.keycloak.enums.UserStatus;",
             "import com.axonivy.connector.keycloak.enums.AdminDecision;",
             "import com.axonivy.connector.keycloak.service.RegistrationService;",
@@ -260,9 +262,13 @@
             "} else {",
             "  in.registration.setUserStatus(UserStatus.REJECTED);",
             "}",
-            "new RegistrationService().save(in.registration);"
+            "in.registration.userId = in.userId;",
+            "in.registration.userName = in.registration.email;",
+            "new RegistrationService().save(in.registration);",
+            "in.mail = new MailService().generateApprovalMail(in.keycloakUser);"
           ]
-        }
+        },
+        "sudo" : true
       },
       "visual" : {
         "at" : { "x" : 960, "y" : 592 }
@@ -300,6 +306,16 @@
       "id" : "f33",
       "type" : "EMail",
       "name" : "Confirmation Mail",
+      "config" : {
+        "headers" : {
+          "subject" : "<%= in.mail.subject %>",
+          "from" : "<%= in.mail.from %>",
+          "to" : "<%= in.mail.to %>"
+        },
+        "message" : {
+          "body" : "<%= in.mail.body %>"
+        }
+      },
       "visual" : {
         "at" : { "x" : 1152, "y" : 592 },
         "size" : { "width" : 144, "height" : 54 }
@@ -324,34 +340,7 @@
         "labelOffset" : { "x" : 89, "y" : 57 }
       },
       "connect" : [
-        { "id" : "f13", "to" : "f18" }
-      ]
-    }, {
-      "id" : "f18",
-      "type" : "Script",
-      "name" : "Init task data",
-      "config" : {
-        "output" : {
-          "code" : [
-            "import com.axonivy.connector.keycloak.persistence.entities.Registration;",
-            "import java.util.Optional;",
-            "import java.util.ArrayList;",
-            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
-            "in.registration = RegistrationRepository.getInstance().findById(in.registrationId);",
-            "String username = in.registration.userName;",
-            "List<String> nameParams= new ArrayList();",
-            "nameParams.add(username);",
-            "in.caseName = ivy.cms.co(\"/Cases/RegistrationApproval/name\", nameParams);",
-            "in.taskName = ivy.cms.co(\"/Tasks/RegistrationApproval/Name\",nameParams);",
-            "in.realmName = ivy.var.get(\"keycloakConnector.realmName\");"
-          ]
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 208, "y" : 1024 }
-      },
-      "connect" : [
-        { "id" : "f27", "to" : "f26", "color" : "default" }
+        { "id" : "f13", "to" : "f26" }
       ]
     }, {
       "id" : "f26",
@@ -365,7 +354,22 @@
           }
         },
         "task" : {
-          "name" : "<%= in.taskName %>"
+          "name" : "<%= in.taskName %>",
+          "code" : [
+            "import com.axonivy.connector.keycloak.persistence.entities.Registration;",
+            "import java.util.Optional;",
+            "import java.util.ArrayList;",
+            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
+            "",
+            "in.registration = RegistrationRepository.getInstance().findById(in.registrationId);",
+            "String username = in.registration.userName;",
+            "ivy.log.warn(username);",
+            "List<String> nameParams= new ArrayList();",
+            "nameParams.add(username);",
+            "in.caseName = ivy.cms.co(\"/Cases/RegistrationApproval/name\", nameParams);",
+            "in.taskName = ivy.cms.co(\"/Tasks/RegistrationApproval/Name\",nameParams);",
+            "in.realmName = ivy.var.get(\"keycloakConnector.realmName\");"
+          ]
         },
         "case" : {
           "name" : "<%= in.caseName %>"
@@ -379,7 +383,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 368, "y" : 1024 }
+        "at" : { "x" : 288, "y" : 1024 }
       },
       "connect" : [
         { "id" : "f15", "to" : "f17" }
@@ -462,11 +466,12 @@
       "type" : "SubProcessCall",
       "name" : "assign user role",
       "config" : {
-        "processCall" : "connector/Groups:setUserGroup(String,com.axonivy.connector.keycloak.persistence.entities.Registration)",
+        "processCall" : "connector/Groups:setUserGroup(String,String,String)",
         "call" : {
           "map" : {
             "param.realmName" : "in.realmName",
-            "param.registration" : "in.registration"
+            "param.userId" : "in.userId",
+            "param.groupId" : "in.registration.userRole.id"
           }
         },
         "output" : {
@@ -513,9 +518,6 @@
           }, {
             "name" : "Keycloak",
             "size" : 112
-          }, {
-            "name" : "Admin",
-            "size" : 376
           } ]
       } ]
   }

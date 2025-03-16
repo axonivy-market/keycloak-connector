@@ -17,11 +17,20 @@
     "name" : "error",
     "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
   }, {
-    "name" : "registration",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
-  }, {
     "name" : "responseStatusCode",
     "type" : "Number",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "userId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "groupId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "errorMessage",
+    "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
   } ]
 }

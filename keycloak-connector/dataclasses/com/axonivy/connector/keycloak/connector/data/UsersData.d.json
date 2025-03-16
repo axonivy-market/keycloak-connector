@@ -17,14 +17,15 @@
     "type" : "String"
   }, {
     "name" : "userQuery",
-    "type" : "com.axonivy.connector.keycloak.bo.UserQuery",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.connector.keycloak.bo.UserQuery"
   }, {
     "name" : "error",
     "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
   }, {
     "name" : "responseStatusCode",
-    "type" : "Number",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "Number"
+  }, {
+    "name" : "enableStatusRequest",
+    "type" : "com.axonivy.connector.keycloak.bo.EnableStatusRequest"
   } ]
 }

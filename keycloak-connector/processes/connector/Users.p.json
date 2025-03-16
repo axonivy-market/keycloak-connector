@@ -285,15 +285,17 @@
     }, {
       "id" : "f21",
       "type" : "CallSubStart",
-      "name" : "updateUser(String,String)",
+      "name" : "updateUser(String,String,EnableStatusRequest)",
       "config" : {
         "signature" : "updateUser",
         "input" : {
           "params" : [
             { "name" : "realmName", "type" : "String", "desc" : "" },
-            { "name" : "userId", "type" : "String", "desc" : "" }
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "enableStatusRequest", "type" : "com.axonivy.connector.keycloak.bo.EnableStatusRequest", "desc" : "" }
           ],
           "map" : {
+            "out.enableStatusRequest" : "param.enableStatusRequest",
             "out.realmName" : "param.realmName",
             "out.userId" : "param.userId"
           }
@@ -336,6 +338,8 @@
           }
         },
         "body" : {
+          "type" : "RAW",
+          "raw" : "<%=in.enableStatusRequest%>",
           "entity" : {
             "type" : "org.keycloak.www.client.UserRepresentation"
           }

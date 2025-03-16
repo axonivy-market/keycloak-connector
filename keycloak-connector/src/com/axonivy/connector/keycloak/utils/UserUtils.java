@@ -42,7 +42,7 @@ public class UserUtils {
       return StringUtils.EMPTY;
     }
     String path = location.getPath();
-    return path.substring(path.lastIndexOf(USER_ID_PREFIX), USER_ID_PREFIX.length());
+    return path.substring(path.lastIndexOf(USER_ID_PREFIX) + USER_ID_PREFIX.length());
   }
 
 }

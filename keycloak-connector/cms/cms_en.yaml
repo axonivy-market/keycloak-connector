@@ -19,6 +19,8 @@ Dialogs:
     DupllicatedUserMailMessage: An account with this email already exists. If you forgot your password, you can reset it.
     DupllicatedUserMailSummary: Account Already Exists
     Title: User Registration
+  UserUpdate:
+    Title: User Update
   component:
     UserInformation:
       AccountNumber: Account number
@@ -34,10 +36,13 @@ Labels:
   Cancel: Cancel
   Close: Close
   ContactNumber: Contact number
+  DeleteUser: Delete User
   Email: Email address
   FirstName: First name
   LastName: Last name
+  LockUser: Lock User
   Register: Register
+  ResetUser: ResetUser
   Status: Status
   Submit: Submit
   UserRoles: User roles
@@ -58,7 +63,7 @@ Mails:
     Octopus team.
 
     Octopus application.
-  Subject: Your {0} Account Credentials
+  Subject: Your Octopus Account Credentials
 Tasks:
   RegistrationApproval:
     Name: Review user registration for {0}

@@ -39,5 +39,9 @@
     "name" : "realmName",
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "mail",
+    "type" : "com.axonivy.connector.keycloak.mail.Mail",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

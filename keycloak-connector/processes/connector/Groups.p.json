@@ -99,31 +99,35 @@
     }, {
       "id" : "f5",
       "type" : "CallSubStart",
-      "name" : "setUserGroup(String,Registration)",
+      "name" : "setUserGroup(String,String,String)",
       "config" : {
         "signature" : "setUserGroup",
         "input" : {
           "params" : [
             { "name" : "realmName", "type" : "String", "desc" : "" },
-            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "groupId", "type" : "String", "desc" : "" }
           ],
           "map" : {
-            "out.registration" : "param.registration"
+            "out.groupId" : "param.groupId",
+            "out.realmName" : "param.realmName",
+            "out.userId" : "param.userId"
           }
         },
         "result" : {
           "params" : [
             { "name" : "statusCode", "type" : "Number", "desc" : "" },
-            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+            { "name" : "errorMessage", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "result.statusCode" : "in.#responseStatusCode",
-            "result.error" : "in.#error"
+            "result.errorMessage" : "in.#errorMessage"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 200 }
+        "at" : { "x" : 96, "y" : 200 },
+        "labelOffset" : { "x" : 9, "y" : 57 }
       },
       "connect" : [
         { "id" : "f12", "to" : "f6" }
@@ -139,8 +143,8 @@
           "path" : "/admin/realms/{realm}/users/{user-id}/groups/{groupId}",
           "templateParams" : {
             "realm" : "in.realmName",
-            "user-id" : "in.registration.userId",
-            "groupId" : "in.registration.userRole.id",
+            "user-id" : "in.userId",
+            "groupId" : "in.groupId",
             "ivy.var.keycloakConnector.url" : ""
           },
           "queryParams" : {
@@ -149,6 +153,10 @@
             "max" : "",
             "search" : ""
           }
+        },
+        "body" : {
+          "type" : "RAW",
+          "raw" : "{}"
         },
         "response" : {
           "entity" : {
@@ -164,14 +172,6 @@
       "boundaries" : [ {
           "id" : "f7",
           "type" : "ErrorBoundaryEvent",
-          "config" : {
-            "output" : {
-              "map" : {
-                "out" : "in",
-                "out.error" : "error"
-              }
-            }
-          },
           "visual" : {
             "at" : { "x" : 256, "y" : 240 },
             "labelOffset" : { "x" : 13, "y" : 33 }

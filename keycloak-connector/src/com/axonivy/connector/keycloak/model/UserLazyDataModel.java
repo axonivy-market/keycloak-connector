@@ -65,9 +65,12 @@ public class UserLazyDataModel extends LazyDataModel<Registration> {
     if (MapUtils.isNotEmpty(filterBy)) {
       for (Entry<String, FilterMeta> entry : filterBy.entrySet()) {
         String fieldName = getQueryParamNameFromKey(entry.getKey());
-        Filter<Registration> filter = repo.createSearchQuery().textField(fieldName)
-            .containsPhrase(entry.getValue().getFilterValue().toString());
-        filterQuery = filterQuery == null ? searchQuery.filter(filter) : filterQuery.and().filter(filter);
+        String filterValue = entry.getValue().getFilterValue().toString();
+        filterQuery = filterQuery == null
+            ? searchQuery.textField(fieldName).containsAnyWords(filterValue).or().textField(fieldName)
+                .containsAllWordsFuzzy(filterValue).or().textField(fieldName).containsAnyWordsFuzzy(filterValue)
+            : filterQuery.and().textField(fieldName).containsAnyWords(filterValue).or().textField(fieldName)
+                .containsAllWordsFuzzy(filterValue).or().textField(fieldName).containsAnyWordsFuzzy(filterValue);
       }
     }
     var query = filterQuery == null ? searchQuery : filterQuery;
@@ -82,12 +85,17 @@ public class UserLazyDataModel extends LazyDataModel<Registration> {
     if (MapUtils.isNotEmpty(filterBy)) {
       for (Entry<String, FilterMeta> entry : filterBy.entrySet()) {
         String fieldName = getQueryParamNameFromKey(entry.getKey());
-        Filter<Registration> filter = repo.createSearchQuery().textField(fieldName)
-            .containsPhrase(entry.getValue().getFilterValue().toString());
-        filterQuery = filterQuery == null ? searchQuery.filter(filter) : filterQuery.and().filter(filter);
+        String filterValue = entry.getValue().getFilterValue().toString();
+
+        filterQuery = filterQuery == null
+            ? searchQuery.textField(fieldName).containsAnyWords(filterValue).or().textField(fieldName)
+                .containsAllWordsFuzzy(filterValue).or().textField(fieldName).containsAnyWordsFuzzy(filterValue)
+            : filterQuery.and().textField(fieldName).containsAnyWords(filterValue).or().textField(fieldName)
+                .containsAllWordsFuzzy(filterValue).or().textField(fieldName).containsAnyWordsFuzzy(filterValue);
       }
     }
     var query = filterQuery == null ? searchQuery : filterQuery;
+
     return applySorting(query.orderBy(), sortBy).limit(first, pageSize);
   }
 
@@ -95,7 +103,7 @@ public class UserLazyDataModel extends LazyDataModel<Registration> {
       Map<String, SortMeta> sortBy) {
 
     if (MapUtils.isEmpty(sortBy)) {
-      return oderBy.field("username").ascending();
+      return oderBy.field("userName").ascending();
     }
 
     Map.Entry<String, SortMeta> firstEntry = sortBy.entrySet().iterator().next();
@@ -108,7 +116,7 @@ public class UserLazyDataModel extends LazyDataModel<Registration> {
 
   private String getQueryParamNameFromKey(String metaKey) {
     return switch (metaKey) {
-    case USERNAME -> "username";
+    case USERNAME -> "userName";
     case MAIL -> "email";
     case FIRSTNAME -> "firstName";
     case LASTNAME -> "lastName";
