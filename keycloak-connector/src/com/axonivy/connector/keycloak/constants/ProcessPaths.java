@@ -16,7 +16,7 @@ public class ProcessPaths {
 
   public static final String REALM_NAME_PARAM = "realmName";
   public static final String USER_QUERY_PARAM = "userQuery";
-  public static final String USER_ID_NAME_PARAM = "userId";
+  public static final String USER_ID = "userId";
   public static final String TOKEN_REQUEST_PARAM = "tokenRequest";
   public static final String ENABLE_STATUS_REQUEST_PARAM = "tokenRequest";
   public static final String REGISTRATION_APPROVAL_SIGNAL = "com:axonivy:keycloak:application:approval";

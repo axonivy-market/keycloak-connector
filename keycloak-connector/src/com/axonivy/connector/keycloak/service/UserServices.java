@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.keycloak.www.client.CredentialRepresentation;
 import org.keycloak.www.client.UserRepresentation;
@@ -34,7 +35,7 @@ public class UserServices {
   public Integer deleteUser(String realmName, String userId) {
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.DELETE_USER_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, realmName)
-        .withParam(ProcessPaths.USER_ID_NAME_PARAM, userId).call();
+        .withParam(ProcessPaths.USER_ID, userId).call();
     return getResponseStatusCodeFromCallResult(callResult);
   }
 
@@ -42,7 +43,7 @@ public class UserServices {
     CredentialRepresentation credential = UserUtils.createTemporaryResetedPassword();
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.UPDATE_USERS_PASSWORD_START_NAME)
-        .withParam(ProcessPaths.REALM_NAME_PARAM, realmName).withParam(ProcessPaths.USER_ID_NAME_PARAM, userId)
+        .withParam(ProcessPaths.REALM_NAME_PARAM, realmName).withParam(ProcessPaths.USER_ID, userId)
         .withParam(ProcessPaths.CREDENTIAL_PARAM, credential).call();
     return getResponseStatusCodeFromCallResult(callResult);
   }
@@ -52,14 +53,20 @@ public class UserServices {
     request.setEnabled(false);
     SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
         .withStartName(ProcessPaths.UPDATE_USER_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, realmName)
-        .withParam(ProcessPaths.USER_ID_NAME_PARAM, userId).withParam(ProcessPaths.USER, request)
-        .call();
+        .withParam(ProcessPaths.USER_ID, userId).withParam(ProcessPaths.USER, request).call();
     return getResponseStatusCodeFromCallResult(callResult);
   }
 
+  public String createUser(String realmName, UserRepresentation userRepresentation) {
+    SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.USER_SUB_PROCESSES)
+        .withStartName(ProcessPaths.CREATE_USER_START_NAME).withParam(ProcessPaths.REALM_NAME_PARAM, realmName)
+        .withParam(ProcessPaths.USER, userRepresentation).call();
+    return Optional.ofNullable(callResult).map(result -> (String) result.get(ProcessPaths.USER_ID))
+        .orElse(StringUtils.EMPTY);
+  }
+
   private Integer getResponseStatusCodeFromCallResult(SubProcessCallResult result) {
-    return (Integer) Optional.ofNullable(result)
-        .map(callResult -> (Integer) callResult.get(ProcessPaths.RESPONSE_STATUS_RESULT))
+    return Optional.ofNullable(result).map(callResult -> (Integer) callResult.get(ProcessPaths.RESPONSE_STATUS_RESULT))
         .orElse(HttpStatus.SC_UNPROCESSABLE_ENTITY);
   }
 }
