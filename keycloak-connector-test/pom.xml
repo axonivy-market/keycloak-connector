@@ -70,7 +70,6 @@
             <kcUsername>${keycloakConnector.username}</kcUsername>
             <kcUsername>${keycloakConnector.password}</kcUsername>
             <kcRealmName>${keycloakConnector.realmName}</kcRealmName>
-            <kcMailSender>${keycloakConnector.mailSender}</kcMailSender>
           </systemPropertyVariables>
         </configuration>
       </plugin>
