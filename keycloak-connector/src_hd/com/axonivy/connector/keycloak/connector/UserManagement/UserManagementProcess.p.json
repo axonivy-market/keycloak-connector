@@ -11,6 +11,16 @@
       "name" : "start()",
       "config" : {
         "signature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "requestState", "type" : "com.axonivy.connector.keycloak.enums.RequestState", "desc" : "" },
+            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+          ],
+          "map" : {
+            "result.requestState" : "in.requestState",
+            "result.registration" : "in.registration"
+          }
+        },
         "guid" : "19588977C9EDA573"
       },
       "visual" : {
@@ -28,13 +38,19 @@
       }
     }, {
       "id" : "f3",
-      "type" : "HtmlDialogEventStart",
-      "name" : "close",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "cancel()",
       "config" : {
-        "guid" : "19588977CA13F925"
+        "signature" : "cancel",
+        "input" : {
+          "map" : {
+            "out.requestState" : "com.axonivy.connector.keycloak.enums.RequestState.CANCEL"
+          }
+        },
+        "guid" : "195A028B81E4255B"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 160 }
+        "at" : { "x" : 96, "y" : 168 }
       },
       "connect" : [
         { "id" : "f5", "to" : "f4" }
@@ -43,8 +59,31 @@
       "id" : "f4",
       "type" : "HtmlDialogExit",
       "visual" : {
-        "at" : { "x" : 224, "y" : 160 },
+        "at" : { "x" : 288, "y" : 168 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "editUser(Registration)",
+      "config" : {
+        "signature" : "editUser",
+        "input" : {
+          "params" : [
+            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+          ],
+          "map" : {
+            "out.registration" : "param.registration",
+            "out.requestState" : "com.axonivy.connector.keycloak.enums.RequestState.EDIT"
+          }
+        },
+        "guid" : "195A028DFAF75806"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 256 }
+      },
+      "connect" : [
+        { "id" : "f7", "to" : "f4", "via" : [ { "x" : 288, "y" : 256 } ] }
+      ]
     } ]
 }

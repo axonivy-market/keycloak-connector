@@ -219,6 +219,14 @@
             "out.realmName" : "param.realmName",
             "out.userId" : "param.userId"
           }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.responseStatusCode"
+          }
         }
       },
       "visual" : {
@@ -256,6 +264,13 @@
             "search" : "",
             "username" : ""
           }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
+          }
         }
       },
       "visual" : {
@@ -264,6 +279,14 @@
       "boundaries" : [ {
           "id" : "f16",
           "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
           "visual" : {
             "at" : { "x" : 320, "y" : 448 },
             "labelOffset" : { "x" : 13, "y" : 33 }
@@ -285,24 +308,33 @@
     }, {
       "id" : "f21",
       "type" : "CallSubStart",
-      "name" : "updateUser(String,String,EnableStatusRequest)",
+      "name" : "updateUserStatus(String,String,UserRepresentation)",
       "config" : {
-        "signature" : "updateUser",
+        "signature" : "updateUserStatus",
         "input" : {
           "params" : [
             { "name" : "realmName", "type" : "String", "desc" : "" },
             { "name" : "userId", "type" : "String", "desc" : "" },
-            { "name" : "enableStatusRequest", "type" : "com.axonivy.connector.keycloak.bo.EnableStatusRequest", "desc" : "" }
+            { "name" : "user", "type" : "org.keycloak.www.client.UserRepresentation", "desc" : "" }
           ],
           "map" : {
-            "out.enableStatusRequest" : "param.enableStatusRequest",
             "out.realmName" : "param.realmName",
+            "out.user" : "param.user",
             "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.responseStatusCode"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 568 }
+        "at" : { "x" : 96, "y" : 568 },
+        "labelOffset" : { "x" : 65, "y" : 57 }
       },
       "connect" : [
         { "id" : "f25", "to" : "f22" }
@@ -338,10 +370,18 @@
           }
         },
         "body" : {
-          "type" : "RAW",
-          "raw" : "<%=in.enableStatusRequest%>",
           "entity" : {
-            "type" : "org.keycloak.www.client.UserRepresentation"
+            "type" : "org.keycloak.www.client.UserRepresentation",
+            "map" : {
+              "param" : "in.user"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
           }
         }
       },
@@ -351,6 +391,14 @@
       "boundaries" : [ {
           "id" : "f23",
           "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
           "visual" : {
             "at" : { "x" : 320, "y" : 608 },
             "labelOffset" : { "x" : 13, "y" : 33 }
@@ -372,22 +420,33 @@
     }, {
       "id" : "f28",
       "type" : "CallSubStart",
-      "name" : "updatePassword(String,String)",
+      "name" : "updatePassword(String,String,CredentialRepresentation)",
       "config" : {
         "signature" : "updatePassword",
         "input" : {
           "params" : [
             { "name" : "realmName", "type" : "String", "desc" : "" },
-            { "name" : "userId", "type" : "String", "desc" : "" }
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "credential", "type" : "org.keycloak.www.client.CredentialRepresentation", "desc" : "" }
           ],
           "map" : {
+            "out.credential" : "param.credential",
             "out.realmName" : "param.realmName",
             "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.#responseStatusCode"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 736 }
+        "at" : { "x" : 96, "y" : 736 },
+        "labelOffset" : { "x" : 57, "y" : 57 }
       },
       "connect" : [
         { "id" : "f34", "to" : "f29" }
@@ -423,8 +482,19 @@
           }
         },
         "body" : {
+          "raw" : "<%= in.credential %>",
           "entity" : {
-            "type" : "org.keycloak.www.client.CredentialRepresentation"
+            "type" : "org.keycloak.www.client.CredentialRepresentation",
+            "map" : {
+              "param" : "in.credential"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
           }
         }
       },
@@ -434,8 +504,16 @@
       "boundaries" : [ {
           "id" : "f30",
           "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
           "visual" : {
-            "at" : { "x" : 320, "y" : 776 },
+            "at" : { "x" : 320, "y" : 778 },
             "labelOffset" : { "x" : 13, "y" : 33 }
           },
           "connect" : [

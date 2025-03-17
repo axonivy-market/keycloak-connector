@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.keycloak.www.client.AdminrealmsCredentials;
+import org.keycloak.www.client.CredentialRepresentation;
 import org.keycloak.www.client.UserRepresentation;
 
 import com.axonivy.connector.keycloak.helper.PasswordGeneratorHelper;
@@ -28,8 +29,16 @@ public class UserUtils {
     return user;
   }
 
-  private static AdminrealmsCredentials createTemporaryPassword() {
+  public static AdminrealmsCredentials createTemporaryPassword() {
     AdminrealmsCredentials credential = new AdminrealmsCredentials();
+    credential.setType(DEFAULT_CREDENTIAL_TYPE);
+    credential.setValue(PasswordGeneratorHelper.generatePassword());
+    credential.setTemporary(true);
+    return credential;
+  }
+  
+  public static CredentialRepresentation createTemporaryResetedPassword() {
+    CredentialRepresentation credential = new CredentialRepresentation();
     credential.setType(DEFAULT_CREDENTIAL_TYPE);
     credential.setValue(PasswordGeneratorHelper.generatePassword());
     credential.setTemporary(true);

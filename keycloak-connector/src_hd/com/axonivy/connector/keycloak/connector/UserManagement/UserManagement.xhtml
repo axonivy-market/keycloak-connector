@@ -20,7 +20,7 @@
           rowsPerPageTemplate="5,10,15" widgetVar="userDetails"
           resizableColumns="true" sortMode="single" scrollable="true"
           scrollHeight="70vh" rowKey="#{detail.email}">
-          
+
           <p:column headerText="#{ivy.cms.co('/Labels/Username')}"
             sortBy="#{_.USERNAME}" filterBy="#{_.USERNAME}"
             styleClass="col-username">
@@ -37,14 +37,12 @@
             <h:outputText value="#{detail.firstName}" />
           </p:column>
 
-          <p:column
-            headerText="#{ivy.cms.co('/Labels/LastName')}"
+          <p:column headerText="#{ivy.cms.co('/Labels/LastName')}"
             sortBy="#{_.LASTNAME}" filterBy="#{_.LASTNAME}"
             styleClass="col-lastname">
             <h:outputText value="#{detail.lastName}" />
           </p:column>
-          <p:column
-            headerText="#{ivy.cms.co('/Labels/UserRoles')}"
+          <p:column headerText="#{ivy.cms.co('/Labels/UserRoles')}"
             sortBy="#{_.ROLE}" filterBy="#{_.ROLE}"
             styleClass="col-user-role">
             <f:facet name="filter">
@@ -55,11 +53,10 @@
                   itemLabel="#{item.getCmsName()}" itemValue="#{item}" />
               </p:selectOneMenu>
             </f:facet>
-            <h:outputText value="#{detail.userRole}" />
+            <h:outputText value="#{detail.userRole.name}" />
           </p:column>
 
-          <p:column
-            headerText="#{ivy.cms.co('/Labels/Status')}"
+          <p:column headerText="#{ivy.cms.co('/Labels/Status')}"
             sortBy="#{_.STATUS}" filterBy="#{_.STATUS}"
             styleClass="col-status">
             <f:facet name="filter">
@@ -77,19 +74,15 @@
           <p:column styleClass="col-action">
             <p:commandLink id="openUserDetail"
               title="#{ivy.cms.co('/uk.phd.documents.user/Maintenance/titleEditUser')}"
-              rendered="#{true}"
-              process="@this"
-              >
-              <!-- actionListener="#{logic.editUser(detail.id)}" -->
+              rendered="#{true}" process="@this"
+              actionListener="#{logic.editUser(detail)}">
               <h:outputText class="fa fa-edit" />
             </p:commandLink>
           </p:column>
         </p:dataTable>
-
         <br />
-
         <div class="command-btns">
-          <p:commandButton id="close" actionListener="#{logic.close}"
+          <p:commandButton id="close" actionListener="#{logic.cancel}"
             process="@this" value="#{ivy.cms.co('/Labels/Close')}" />
         </div>
 

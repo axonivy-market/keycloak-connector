@@ -25,7 +25,7 @@
     "name" : "responseStatusCode",
     "type" : "Number"
   }, {
-    "name" : "enableStatusRequest",
-    "type" : "com.axonivy.connector.keycloak.bo.EnableStatusRequest"
+    "name" : "credential",
+    "type" : "org.keycloak.www.client.CredentialRepresentation"
   } ]
 }

@@ -8,9 +8,17 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start()",
+      "name" : "start(Registration)",
       "config" : {
         "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+          ],
+          "map" : {
+            "out.registration" : "param.registration"
+          }
+        },
         "guid" : "1959CF9D5FF26BB0"
       },
       "visual" : {

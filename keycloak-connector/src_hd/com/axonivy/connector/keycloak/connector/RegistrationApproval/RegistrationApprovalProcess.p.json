@@ -58,8 +58,9 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axonivy.connector.keycloak.persistence.repo.RegistrationRepository;",
-            "out.registration = RegistrationRepository.getInstance().findById(in.registrationId);"
+            "import com.axonivy.connector.keycloak.service.RegistrationService;",
+            "RegistrationService service = new RegistrationService();",
+            "out.registration = service.findById(in.registrationId);"
           ]
         }
       },

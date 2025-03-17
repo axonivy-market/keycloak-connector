@@ -21,8 +21,7 @@
     "type" : "org.keycloak.www.client.UserRepresentation"
   }, {
     "name" : "isFailedInCreatingKeycloakUser",
-    "type" : "Boolean",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "Boolean"
   }, {
     "name" : "taskName",
     "type" : "String",
@@ -37,11 +36,9 @@
     "modifiers" : [ "PERSISTENT" ]
   }, {
     "name" : "realmName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "String"
   }, {
     "name" : "mail",
-    "type" : "com.axonivy.connector.keycloak.mail.Mail",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.connector.keycloak.mail.Mail"
   } ]
 }

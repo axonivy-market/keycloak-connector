@@ -10,29 +10,31 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co("/Dialogs/UserUpdate/Title")}</ui:define>
     <ui:define name="content">
-
-      <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
-        registration="#{data.registration}" readOnly="true" />
-      <div class="field col-12">
-        <p:selectBooleanCheckbox
-          value="#{registrationReviewBean.isValidationConfirmation}"
-          required="true" styleClass="w-full"
-          itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/ValidationConfirmation')}">
-        </p:selectBooleanCheckbox>
-        <div class="command-btns">
-          <p:commandLink id="cancel" actionListener="#{userUpdateBean.delete}"
-            process="@this" value="#{ivy.cms.co('/Labels/DeleteUser')}" />
-          <p:commandButton id="submit" actionListener="#{userUpdateBean.reset}"
-            value="#{ivy.cms.co('/Labels/ResetUser')}" update="form"
-            process="form" />
-            <p:commandButton id="submit" actionListener="#{userUpdateBean.disable}"
-            value="#{ivy.cms.co('/Labels/LockUser')}" update="form"
-            process="form" />
-            <p:commandButton id="submit" actionListener="#{logic.cancel}"
-            value="#{ivy.cms.co('/Labels/Cancel')}" update="form"
-            process="form" />
+      <h:form>
+        <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
+          registration="#{data.registration}" readOnly="true" />
+        <div class="field col-12">
+          <p:selectBooleanCheckbox
+            value="#{registrationReviewBean.isValidationConfirmation}"
+            required="true" styleClass="w-full"
+            itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/ValidationConfirmation')}">
+          </p:selectBooleanCheckbox>
+          <div class="command-btns">
+            <p:commandButton id="deleteBtn"
+              actionListener="#{userUpdateBean.delete}"
+              value="#{ivy.cms.co('/Labels/DeleteUser')}" ajax="false" />
+            <p:commandButton id="resetBtn"
+              actionListener="#{userUpdateBean.reset}"
+              value="#{ivy.cms.co('/Labels/ResetUser')}" ajax="false" />
+            <p:commandButton id="disableBtn"
+              actionListener="#{userUpdateBean.disable}"
+              value="#{ivy.cms.co('/Labels/LockUser')}" ajax="false" />
+            <p:commandButton id="cancelBtn"
+              actionListener="#{logic.cancel}"
+              value="#{ivy.cms.co('/Labels/Cancel')}" ajax="false" />
+          </div>
         </div>
-      </div>
+      </h:form>
     </ui:define>
   </ui:composition>
 </h:body>
