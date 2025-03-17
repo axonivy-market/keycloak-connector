@@ -68,7 +68,7 @@
           <systemPropertyVariables>
             <kcUrl>${keycloakConnector.url}</kcUrl>
             <kcUsername>${keycloakConnector.username}</kcUsername>
-            <kcUsername>${keycloakConnector.password}</kcUsername>
+            <kcPassword>${keycloakConnector.password}</kcPassword>
             <kcRealmName>${keycloakConnector.realmName}</kcRealmName>
           </systemPropertyVariables>
         </configuration>

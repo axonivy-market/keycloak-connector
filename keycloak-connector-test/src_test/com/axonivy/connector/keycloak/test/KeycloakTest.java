@@ -30,7 +30,7 @@ import ch.ivyteam.ivy.environment.IvyTest;
 @IvyTest
 public class KeycloakTest {
   private static final DockerImageName KEYCLOAK_IMAGE = DockerImageName.parse("quay.io/keycloak/keycloak:26.1");
-  private static final String FINISHED_SET_UP_LOG_REGEX = ".*Listening on.*\\n";
+  private static final String FINISHED_SET_UP_LOG_REGEX = ".*Installed features:.*\\n";
   private static String password;
   private static String username;
   private static String realmName;
@@ -64,7 +64,7 @@ public class KeycloakTest {
             cmd -> cmd.withHostConfig(HostConfig.newHostConfig().withNetworkMode(network.getId())
                 .withPortBindings(new PortBinding(Ports.Binding.bindPort(8080), new ExposedPort(8090)))))
         .withEnv("KC_BOOTSTRAP_ADMIN_USERNAME", username).withEnv("KC_BOOTSTRAP_ADMIN_PASSWORD", password)
-        .withEnv("KC_HOSTNAME", url).withEnv("LDAP_USER_DC", "octopus-users")
+        .withEnv("KC_HOSTNAME", url)
         .withCopyFileToContainer(MountableFile.forHostPath("../keycloak-connector-demo/docker/ivytestrealm.json"),
             "/opt/keycloak/data/import/ivytestrealm.json")
         .withCommand("start-dev --import-realm").waitingFor(Wait.forLogMessage(FINISHED_SET_UP_LOG_REGEX, 1));
