@@ -12,7 +12,7 @@ import org.keycloak.www.client.AuthAccessToken;
 import org.keycloak.www.client.OpenidconnectTokenBody.GrantTypeEnum;
 
 import com.axonivy.connector.keycloak.bo.TokenRequest;
-import com.axonivy.connector.keycloak.constants.ProcessPaths;
+import com.axonivy.connector.keycloak.constants.RequestConstants;
 
 import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.process.call.SubProcessCall;
@@ -45,8 +45,8 @@ public class KeycloakAuthFilter implements ClientRequestFilter {
 
   private void getToken(boolean isNewToken) {
     TokenRequest request = buildTokenRequest(isNewToken);
-    SubProcessCallResult callResult = SubProcessCall.withPath(ProcessPaths.AUTTHEN_SUB_PROCESSES)
-        .withStartName(ProcessPaths.LOGIN_START_NAME).withParam(ProcessPaths.TOKEN_REQUEST_PARAM, request).call();
+    SubProcessCallResult callResult = SubProcessCall.withPath(RequestConstants.AUTTHEN_SUB_PROCESSES)
+        .withStartName(RequestConstants.LOGIN_START_NAME).withParam(RequestConstants.TOKEN_REQUEST_PARAM, request).call();
     AuthAccessToken token = (AuthAccessToken) Optional.ofNullable(callResult).map(result -> result.get("token"))
         .orElse(null);
     if (null != token) {

@@ -59,9 +59,9 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axonivy.connector.keycloak.constants.ProcessPaths;",
+            "import com.axonivy.connector.keycloak.constants.RequestConstants;",
             "ivy.wf.signals().create().data(in.registrationId)",
-            "  .makeCurrentTaskPersistent().send(ProcessPaths.REGISTRATION_APPROVAL_SIGNAL);",
+            "  .makeCurrentTaskPersistent().send(RequestConstants.REGISTRATION_APPROVAL_SIGNAL);",
             "ivy.task.name = ivy.cms.co(\"/Tasks/UserRegistration/Name\");"
           ]
         }

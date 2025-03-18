@@ -1,6 +1,6 @@
 package com.axonivy.connector.keycloak.constants;
 
-public class ProcessPaths {
+public class RequestConstants {
   public static final String USER_SUB_PROCESSES = "connector/Users";
   public static final String AUTTHEN_SUB_PROCESSES = "connector/Authentication";
   public static final String ROLE_SUB_PROCESSES = "connector/Groups";
@@ -13,6 +13,8 @@ public class ProcessPaths {
   public static final String UPDATE_USER_START_NAME = "updateUserStatus";
   public static final String RESET_USER_START_NAME = "updatePassword";
   public static final String UPDATE_USERS_PASSWORD_START_NAME = "updatePassword";
+  public static final String CREATE_USER_PROCESS_NAME = "createUser(String,UserRepresentation)";
+  public static final String GET_USER_PROCESS_NAME = "getUsers(String,UserQuery)";
 
   public static final String REALM_NAME_PARAM = "realmName";
   public static final String USER_QUERY_PARAM = "userQuery";
@@ -21,8 +23,8 @@ public class ProcessPaths {
   public static final String ENABLE_STATUS_REQUEST_PARAM = "tokenRequest";
   public static final String REGISTRATION_APPROVAL_SIGNAL = "com:axonivy:keycloak:application:approval";
   public static final String USER = "user";
-  public static final String USERS_RESULT = "users";
-  public static final String ROLES_RESULT = "groups";
+  public static final String USERS = "users";
+  public static final String ROLES = "groups";
   public static final String RESPONSE_STATUS_RESULT = "responseStatusCode";
   public static final String CREDENTIAL_PARAM = "credential";
 }

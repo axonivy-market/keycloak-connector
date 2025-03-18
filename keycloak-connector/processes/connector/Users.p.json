@@ -144,23 +144,24 @@
           "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
           "path" : "/admin/realms/{realm}/users",
           "templateParams" : {
-            "realm" : "in.realmName"
+            "realm" : "in.realmName",
+            "ivy.var.keycloakConnector.url" : ""
           },
           "queryParams" : {
             "briefRepresentation" : "",
-            "email" : "in.userQuery != null ? in.userQuery.eMail : \"\"",
-            "emailVerified" : "in.userQuery != null ? in.userQuery.emailVerified : null",
-            "enabled" : "in.userQuery != null ? in.userQuery.enabled : null",
-            "exact" : "in.userQuery != null ? in.userQuery.exact : null",
-            "first" : "in.userQuery != null ? in.userQuery.first : 50",
-            "firstName" : "in.userQuery != null ? in.userQuery.eMail : \"\"",
-            "idpAlias" : "in.userQuery != null ? in.userQuery.firstName : \"\"",
-            "idpUserId" : "in.userQuery != null ? in.userQuery.idpUserId : \"\"",
-            "lastName" : "in.userQuery != null ? in.userQuery.lastName : \"\"",
-            "max" : "in.userQuery != null ? in.userQuery.max : 1000",
-            "q" : "in.userQuery != null ? in.userQuery.q : \"\"",
-            "search" : "in.userQuery != null ? in.userQuery.search : \"\"",
-            "username" : "in.userQuery != null ? in.userQuery.username : \"\""
+            "email" : "in.userQuery != null ? in.userQuery.eMail : null",
+            "emailVerified" : "in.userQuery.#emailVerified != null ? in.userQuery.emailVerified : null",
+            "enabled" : "in.userQuery.#enabled != null ? in.userQuery.enabled : null",
+            "exact" : "in.userQuery.#exact != null ? in.userQuery.exact : null",
+            "first" : "in.userQuery.#first != null ? in.userQuery.first : null",
+            "firstName" : "in.userQuery.#eMail != null ? in.userQuery.eMail : null",
+            "idpAlias" : "in.userQuery.#firstName != null ? in.userQuery.firstName : null",
+            "idpUserId" : "in.userQuery.#idpUserId != null ? in.userQuery.idpUserId : null",
+            "lastName" : "in.userQuery.#lastName != null ? in.userQuery.lastName : null",
+            "max" : "in.userQuery.#max != null ? in.userQuery.max : null",
+            "q" : "in.userQuery.#q != null ? in.userQuery.q : null",
+            "search" : "in.userQuery.#search != null ? in.userQuery.search : null",
+            "username" : "in.userQuery.#username != null ? in.userQuery.username : null"
           }
         },
         "response" : {
