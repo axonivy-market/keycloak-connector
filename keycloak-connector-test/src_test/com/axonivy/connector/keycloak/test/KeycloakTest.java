@@ -18,13 +18,17 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
+import com.axonivy.connector.keycloak.constants.ProcessPaths;
 import com.axonivy.connector.keycloak.service.UserServices;
+import com.axonivy.connector.keycloak.test.utils.KeycloakTestUtils;
 import com.axonivy.connector.keycloak.utils.UserUtils;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Ports;
 import com.github.dockerjava.api.model.PortBinding;
 
+import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
+import ch.ivyteam.ivy.bpm.engine.client.ExecutionResult;
 import ch.ivyteam.ivy.environment.IvyTest;
 
 @IvyTest
@@ -71,10 +75,14 @@ public class KeycloakTest {
     keycloakContainer.start();
   }
   
-  @Test
-  void create_new_user() {
-   String userId = userServices.createUser(realmName, createMockCreateUserRequest());
-   assertTrue(StringUtils.isNotBlank(userId));
+   @Test
+  void test_createNewUser(BpmClient client) throws NoSuchFieldException {
+    ExecutionResult executionResult = KeycloakTestUtils
+        .getSubProcessWithNameAndPath(client, ProcessPaths.USER_SUB_PROCESSES, ProcessPaths.CREATE_USER_START_NAME)
+        .execute(realmName, createMockCreateUserRequest());
+    var userId = executionResult.data().last().get(ProcessPaths.USER_ID);
+    assertTrue(userId instanceof String);
+    assertTrue(StringUtils.isNotBlank((String) userId));
   }
 
   @AfterAll
