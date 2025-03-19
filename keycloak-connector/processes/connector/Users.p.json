@@ -106,17 +106,15 @@
     }, {
       "id" : "f7",
       "type" : "CallSubStart",
-      "name" : "getUsers(String,UserQuery)",
+      "name" : "getUsers(String)",
       "config" : {
         "signature" : "getUsers",
         "input" : {
           "params" : [
-            { "name" : "realmName", "type" : "String", "desc" : "" },
-            { "name" : "userQuery", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
+            { "name" : "realmName", "type" : "String", "desc" : "" }
           ],
           "map" : {
-            "out.realmName" : "param.realmName",
-            "out.userQuery" : "param.userQuery"
+            "out.realmName" : "param.realmName"
           }
         },
         "result" : {
@@ -149,19 +147,19 @@
           },
           "queryParams" : {
             "briefRepresentation" : "",
-            "email" : "in.userQuery != null ? in.userQuery.eMail : null",
-            "emailVerified" : "in.userQuery.#emailVerified != null ? in.userQuery.emailVerified : null",
-            "enabled" : "in.userQuery.#enabled != null ? in.userQuery.enabled : null",
-            "exact" : "in.userQuery.#exact != null ? in.userQuery.exact : null",
-            "first" : "in.userQuery.#first != null ? in.userQuery.first : null",
-            "firstName" : "in.userQuery.#eMail != null ? in.userQuery.eMail : null",
-            "idpAlias" : "in.userQuery.#firstName != null ? in.userQuery.firstName : null",
-            "idpUserId" : "in.userQuery.#idpUserId != null ? in.userQuery.idpUserId : null",
-            "lastName" : "in.userQuery.#lastName != null ? in.userQuery.lastName : null",
-            "max" : "in.userQuery.#max != null ? in.userQuery.max : null",
-            "q" : "in.userQuery.#q != null ? in.userQuery.q : null",
-            "search" : "in.userQuery.#search != null ? in.userQuery.search : null",
-            "username" : "in.userQuery.#username != null ? in.userQuery.username : null"
+            "email" : "",
+            "emailVerified" : "",
+            "enabled" : "",
+            "exact" : "",
+            "first" : "",
+            "firstName" : "",
+            "idpAlias" : "",
+            "idpUserId" : "",
+            "lastName" : "",
+            "max" : "",
+            "q" : "",
+            "search" : "",
+            "username" : ""
           }
         },
         "response" : {

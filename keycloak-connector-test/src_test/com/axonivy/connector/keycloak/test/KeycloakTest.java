@@ -20,7 +20,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
-import com.axonivy.connector.keycloak.bo.UserQuery;
 import com.axonivy.connector.keycloak.constants.RequestConstants;
 import com.axonivy.connector.keycloak.enums.ConfigVariables;
 import com.axonivy.connector.keycloak.test.utils.KeycloakTestUtils;
@@ -86,18 +85,18 @@ public class KeycloakTest {
 
   @SuppressWarnings("unchecked")
   @Test
-  @Order(0)
+  @Order(1)
   void test_getUsers(BpmClient client) throws NoSuchFieldException {
-    UserQuery query = new UserQuery();
     ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USER_PROCESS_NAME).execute(realmName, query);
+        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
     List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
         .get(RequestConstants.USERS);
     assertEquals(1, users.size());
   }
 
+  @SuppressWarnings("unchecked")
   @Test
-  @Order(1)
+  @Order(2)
   void test_createNewUser(BpmClient client) throws NoSuchFieldException {
     ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
         RequestConstants.USER_SUB_PROCESSES, RequestConstants.CREATE_USER_PROCESS_NAME)
@@ -105,15 +104,8 @@ public class KeycloakTest {
     var userId = executionResult.data().last().get(RequestConstants.USER_ID);
     assertTrue(userId instanceof String);
     assertTrue(StringUtils.isNotBlank((String) userId));
-  }
-
-  @SuppressWarnings("unchecked")
-  @Test
-  @Order(2)
-  void test_getUsersAfterCreated(BpmClient client) throws NoSuchFieldException {
-    UserQuery query = new UserQuery();
-    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USER_PROCESS_NAME).execute(realmName, query);
+    executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
+        RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
     List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
         .get(RequestConstants.USERS);
     assertEquals(2, users.size());

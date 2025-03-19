@@ -14,7 +14,7 @@ public class RequestConstants {
   public static final String RESET_USER_START_NAME = "updatePassword";
   public static final String UPDATE_USERS_PASSWORD_START_NAME = "updatePassword";
   public static final String CREATE_USER_PROCESS_NAME = "createUser(String,UserRepresentation)";
-  public static final String GET_USER_PROCESS_NAME = "getUsers(String,UserQuery)";
+  public static final String GET_USERS_PROCESS_NAME = "getUsers(String)";
 
   public static final String REALM_NAME_PARAM = "realmName";
   public static final String USER_QUERY_PARAM = "userQuery";
