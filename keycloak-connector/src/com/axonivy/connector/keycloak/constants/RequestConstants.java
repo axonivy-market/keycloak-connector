@@ -8,6 +8,7 @@ public class RequestConstants {
   public static final String LOGIN_START_NAME = "login";
 
   public static final String GET_USERS_START_NAME = "getUsers";
+  public static final String GET_USERS_BY_MAIL_START_NAME = "getUsersByMail";
   public static final String CREATE_USER_START_NAME = "createUser";
   public static final String DELETE_USER_START_NAME = "deleteUser";
   public static final String UPDATE_USER_START_NAME = "updateUserStatus";

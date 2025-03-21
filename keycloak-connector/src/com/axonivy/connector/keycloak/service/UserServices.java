@@ -20,14 +20,23 @@ public class UserServices {
 
   public boolean isExistedUserEmail(String mail, String realmName) {
     UserQuery query = new UserQuery.UserQueryBuilder().setEMail(mail).build();
-    return CollectionUtils.isNotEmpty(getUsersByQuery(query, realmName));
+    return CollectionUtils.isNotEmpty(getUsersByMail(query, realmName));
   }
 
   @SuppressWarnings("unchecked")
-  public List<UserRepresentation> getUsersByQuery(UserQuery query, String realmName) {
+  public List<UserRepresentation> getUsersByMail(UserQuery query, String realmName) {
+    SubProcessCallResult callResult = SubProcessCall.withPath(RequestConstants.USER_SUB_PROCESSES)
+        .withStartName(RequestConstants.GET_USERS_BY_MAIL_START_NAME).withParam(RequestConstants.REALM_NAME_PARAM, realmName)
+        .withParam(RequestConstants.USER_QUERY_PARAM, query).call();
+    return (List<UserRepresentation>) Optional.ofNullable(callResult)
+        .map(result -> result.get(RequestConstants.USERS)).orElse(null);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public List<UserRepresentation> getAllUsers(String realmName) {
     SubProcessCallResult callResult = SubProcessCall.withPath(RequestConstants.USER_SUB_PROCESSES)
         .withStartName(RequestConstants.GET_USERS_START_NAME).withParam(RequestConstants.REALM_NAME_PARAM, realmName)
-        .withParam(RequestConstants.USER_QUERY_PARAM, query).call();
+        .call();
     return (List<UserRepresentation>) Optional.ofNullable(callResult)
         .map(result -> result.get(RequestConstants.USERS)).orElse(null);
   }
