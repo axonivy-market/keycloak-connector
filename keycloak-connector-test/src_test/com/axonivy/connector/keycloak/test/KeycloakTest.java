@@ -17,7 +17,6 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
-import org.testcontainers.utility.MountableFile;
 
 import com.axonivy.connector.keycloak.constants.RequestConstants;
 import com.axonivy.connector.keycloak.enums.ConfigVariables;
@@ -80,23 +79,18 @@ public class KeycloakTest {
     network.close();
   }
 
-  @SuppressWarnings("unchecked")
   @Test
-  void test_createNewUser(BpmClient client) throws NoSuchFieldException {
-    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
-    List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
-        .get(RequestConstants.USERS);
-    assertEquals(1, users.size());
-    executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
+  void test_createAndDeleteNewUser(BpmClient client) throws NoSuchFieldException {
+    assertEquals(1, countUsers(client));
+    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
         RequestConstants.CREATE_USER_PROCESS_NAME).execute(realmName, createMockCreateUserRequest());
-    var userId = executionResult.data().last().get(RequestConstants.USER_ID);
+    String userId = String.class.cast(executionResult.data().last().get(RequestConstants.USER_ID));
     assertTrue(userId instanceof String);
-    assertTrue(StringUtils.isNotBlank((String) userId));
+    assertTrue(StringUtils.isNotBlank(userId));
+    assertEquals(2, countUsers(client));
     executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
-        RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
-    users = (List<UserRepresentation>) executionResult.data().last().get(RequestConstants.USERS);
-    assertEquals(2, users.size());
+        RequestConstants.DELETE_USER_PROCESS_NAME).execute(realmName, userId);
+    assertEquals(1, countUsers(client));
   }
 
   private UserRepresentation createMockCreateUserRequest() {
@@ -109,6 +103,15 @@ public class KeycloakTest {
     userRequest.setEmail("dino@mail.com");
     userRequest.setEnabled(true);
     return userRequest;
+  }
+  
+  @SuppressWarnings("unchecked")
+  private int countUsers(BpmClient client) throws NoSuchFieldException {
+    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
+        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
+    List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
+        .get(RequestConstants.USERS);
+    return users.size();
   }
 
   @SuppressWarnings("resource")

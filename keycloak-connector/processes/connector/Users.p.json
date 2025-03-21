@@ -72,8 +72,7 @@
             "code" : [
               "import com.axonivy.connector.keycloak.utils.UserUtils;",
               "import com.axonivy.connector.keycloak.service.UserServices;",
-              "in.userId = UserUtils.extractUserId(response);",
-              "ivy.log.fatal(in.userId);"
+              "in.userId = UserUtils.extractUserId(response);"
             ]
           }
         }
