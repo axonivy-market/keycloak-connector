@@ -585,17 +585,27 @@
         "size" : 1296,
         "lanes" : [ {
             "name" : "User",
-            "size" : 192
+            "size" : 192,
+            "color" : "green"
           }, {
             "name" : "Ivy",
-            "size" : 376
+            "size" : 376,
+            "color" : "ivy"
           }, {
             "name" : "Keycloak",
-            "size" : 112
+            "size" : 112,
+            "color" : "keycloak"
           }, {
             "name" : "admin",
-            "size" : 616
+            "size" : 616,
+            "color" : "admin"
           } ]
-      } ]
+      } ],
+    "colors" : {
+      "green" : "#a3e58b",
+      "ivy" : "#1088bc",
+      "keycloak" : "#3e4aea",
+      "admin" : "#e27474"
+    }
   }
 }

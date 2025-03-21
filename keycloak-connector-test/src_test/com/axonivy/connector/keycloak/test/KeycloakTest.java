@@ -10,7 +10,6 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.keycloak.www.client.AdminrealmsCredentials;
 import org.keycloak.www.client.UserRepresentation;
@@ -45,18 +44,12 @@ public class KeycloakTest {
   private static GenericContainer<?> keycloakContainer;
   private static Network network;
 
-  @SuppressWarnings("resource")
   @BeforeAll
   static void setupDocker(AppFixture appFixture) throws IOException {
     username = System.getProperty("kcUsername");
     password = System.getProperty("kcPassword");
     realmName = System.getProperty("kcRealmName");
     url = System.getProperty("kcUrl");
-
-    appFixture.var(ConfigVariables.USERNAME.getValue(), username);
-    appFixture.var(ConfigVariables.PASSWORD.getValue(), password);
-    appFixture.var(ConfigVariables.REALM_NAME.getValue(), realmName);
-    appFixture.var(ConfigVariables.URL.getValue(), url);
 
     if (StringUtils.isEmpty(username)) {
       try (var in = KeycloakTest.class.getResourceAsStream("credentials.properties")) {
@@ -65,56 +58,45 @@ public class KeycloakTest {
           props.load(in);
           username = (String) props.get("username");
           password = (String) props.get("password");
+          realmName = (String) props.get("realmName");
+          url = (String) props.get("url");
         }
       }
     }
-
-    network = Network.newNetwork();
-    keycloakContainer = new GenericContainer<>(KEYCLOAK_IMAGE).withNetwork(network)
-        .withNetworkAliases("octopus_keycloak").withExposedPorts(8080)
-        .withCreateContainerCmdModifier(
-            cmd -> cmd.withHostConfig(HostConfig.newHostConfig().withNetworkMode(network.getId())
-                .withPortBindings(new PortBinding(Ports.Binding.bindPort(8090), new ExposedPort(8080)))))
-        .withEnv("KC_BOOTSTRAP_ADMIN_USERNAME", username).withEnv("KC_BOOTSTRAP_ADMIN_PASSWORD", password)
-        .withEnv("KC_HOSTNAME", url)
-        .withCopyFileToContainer(MountableFile.forHostPath("../keycloak-connector-demo/docker/ivytestrealm.json"),
-            "/opt/keycloak/data/import/ivytestrealm.json")
-        .withCommand("start-dev --import-realm").waitingFor(Wait.forLogMessage(FINISHED_SET_UP_LOG_REGEX, 1));
-    keycloakContainer.start();
+    updateTestFixture(appFixture);
+    startKeycloakDockerContainer();
   }
 
-  @SuppressWarnings("unchecked")
-  @Test
-  @Order(1)
-  void test_getUsers(BpmClient client) throws NoSuchFieldException {
-    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
-    List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
-        .get(RequestConstants.USERS);
-    assertEquals(1, users.size());
-  }
-
-  @SuppressWarnings("unchecked")
-  @Test
-  @Order(2)
-  void test_createNewUser(BpmClient client) throws NoSuchFieldException {
-    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.CREATE_USER_PROCESS_NAME)
-        .execute(realmName, createMockCreateUserRequest());
-    var userId = executionResult.data().last().get(RequestConstants.USER_ID);
-    assertTrue(userId instanceof String);
-    assertTrue(StringUtils.isNotBlank((String) userId));
-    executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
-        RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
-    List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
-        .get(RequestConstants.USERS);
-    assertEquals(2, users.size());
+  private static void updateTestFixture(AppFixture appFixture) {
+    appFixture.var(ConfigVariables.USERNAME.getValue(), username);
+    appFixture.var(ConfigVariables.PASSWORD.getValue(), password);
+    appFixture.var(ConfigVariables.REALM_NAME.getValue(), realmName);
+    appFixture.var(ConfigVariables.URL.getValue(), url);
   }
 
   @AfterAll
   static void clearTestContainer() {
     keycloakContainer.close();
     network.close();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Test
+  void test_createNewUser(BpmClient client) throws NoSuchFieldException {
+    ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
+        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
+    List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
+        .get(RequestConstants.USERS);
+    assertEquals(1, users.size());
+    executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
+        RequestConstants.CREATE_USER_PROCESS_NAME).execute(realmName, createMockCreateUserRequest());
+    var userId = executionResult.data().last().get(RequestConstants.USER_ID);
+    assertTrue(userId instanceof String);
+    assertTrue(StringUtils.isNotBlank((String) userId));
+    executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client, RequestConstants.USER_SUB_PROCESSES,
+        RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
+    users = (List<UserRepresentation>) executionResult.data().last().get(RequestConstants.USERS);
+    assertEquals(2, users.size());
   }
 
   private UserRepresentation createMockCreateUserRequest() {
@@ -129,4 +111,17 @@ public class KeycloakTest {
     return userRequest;
   }
 
+  @SuppressWarnings("resource")
+  private static void startKeycloakDockerContainer() {
+    network = Network.newNetwork();
+    keycloakContainer = new GenericContainer<>(KEYCLOAK_IMAGE).withNetwork(network)
+        .withNetworkAliases("octopus_keycloak").withExposedPorts(8080)
+        .withCreateContainerCmdModifier(
+            cmd -> cmd.withHostConfig(HostConfig.newHostConfig().withNetworkMode(network.getId())
+                .withPortBindings(new PortBinding(Ports.Binding.bindPort(8090), new ExposedPort(8080)))))
+        .withEnv("KC_BOOTSTRAP_ADMIN_USERNAME", username).withEnv("KC_BOOTSTRAP_ADMIN_PASSWORD", password)
+        .withEnv("KC_HOSTNAME", url)
+        .withCommand("start-dev").waitingFor(Wait.forLogMessage(FINISHED_SET_UP_LOG_REGEX, 1));
+    keycloakContainer.start();
+  }
 }
