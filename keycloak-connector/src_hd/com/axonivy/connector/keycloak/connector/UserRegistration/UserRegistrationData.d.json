@@ -5,8 +5,7 @@
   "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "registration",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
   }, {
     "name" : "registrationId",
     "type" : "String",
