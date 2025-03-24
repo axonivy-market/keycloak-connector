@@ -13,34 +13,35 @@
       <h:form enctype="multipart/form-data">
         <p:outputLabel
           value="#{ivy.cms.co('/Dialogs/ConfigManagement/ThemeUpload')}" />
-        <p:fileUpload value="#{adminManagementBean.file}"
-          skinSimple="true" process="@this" mode="simple" auto="true"
-          sizeLimit="10000000" update="upload-message theme-option" />
+        <p:fileUpload mode="simple"
+          listener="#{adminManagementBean.readJarFile}" auto="true"
+          sizeLimit="10000000" update="upload-message themes" />
         <p:messages id="upload-message" />
-        test test
         <p:fieldset
           legend="#{ivy.cms.co('/Dialogs/ConfigManagement/ModifyLoginThemeLegend')}">
-=          <p:outputLabel
-            value="#{ivy.cms.co('/Dialogs/ConfigManagement/SelectThemeLabel')}" />
-          <p:selectOneMenu id="theme-option"
-            value="#{adminManagementBean.referenceThemes}">
-            <f:selectItem
-              itemLabel="#{ivy.cms.co('/Dialogs/ConfigManagement/SelectThemePlaceHolder')}"
-              itemValue="" />
-            <f:selectItems
-              value="#{adminManagementBean.referenceThemes}" />
-          </p:selectOneMenu>
+        <p:outputLabel
+          value="#{ivy.cms.co('/Dialogs/ConfigManagement/SelectThemeLabel')}" />
+        <p:selectOneMenu id="themes"
+          value="#{adminManagementBean.referenceTheme}">
+          <f:selectItem
+            itemLabel="#{ivy.cms.co('/Dialogs/ConfigManagement/SelectThemePlaceHolder')}"
+            itemValue="" />
+          <f:selectItems var="theme" itemLabel="#{theme}"
+            itemValue="#{theme}" value="#{adminManagementBean.themes}" />
+        </p:selectOneMenu>
           <p:outputLabel
             value="#{ivy.cms.co('/Dialogs/ConfigManagement/RegisterUrl')}" />
-          <p:inputText />
-          <p:commandButton
+          <p:inputText value ="#{adminManagementBean.registerUrl}" />
+          <p:commandButton process="@this"
+            value="#{ivy.cms.co('/Labels/GenerateLoginTheme')}"
+            ajax="false" actionListener="#{adminManagementBean.upload}"
+            styleClass="mt-3 ui-button-outlined block">
+            <p:fileDownload value="#{adminManagementBean.theme}" />
+          </p:commandButton>
+          <!--           <p:commandButton
             value="#{ivy.cms.co('/Labels/GenerateLoginTheme')}"
             ajax="false" action="#{adminManagementBean.upload}"
-            styleClass="mt-3 ui-button-outlined block" />
-          <p:commandButton
-            value="#{ivy.cms.co('/Labels/GenerateLoginTheme')}"
-            ajax="false" action="#{adminManagementBean.upload}"
-            styleClass="mt-3 ui-button-outlined block" />
+            styleClass="mt-3 ui-button-outlined block" /> -->
         </p:fieldset>
 
 
