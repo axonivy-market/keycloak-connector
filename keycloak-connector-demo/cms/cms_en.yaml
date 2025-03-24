@@ -1,0 +1,12 @@
+Dialogs:
+  ConfigManagement:
+    Header: Keycloak Config Management
+    ModifyLoginThemeLegend: Modify Login Theme
+    RegisterUrl: Register url
+    SelectThemeLabel: Please select references theme
+    SelectThemePlaceHolder: Choose references theme
+    ThemeUpload: Please upload your theme jar file
+    Title: Keycloak Config Management
+Labels:
+  Download: Download
+  GenerateLoginTheme: Generate Login Theme

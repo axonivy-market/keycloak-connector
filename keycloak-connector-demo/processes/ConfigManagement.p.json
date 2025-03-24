@@ -1,6 +1,6 @@
 {
   "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
-  "id" : "195BA1E2C89E0A5D",
+  "id" : "195BEA491A31D669",
   "config" : {
     "data" : "com.axonivy.connector.keycloak.demo.data.ConfigManagementData"
   },

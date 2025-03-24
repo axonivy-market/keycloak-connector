@@ -11,14 +11,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -27,22 +26,26 @@ import org.primefaces.model.file.UploadedFile;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@ManagedBean
+import ch.ivyteam.ivy.environment.Ivy;
+
 @ViewScoped
+@ManagedBean
 public class AdminManagementBean {
   private UploadedFile file;
   private StreamedContent theme;
+  private String referenceTheme;
   private static final String BASE_LOGIN_FTL_PATH = "/opt/keycloak/themes/base/login/login.ftl";
 
   public void upload() {
-    if (file != null) {
-      FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
-      FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+    Ivy.log().warn(file.getFileName());
   }
 
-  public List<String> readThemesFromJar(UploadedFile file) {
-    List<String> themes = new ArrayList<>();
+  public List<String> getReferenceThemes() {
+    Ivy.log().warn("readThemesFromJar");
+    List<String> referenceThemes = new ArrayList<>();
+    if (Objects.isNull(file)) {
+      return referenceThemes;
+    }
 
     try (InputStream inputStream = file.getInputStream()) {
       Path tempFile = java.nio.file.Files.createTempFile("keycloakThemes", ".jar");
@@ -60,7 +63,7 @@ public class AdminManagementBean {
               for (JsonNode themeNode : themesNode) {
                 JsonNode nameNode = themeNode.path("name");
                 if (nameNode.isTextual()) {
-                  themes.add(nameNode.asText());
+                  referenceThemes.add(nameNode.asText());
                 }
               }
             }
@@ -72,8 +75,11 @@ public class AdminManagementBean {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return referenceThemes;
+  }
 
-    return themes;
+  public void updateThemes() {
+
   }
 
   public StreamedContent createCustomThemeAsZip(String themeName) {
@@ -95,7 +101,7 @@ public class AdminManagementBean {
 
   private void addModifiedLoginFtlToZip(ZipOutputStream zipOutputStream, String themeName) throws IOException {
     String content = Files.readString(Paths.get(BASE_LOGIN_FTL_PATH), StandardCharsets.UTF_8);
-    String modifiedContent = content.replace("<a href=\"${url.registration}\">", "<a href=\"abc\">");
+    String modifiedContent = content.replace("<a href=\"${url.registration}\">", "<a href=\"test\">");
     ZipEntry entry = new ZipEntry(themeName + "/login/login.ftl");
     zipOutputStream.putNextEntry(entry);
     zipOutputStream.write(modifiedContent.getBytes(StandardCharsets.UTF_8));
@@ -126,5 +132,13 @@ public class AdminManagementBean {
 
   public void setTheme(StreamedContent theme) {
     this.theme = theme;
+  }
+
+  public void setReferenceTheme(String referenceTheme) {
+    this.referenceTheme = referenceTheme;
+  }
+
+  public String getReferenceTheme() {
+    return referenceTheme;
   }
 }
