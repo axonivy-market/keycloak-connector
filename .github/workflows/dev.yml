@@ -9,3 +9,5 @@ on:
 jobs:
   build:
     uses: axonivy-market/github-workflows/.github/workflows/dev.yml@v6
+    secrets:
+      mvnArgs: -DkeycloakConnector.url=${{ secrets.KC_TEST_URL }} -DkeycloakConnector.username=${{ secrets.KC_TEST_USERNAME }} -DkeycloakConnector.password=${{ secrets.KC_TEST_PASSWORD }} -DkeycloakConnector.realmName=${{ secrets.KC_TEST_REALMNAME }}
