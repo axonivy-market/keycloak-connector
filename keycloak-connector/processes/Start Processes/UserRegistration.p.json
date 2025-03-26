@@ -95,14 +95,10 @@
             "Boolean isApplicationExisted = registrationService.isEmailExisted(in.registration.email);",
             "String realmName = ivy.var.get(\"keycloakConnector.realmName\");",
             "Boolean isUserExisted = userService.isExistedUserEmail(in.registration.email, realmName);",
-            "// if (isApplicationExisted) {",
-            "//   in.registration.rejectReason = RejectReason.EXISTED_REGISTRATION;",
-            "//     ivy.log.warn(\"isApplicationExisted : \" + isApplicationExisted);",
-            "",
-            "// } else",
-            " if (isUserExisted) {",
+            "if (isApplicationExisted) {",
+            "  in.registration.rejectReason = RejectReason.EXISTED_REGISTRATION;",
+            "} else if (isUserExisted) {",
             "  in.registration.rejectReason = RejectReason.EXISTED_USER;",
-            "",
             "} else {",
             "  in.isValidRegistration = true;",
             "  in.registration.setUserStatus(UserStatus.REQUESTED);",
@@ -356,7 +352,10 @@
           }
         },
         "task" : {
-          "name" : "<%= in.taskName %>"
+          "name" : "<%= in.taskName %>",
+          "responsible" : {
+            "activator" : "KEYCLOAK_ADMIN"
+          }
         },
         "case" : {
           "name" : "<%= in.caseName %>"
