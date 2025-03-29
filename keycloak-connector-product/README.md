@@ -1,5 +1,11 @@
 # Keycloak Connector
-Keycloak connector is an integrated solution that extends Keycloak’s capabilities, streamlining user registration and identity management. It allows users to register on your platform, automatically creating corresponding user accounts in Keycloak for centralized management. The product also provides robust API support, enabling seamless interactions with Keycloak for tasks such as user management, role assignments, and session handling. Additionally, you can customize and modify the Keycloak login theme to ensure a cohesive, branded user experience.
+The Keycloak Connector extends the functionality of the existing Keycloak integration in Axon Ivy.
+
+It enables use cases such as the approval of users who are initially created in Axon Ivy and then stored in Keycloak. The initial user registration takes place in Axon Ivy, and corresponding user accounts are automatically created in Keycloak.
+
+The product also supports interaction with Keycloak for use cases such as role assignments and session management.
+
+Additionally, the Keycloak login theme can be customized and modified to ensure a consistent and branded user experience.
 
 ## Demo
 
