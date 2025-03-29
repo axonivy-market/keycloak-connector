@@ -26,7 +26,7 @@ public class UserServices {
   @SuppressWarnings("unchecked")
   public List<UserRepresentation> getUsersByMail(UserQuery query, String realmName) {
     SubProcessCallResult callResult = SubProcessCall.withPath(RequestConstants.USER_SUB_PROCESSES)
-        .withStartName(RequestConstants.GET_USERS_BY_MAIL_START_NAME).withParam(RequestConstants.REALM_NAME_PARAM, realmName)
+        .withStartName(RequestConstants.GET_USERS_START_NAME).withParam(RequestConstants.REALM_NAME_PARAM, realmName)
         .withParam(RequestConstants.USER_QUERY_PARAM, query).call();
     return (List<UserRepresentation>) Optional.ofNullable(callResult)
         .map(result -> result.get(RequestConstants.USERS)).orElse(null);

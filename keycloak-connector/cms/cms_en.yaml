@@ -6,6 +6,7 @@ Cases:
 Dialogs:
   RegistrationApproval:
     AdminDecision: Admin decision
+    AdminDecisionLegend: Role Assignment And Decision
     Comment: Comment
     SelectUserRole: Please select user role
     Title: Registration Approval

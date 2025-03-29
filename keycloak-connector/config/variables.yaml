@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
   keyCloakConnector:
-    # url to connect to keycloak instance
-    url: ""
+    # url to connect to keycloak instance e.g. "http://localhost:8090"
+    url: "http://localhost:8090"
     # username of keycloak admin user
-    username: ""
+    username: "admin"
     # password of keycloak admin user
-    password: ""
-    realmName: ""
+    password: "admin"
+    realmName: "master"
     # email which would send confirmation for applicant
     mailSender: ""

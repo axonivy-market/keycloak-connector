@@ -105,15 +105,17 @@
     }, {
       "id" : "f7",
       "type" : "CallSubStart",
-      "name" : "getUsers(String)",
+      "name" : "getUsers(String,UserQuery)",
       "config" : {
         "signature" : "getUsers",
         "input" : {
           "params" : [
-            { "name" : "realmName", "type" : "String", "desc" : "" }
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "query", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
           ],
           "map" : {
-            "out.realmName" : "param.realmName"
+            "out.realmName" : "param.realmName",
+            "out.userQuery" : "param.query"
           }
         },
         "result" : {
@@ -146,19 +148,19 @@
           },
           "queryParams" : {
             "briefRepresentation" : "",
-            "email" : "",
-            "emailVerified" : "",
-            "enabled" : "",
-            "exact" : "",
-            "first" : "",
-            "firstName" : "",
-            "idpAlias" : "",
-            "idpUserId" : "",
-            "lastName" : "",
-            "max" : "",
-            "q" : "",
-            "search" : "",
-            "username" : ""
+            "email" : "in.userQuery.#eMail is initialized ? in.userQuery.#eMail : null",
+            "emailVerified" : "in.userQuery.#emailVerified is initialized ? in.userQuery.#emailVerified : null",
+            "enabled" : "in.userQuery.#enabled is initialized ? in.userQuery.#enabled : null",
+            "exact" : "in.userQuery.#exact is initialized ? in.userQuery.#exact : null",
+            "first" : "in.userQuery.#first is initialized ? in.userQuery.#first : null",
+            "firstName" : "in.userQuery.#firstName is initialized ? in.userQuery.#firstName : null",
+            "idpAlias" : "in.userQuery.#idpAlias is initialized ? in.userQuery.#idpAlias : null",
+            "idpUserId" : "in.userQuery.#idpUserId is initialized ? in.userQuery.#idpUserId : null",
+            "lastName" : "in.userQuery.#lastName is initialized ? in.userQuery.#lastName : null",
+            "max" : "in.userQuery.#max is initialized ? in.userQuery.#max : null",
+            "q" : "in.userQuery.#q is initialized ? in.userQuery.#q : null",
+            "search" : "in.userQuery.#search is initialized ? in.userQuery.#search : null",
+            "username" : "in.userQuery.#username is initialized ? in.userQuery.#username : null"
           }
         },
         "response" : {

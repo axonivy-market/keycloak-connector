@@ -1,11 +1,4 @@
-services:
-  ivy:
-    image: axonivy/axonivy-engine:nightly-12.0
-    ports:
-     - 8080:8080
-    volumes:
-     - ./ivy.yaml:/ivy/configuration/ivy.yaml     
-
+services:  
   keycloak:
     image: quay.io/keycloak/keycloak:26.1
     command: start-dev --import-realm
