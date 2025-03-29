@@ -108,7 +108,7 @@ public class KeycloakTest {
   @SuppressWarnings("unchecked")
   private int countUsers(BpmClient client) throws NoSuchFieldException {
     ExecutionResult executionResult = KeycloakTestUtils.getSubProcessWithNameAndPath(client,
-        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName);
+        RequestConstants.USER_SUB_PROCESSES, RequestConstants.GET_USERS_PROCESS_NAME).execute(realmName, null);
     List<UserRepresentation> users = (List<UserRepresentation>) executionResult.data().last()
         .get(RequestConstants.USERS);
     return users.size();
