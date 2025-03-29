@@ -1,4 +1,4 @@
-package com.axonivy.connector.keycloak.auth;
+package com.axonivy.connector.keycloak.feature.auth;
 
 import javax.ws.rs.Priorities;
 import javax.ws.rs.core.Feature;

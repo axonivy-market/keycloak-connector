@@ -8,7 +8,6 @@ public class RequestConstants {
   public static final String LOGIN_START_NAME = "login";
 
   public static final String GET_USERS_START_NAME = "getUsers";
-  public static final String GET_USERS_BY_MAIL_START_NAME = "getUsersByMail";
   public static final String CREATE_USER_START_NAME = "createUser";
   public static final String DELETE_USER_START_NAME = "deleteUser";
   public static final String UPDATE_USER_START_NAME = "updateUserStatus";
@@ -16,7 +15,7 @@ public class RequestConstants {
   public static final String UPDATE_USERS_PASSWORD_START_NAME = "updatePassword";
   public static final String CREATE_USER_PROCESS_NAME = "createUser(String,UserRepresentation)";
   public static final String DELETE_USER_PROCESS_NAME = "deleteUser(String,String)";
-  public static final String GET_USERS_PROCESS_NAME = "getUsers(String)";
+  public static final String GET_USERS_PROCESS_NAME = "getUsers(String,UserQuery)";
 
   public static final String REALM_NAME_PARAM = "realmName";
   public static final String USER_QUERY_PARAM = "userQuery";

@@ -1,4 +1,4 @@
-package com.axonivy.connector.keycloak.auth;
+package com.axonivy.connector.keycloak.feature.auth;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -6,8 +6,8 @@ RestClients:
     Url: ${ivy.var.keycloakConnector.url}
     Icon: res:/webContent/icons/keycloak.png
     Features:
-    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
-    - com.axonivy.connector.keycloak.auth.KeycloakAuthFeature
+    - com.axonivy.connector.keycloak.feature.serialize.OpenApiJsonFeature
+    - com.axonivy.connector.keycloak.feature.auth.KeycloakAuthFeature
     OpenAPI:
       SpecUrl: https://www.keycloak.org/docs-api/latest/rest-api/openapi.json
       Namespace: org.keycloak.www.client
