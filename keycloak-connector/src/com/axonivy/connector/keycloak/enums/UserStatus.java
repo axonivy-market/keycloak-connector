@@ -7,7 +7,8 @@ public enum UserStatus implements HasCmsName {
 	REQUESTED("REQUESTED"),
 	REJECTED("REJECTED"),
 	ACTIVE("ACTIVE"),
-	LOCKED("LOCKED");
+	LOCKED("LOCKED"),
+	DELETED("DELETED");
 	
 	private String cmsName;
 	

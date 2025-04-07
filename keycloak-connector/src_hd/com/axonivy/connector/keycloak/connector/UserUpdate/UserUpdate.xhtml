@@ -14,11 +14,6 @@
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
           registration="#{data.registration}" readOnly="true" />
         <div class="field col-12">
-          <p:selectBooleanCheckbox
-            value="#{registrationReviewBean.isValidationConfirmation}"
-            required="true" styleClass="w-full"
-            itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/ValidationConfirmation')}">
-          </p:selectBooleanCheckbox>
           <div class="command-btns">
             <p:commandButton id="deleteBtn"
               actionListener="#{userUpdateBean.delete}"
@@ -30,7 +25,7 @@
               actionListener="#{userUpdateBean.disable}"
               value="#{ivy.cms.co('/Labels/LockUser')}" ajax="false" />
             <p:commandButton id="cancelBtn"
-              actionListener="#{logic.cancel}"
+              actionListener="#{logic.close}"
               value="#{ivy.cms.co('/Labels/Cancel')}" ajax="false" />
           </div>
         </div>
