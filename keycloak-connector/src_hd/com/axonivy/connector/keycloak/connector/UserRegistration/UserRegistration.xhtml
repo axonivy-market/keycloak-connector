@@ -9,8 +9,11 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co('/Dialogs/UserRegistration/Title')}</ui:define>
     <ui:define name="content">
+    <f:event type="preRenderView" listener="#{userRegistrationBean.showMessage}" />
+    
       <h1>#{ivy.cms.co('/uk.phd.userregistration/Title/userRegistration')}</h1>
       <h:form id="form">
+        <p:growl id="growl" showDetail="true" />
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
           registration="#{data.registration}" />
         <div class="command-btns">

@@ -111,11 +111,11 @@
         "input" : {
           "params" : [
             { "name" : "realmName", "type" : "String", "desc" : "" },
-            { "name" : "query", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
+            { "name" : "userQuery", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
           ],
           "map" : {
             "out.realmName" : "param.realmName",
-            "out.userQuery" : "param.query"
+            "out.userQuery" : "param.userQuery"
           }
         },
         "result" : {

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+@SuppressWarnings("deprecation")
 public class OpenApiJsonFeature extends JacksonJsonProvider {
 	@Override
 	public ObjectMapper locateMapper(Class<?> type, MediaType mediaType) {
