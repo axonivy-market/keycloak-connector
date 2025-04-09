@@ -7,9 +7,8 @@
   xmlns:pe="http://primefaces.org/ui/extensions">
 <h:body>
   <ui:composition template="/layouts/basic-10.xhtml">
-    <ui:define name="title">User Management</ui:define>
+    <ui:define name="title">#{ivy.cms.co('/Dialogs/UserManagement/Title')}</ui:define>
     <ui:define name="content">
-
       <h:form id="form">
         <p:messages />
         <p:dataTable id="userDetails" var="detail"
@@ -49,8 +48,8 @@
               <p:selectOneMenu id="ROLE_FILTER" widgetVar="ROLE_FILTER"
                 onchange="PF('userDetails').filter()">
                 <f:selectItem noSelectionOption="true" />
-                <f:selectItems value="#{detail.userRole}" var="item"
-                  itemLabel="#{item.getCmsName()}" itemValue="#{item}" />
+                <f:selectItems value="#{userManagementBean.userRoles}" var="item"
+                  itemLabel="#{item.name}" itemValue="#{item.name}" />
               </p:selectOneMenu>
             </f:facet>
             <h:outputText value="#{detail.userRole.name}" />

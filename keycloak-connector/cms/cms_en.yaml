@@ -13,6 +13,8 @@ Dialogs:
     UserInformationFieldsetLabel: User Information
     UserRole: User role
     ValidationConfirmation: I hereby agree that the stated user information have been validated.
+  UserManagement:
+    Title: User Management
   UserRegistration:
     ConfirmationMessage: Thanks for submitting a new user registration on our application portal.
     DuplicatedApplicationMessage: A registration linked to this email is already in progress. Please wait for completion before submitting a new request.

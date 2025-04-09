@@ -1,4 +1,3 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -10,22 +9,26 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co("/Dialogs/UserUpdate/Title")}</ui:define>
     <ui:define name="content">
-      <h:form>
+    <f:event listener="#{userUpdateBean.init(data.registration)}"
+		type="preRenderComponent" />
+      <h:form id="form">
+      #{userUpdateBean}
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
           registration="#{data.registration}" readOnly="true" />
         <div class="field col-12">
           <div class="command-btns">
-            <p:commandButton id="deleteBtn"
-              actionListener="#{userUpdateBean.delete}"
+            <p:commandButton id="deleteBtn" disabled="#{userUpdateBean.isUserNotExist()}"
+              actionListener="#{userUpdateBean.delete()}" styleClass="mr-2" immediate="false" process="@this"
               value="#{ivy.cms.co('/Labels/DeleteUser')}" ajax="false" />
-            <p:commandButton id="resetBtn"
-              actionListener="#{userUpdateBean.reset}"
-              value="#{ivy.cms.co('/Labels/ResetUser')}" ajax="false" />
-            <p:commandButton id="disableBtn"
-              actionListener="#{userUpdateBean.disable}"
-              value="#{ivy.cms.co('/Labels/LockUser')}" ajax="false" />
-            <p:commandButton id="cancelBtn"
-              actionListener="#{logic.close}"
+            <p:commandButton id="resetBtn" styleClass="mr-2"
+              disabled="#{userUpdateBean.isUserNotExist()}"
+              actionListener="#{userUpdateBean.reset()}" immediate="false" process="@this"
+              value="#{ivy.cms.co('/Labels/ResetUser')}" />
+            <p:commandButton id="disableBtn" styleClass="mr-2"
+              disabled="#{data.registration.userStatus == 'LOCKED' or userUpdateBean.isUserNotExist()}"
+              actionListener="#{userUpdateBean.disable}" process="@this"
+              value="#{ivy.cms.co('/Labels/LockUser')}" />
+            <p:commandButton id="cancelBtn" actionListener="#{logic.close}" process="@this"
               value="#{ivy.cms.co('/Labels/Cancel')}" ajax="false" />
           </div>
         </div>

@@ -9,18 +9,18 @@ import com.axonivy.connector.keycloak.enums.UserStatus;
 public class Registration implements Serializable {
   private static final long serialVersionUID = 4238392914201477447L;
   private String userId;
+  private String accountNumber;
+  private UserStatus userStatus;
+  private AdminDecision adminDecision;
+  private RejectReason rejectReason;
+  private Role userRole;
   private String userName;
   private String firstName;
   private String lastName;
   private String email;
   private String phoneNumber;
   private String companyName;
-  private String accountNumber;
   private String additionalInformation;
-  private Role userRole;
-  private AdminDecision adminDecision;
-  private RejectReason rejectReason;
-  private UserStatus userStatus;
   private String comment;
 
   public String getFirstName() {

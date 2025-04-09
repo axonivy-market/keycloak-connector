@@ -121,7 +121,7 @@ public class UserLazyDataModel extends LazyDataModel<Registration> {
     case FIRSTNAME -> "firstName";
     case LASTNAME -> "lastName";
     case ROLE -> "role";
-    case STATUS -> "status";
+    case STATUS -> "userStatus";
     default -> "";
     };
   }

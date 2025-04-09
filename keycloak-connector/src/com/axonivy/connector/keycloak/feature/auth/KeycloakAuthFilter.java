@@ -13,8 +13,9 @@ import org.keycloak.www.client.OpenidconnectTokenBody.GrantTypeEnum;
 
 import com.axonivy.connector.keycloak.bo.TokenRequest;
 import com.axonivy.connector.keycloak.constants.RequestConstants;
+import com.axonivy.connector.keycloak.enums.KeycloakVariable;
+import com.axonivy.connector.keycloak.utils.VariableUtils;
 
-import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.process.call.SubProcessCall;
 import ch.ivyteam.ivy.process.call.SubProcessCallResult;
 
@@ -46,7 +47,8 @@ public class KeycloakAuthFilter implements ClientRequestFilter {
   private void getToken(boolean isNewToken) {
     TokenRequest request = buildTokenRequest(isNewToken);
     SubProcessCallResult callResult = SubProcessCall.withPath(RequestConstants.AUTTHEN_SUB_PROCESSES)
-        .withStartName(RequestConstants.LOGIN_START_NAME).withParam(RequestConstants.TOKEN_REQUEST_PARAM, request).call();
+        .withStartName(RequestConstants.LOGIN_START_NAME).withParam(RequestConstants.TOKEN_REQUEST_PARAM, request)
+        .call();
     AuthAccessToken token = (AuthAccessToken) Optional.ofNullable(callResult).map(result -> result.get("token"))
         .orElse(null);
     if (null != token) {
@@ -60,13 +62,13 @@ public class KeycloakAuthFilter implements ClientRequestFilter {
     GrantTypeEnum grantType;
     if (isNewTokenRequest) {
       grantType = GrantTypeEnum.PASSWORD;
-      request.setUsername(Ivy.var().get("keyCloakConnector.username"));
-      request.setPassword(Ivy.var().get("keyCloakConnector.password"));
+      request.setUsername(VariableUtils.getVariable(KeycloakVariable.USER_NAME));
+      request.setPassword(VariableUtils.getVariable(KeycloakVariable.PASSWORD));
     } else {
       grantType = GrantTypeEnum.REFRESH_TOKEN;
       request.setRefreshToken(this.refreshToken);
     }
-    request.setRealmName(Ivy.var().get("keyCloakConnector.realmName"));
+    request.setRealmName(VariableUtils.getVariable(KeycloakVariable.REALM_NAME));
     request.setGrantType(grantType);
     return request;
   }

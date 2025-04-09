@@ -9,11 +9,11 @@ import javax.faces.bean.ViewScoped;
 import org.apache.commons.lang.StringUtils;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
+import com.axonivy.connector.keycloak.enums.KeycloakVariable;
 import com.axonivy.connector.keycloak.persistence.entities.Role;
 import com.axonivy.connector.keycloak.service.RoleServices;
 import com.axonivy.connector.keycloak.utils.RoleUtils;
-
-import ch.ivyteam.ivy.environment.Ivy;
+import com.axonivy.connector.keycloak.utils.VariableUtils;
 
 @ViewScoped
 @ManagedBean
@@ -28,7 +28,7 @@ public class RegistrationReviewBean {
 
   @PostConstruct
   private void init() {
-    String realmsName = Ivy.var().get("keycloakConnector.realmName");
+    String realmsName = VariableUtils.getVariable(KeycloakVariable.REALM_NAME);
     var keycloakRoles = new RoleServices().getRolesFromRealms(realmsName);
     setUserRoles(RoleUtils.convertToSimpleKeyCloakRoles(keycloakRoles));
   }
