@@ -18,7 +18,6 @@ import com.axonivy.connector.keycloak.utils.VariableUtils;
 @ViewScoped
 @ManagedBean
 public class RegistrationReviewBean {
-  public static final String SHOW_DIALOG_SCRIPT = "PF('error-message').show()";
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
   private AdminDecision adminDecision;
@@ -30,7 +29,7 @@ public class RegistrationReviewBean {
   private void init() {
     String realmsName = VariableUtils.getVariable(KeycloakVariable.REALM_NAME);
     var keycloakRoles = new RoleServices().getRolesFromRealms(realmsName);
-    setUserRoles(RoleUtils.convertToSimpleKeyCloakRoles(keycloakRoles));
+    userRoles = RoleUtils.convertToSimpleKeyCloakRoles(keycloakRoles);
   }
 
   public void submit() {

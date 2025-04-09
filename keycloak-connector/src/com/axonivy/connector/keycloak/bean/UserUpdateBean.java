@@ -1,8 +1,8 @@
 package com.axonivy.connector.keycloak.bean;
 
-import java.io.Serializable;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
@@ -14,15 +14,9 @@ import com.axonivy.connector.keycloak.service.UserServices;
 import com.axonivy.connector.keycloak.utils.FaceContexts;
 import com.axonivy.connector.keycloak.utils.VariableUtils;
 
-import ch.ivyteam.ivy.environment.Ivy;
-
 @ManagedBean
 @ViewScoped
-public class UserUpdateBean implements Serializable {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+public class UserUpdateBean {
   private String userId;
   private UserServices service;
   private String realmName;
@@ -30,26 +24,23 @@ public class UserUpdateBean implements Serializable {
   RegistrationRepository repo = RegistrationRepository.getInstance();
   Registration registration;
 
-  public void init(Registration registration) {
-    this.registration = registration;
+  @PostConstruct
+  void init() {
+    registration = FaceContexts.evaluateValueExpression("#{data.registration}", Registration.class);
     userId = registration.getUserId();
     service = new UserServices();
     realmName = VariableUtils.getVariable(KeycloakVariable.REALM_NAME);
   }
 
   public void delete() {
-    Ivy.log().warn("deleted");
     service.deleteUser(realmName, userId);
     registration.setUserStatus(UserStatus.DELETED);
     repo.save(registration);
-
     closeDialog();
   }
 
   public int disable() {
-    Ivy.log().warn("lock");
     service.disableUser(realmName, userId);
-
     registration.setUserStatus(UserStatus.LOCKED);
     repo.save(registration);
     closeDialog();
@@ -57,7 +48,6 @@ public class UserUpdateBean implements Serializable {
   }
 
   public void reset() {
-    Ivy.log().warn("reset");
     service.resetPasswordUser(realmName, userId);
     closeDialog();
   }

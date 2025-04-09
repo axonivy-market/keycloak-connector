@@ -9,10 +9,7 @@
   <ui:composition template="/layouts/basic-10.xhtml">
     <ui:define name="title">#{ivy.cms.co("/Dialogs/UserUpdate/Title")}</ui:define>
     <ui:define name="content">
-    <f:event listener="#{userUpdateBean.init(data.registration)}"
-		type="preRenderComponent" />
       <h:form id="form">
-      #{userUpdateBean}
         <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
           registration="#{data.registration}" readOnly="true" />
         <div class="field col-12">
