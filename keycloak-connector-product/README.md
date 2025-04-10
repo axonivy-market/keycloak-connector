@@ -1,31 +1,52 @@
-<!--
-Dear developer!     
+# Keycloak Connector
+The Keycloak Connector extends the functionality of the existing Keycloak integration in Axon Ivy.
 
-When you create your very valuable documentation, please be aware that this Readme.md is not only published on github. This documentation is also processed automatically and published on our website. For this to work, the two headings "Demo" and "Setup" must not be changed. Do also not change the order of the headings. Feel free to add sub-sections wherever you want.
--->
+It enables use cases such as the approval of users who are initially created in Axon Ivy and then stored in Keycloak. The initial user registration takes place in Axon Ivy, and corresponding user accounts are automatically created in Keycloak.
 
-# MY-PRODUCT-NAME
+The product also supports interaction with Keycloak for use cases such as role assignments and session management.
 
-YOUR DESCRIPTION GOES HERE: Please just give a short description here without further headings.
-
-<!--
-The explanations under "MY-RRODUCT-NAME" are displayed  e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-description   
--->
+Additionally, the Keycloak login theme can be customized and modified to ensure a consistent and branded user experience.
 
 ## Demo
 
-YOUR DEMO DESCRIPTION GOES HERE
+#### Use Case: Modify registration link in keycloak login form
+1. Start `Configuration Management` process with role of Keycloak admin.
 
-<!--
-We use all entries under the heading "Demo" for the demo-Tab on our Website, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-demo  
--->
+2. Upload the Theme JAR: Upload the Keycloak theme JAR file to the system to access the existing default theme configurations.
+
+3. Select the Target Theme: Choose the specific theme you wish to customize, focusing on the login form registration link.
+
+4. Update the Registration URL: Enter the desired URL to which users should be redirected when selecting the registration option.
+![config page view](images/config-management.png)
+
+5. Generate the Custom Theme: Click the `Generate Login Theme` button to create a customized version from target theme with custom navigation to provided registration url.
+
+6. Apply customized theme for login page: Extract & copy `custom-theme` folder that we downloaded to `themes` folder of keycloak & apply it for realm login page.
+![theme selection](images/theme-selection.png)
+
+#### Use Case: Register new user account
+1. User Registration Initiation: From the Keycloak login page, users select the registration option, which directs them to a secure registration form.
+
+2. Submission of Application: Applicants complete the required fields and submit their registration data for processing.
+![registration form view](images/registration-form.png)
+
+3. Task Creation for Administrative Review: a task is automatically generated and assigned to the "Admin Keycloak" role for further evaluation of the application.
+![review task](images/review-task.png)
+
+4. Administrative Approval Process: Administrators review each application, making decisions to approve or reject the access request and assigning the appropriate roles to the new user as needed.
+![role assignment](images/role-assignment.png)
+
+
+5. User Account Provisioning: For approved applications, a new user account is created in Keycloak. A confirmation email is sent to the user, including a temporary password and initial login instructions.
+![confirmation mail](images/confirmation-mail.png)
 
 ## Setup
 
-YOUR SETUP DESCRIPTION GOES HERE
-<!--
-The entries under the heading "Setup" are filled in this tab, e.g. for the Connector A-Trust here: https://market.axonivy.com/a-trust#tab-setup. 
--->
+- If an existing keycloak instance is unavailable, you can quickly set up a new instance using a Docker container. A sample Docker Compose file is provided at the following path: `keycloak-connector-demo/docker/docker-compose.yaml`. This setup is intended for demonstration and testing purposes. To start the container, provide the admin password config in `keycloak-connector-demo/docker/docker-compose.yaml` and execute the command:
+
+```
+docker-compose up -d
+```
 
 ```
 @variables.yaml@
