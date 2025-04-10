@@ -7,7 +7,7 @@
         "projects": [
           {
             "groupId": "com.axonivy.connector.keycloak",
-            "artifactId": "keycloak-connector",
+            "artifactId": "keycloak-connector-demo",
             "version": "${version}",
             "type": "iar"
           }
@@ -32,27 +32,6 @@
             "artifactId": "keycloak-connector",
             "version": "${version}",
             "type": "iar"
-          }
-        ],
-        "repositories": [
-          {
-            "id": "maven.axonivy.com",
-            "url": "https://maven.axonivy.com",
-            "snapshots": {
-              "enabled": "true"
-            }
-          }
-        ]
-      }
-    }, 
-    {
-      "id": "maven-dropins",
-      "data": {
-        "dependencies": [
-          {
-            "groupId": "com.axonivy.connector.keycloak",
-            "artifactId": "keycloak-connector",
-            "version": "${version}"
           }
         ],
         "repositories": [
