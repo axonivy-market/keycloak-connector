@@ -1,0 +1,74 @@
+Cases:
+  RegistrationApproval:
+    name: User registration approval for {0}
+  UserRegistration:
+    name: User registration for {0}
+Dialogs:
+  RegistrationApproval:
+    AdminDecision: Admin decision
+    AdminDecisionLegend: Role Assignment And Decision
+    Comment: Comment
+    SelectUserRole: Please select user role
+    Title: Registration Approval
+    UserInformationFieldsetLabel: User Information
+    UserRole: User role
+    ValidationConfirmation: I hereby agree that the stated user information have been validated.
+  UserManagement:
+    Title: User Management
+  UserRegistration:
+    ConfirmationMessage: Thanks for submitting a new user registration on our application portal.
+    DuplicatedApplicationMessage: A registration linked to this email is already in progress. Please wait for completion before submitting a new request.
+    DuplicatedApplicationSummary: Registration in Progress
+    DuplicatedUserMailMessage: An account with this email already exists. If you forgot your password, you can reset it.
+    DuplicatedUserMailSummary: Account Already Exists
+    Title: User Registration
+  UserUpdate:
+    Title: User Update
+  component:
+    UserInformation:
+      AccountNumber: Account number
+      AdditionalInfo: Additional Information
+      CompanyName: Company name
+      ContactNumber: Contact number
+Enums:
+  AdminDecision:
+    GRANT_ACCESS: Grant access
+    REJECT_ACCESS: Reject Access
+Labels:
+  AdditionalInfo: Additional Information
+  Cancel: Cancel
+  Close: Close
+  ContactNumber: Contact number
+  DeleteUser: Delete User
+  Email: Email address
+  FirstName: First name
+  LastName: Last name
+  LockUser: Lock User
+  Register: Register
+  ResetUser: ResetUser
+  Status: Status
+  Submit: Submit
+  UserRoles: User roles
+  Username: Username
+Mails:
+  Body: |-
+    Dear {0},
+    We are pleased to inform you that your account with Octopus application has been approved. Below are your login credentials for accessing the platform:
+
+    Username: {1}
+    Initial Password: {2}
+
+    To ensure the security of your account, we strongly recommend updating your password upon your first login. You may do so by visiting Octopus applicationOctopus application and navigating to the "Account Settings" section.
+    Should you experience any difficulties or require further assistance, please do not hesitate to contact our support team at [support@email.com]. We are committed to assisting you promptly.
+    Thank you for choosing Octopus application. We look forward to supporting your experience with our platform.
+
+    Sincerely,
+    Octopus team.
+
+    Octopus application.
+  Subject: Your Octopus Account Credentials
+Tasks:
+  RegistrationApproval:
+    Name: Review user registration for {0}
+  UserRegistration:
+    Name: User Registration Request

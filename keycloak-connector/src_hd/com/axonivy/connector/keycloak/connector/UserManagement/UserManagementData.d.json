@@ -1,0 +1,13 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "UserManagementData",
+  "namespace" : "com.axonivy.connector.keycloak.connector.UserManagement",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "requestState",
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState"
+  }, {
+    "name" : "registration",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
+  } ]
+}

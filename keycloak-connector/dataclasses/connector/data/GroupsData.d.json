@@ -1,0 +1,36 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GroupsData",
+  "namespace" : "connector.data",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "realmName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "groups",
+    "type" : "List<org.keycloak.www.client.GroupRepresentation>"
+  }, {
+    "name" : "group",
+    "type" : "org.keycloak.www.client.GroupRepresentation"
+  }, {
+    "name" : "error",
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+  }, {
+    "name" : "responseStatusCode",
+    "type" : "Number",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "userId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "groupId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "errorMessage",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

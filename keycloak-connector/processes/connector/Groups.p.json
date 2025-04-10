@@ -1,0 +1,194 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "195944233A7A20E5",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "connector.data.GroupsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "getGroups(String)",
+      "config" : {
+        "signature" : "getGroups",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "groups", "type" : "List<org.keycloak.www.client.GroupRepresentation>", "desc" : "" },
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+          ],
+          "map" : {
+            "result.groups" : "in.#groups",
+            "result.error" : "in.#error"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "get groups",
+      "config" : {
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/groups",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "ivy.var.keycloakConnector.url" : ""
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "first" : "",
+            "max" : "",
+            "search" : ""
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "java.util.List<org.keycloak.www.client.GroupRepresentation>",
+            "map" : {
+              "out.groups" : "result"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "boundaries" : [ {
+          "id" : "f10",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 256, "y" : 104 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f11", "to" : "f1", "via" : [ { "x" : 352, "y" : 104 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "CallSubStart",
+      "name" : "setUserGroup(String,String,String)",
+      "config" : {
+        "signature" : "setUserGroup",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "groupId", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.groupId" : "param.groupId",
+            "out.realmName" : "param.realmName",
+            "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "statusCode", "type" : "Number", "desc" : "" },
+            { "name" : "errorMessage", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "result.statusCode" : "in.#responseStatusCode",
+            "result.errorMessage" : "in.#errorMessage"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 200 },
+        "labelOffset" : { "x" : 9, "y" : 57 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f6" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "RestClientCall",
+      "name" : "set user group",
+      "config" : {
+        "method" : "PUT",
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users/{user-id}/groups/{groupId}",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "user-id" : "in.userId",
+            "groupId" : "in.groupId",
+            "ivy.var.keycloakConnector.url" : ""
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "first" : "",
+            "max" : "",
+            "search" : ""
+          }
+        },
+        "body" : {
+          "type" : "RAW",
+          "raw" : "{}"
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 200 }
+      },
+      "boundaries" : [ {
+          "id" : "f7",
+          "type" : "ErrorBoundaryEvent",
+          "visual" : {
+            "at" : { "x" : 256, "y" : 240 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f13", "to" : "f8", "via" : [ { "x" : 352, "y" : 240 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f9", "to" : "f8", "color" : "default" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 200 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}

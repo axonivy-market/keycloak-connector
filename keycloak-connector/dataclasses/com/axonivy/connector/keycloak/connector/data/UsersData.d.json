@@ -1,0 +1,31 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "UsersData",
+  "namespace" : "com.axonivy.connector.keycloak.connector.data",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "realmName",
+    "type" : "String"
+  }, {
+    "name" : "user",
+    "type" : "org.keycloak.www.client.UserRepresentation"
+  }, {
+    "name" : "users",
+    "type" : "List<org.keycloak.www.client.UserRepresentation>"
+  }, {
+    "name" : "userId",
+    "type" : "String"
+  }, {
+    "name" : "userQuery",
+    "type" : "com.axonivy.connector.keycloak.bo.UserQuery"
+  }, {
+    "name" : "error",
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+  }, {
+    "name" : "responseStatusCode",
+    "type" : "Number"
+  }, {
+    "name" : "credential",
+    "type" : "org.keycloak.www.client.CredentialRepresentation"
+  } ]
+}
