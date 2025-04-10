@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+  <ui:composition template="/layouts/basic-10.xhtml">
+    <ui:define name="title">#{ivy.cms.co('/Dialogs/RegistrationApproval/Title')}</ui:define>
+    <ui:define name="content">
+      <p:fieldset
+        legend="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserInformationFieldsetLabel')}">
+        <ic:com.axonivy.connector.keycloak.connector.component.UserInformation
+          registration="#{data.registration}" readOnly="true" />
+      </p:fieldset>
+      <br />
+      <h:form id="form">
+        <p:fieldset
+          legend="#{ivy.cms.co('/Dialogs/RegistrationApproval/AdminDecisionLegend')}">
+          <h:panelGroup layout="block" id="adminPanel"
+            class="formgrid grid">
+            <div class="field col-12 md:col-6">
+              <p:outputLabel
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/UserRole')}"
+                for="userRole" />
+              <p:selectOneMenu id="userRole" styleClass="w-full"
+                required="#{data.registration.adminDecision eq 'GRANT_ACCESS'}"
+                disabled="#{data.registration.adminDecision eq 'REJECT_ACCESS'}"
+                converter="roleConverter"
+                value="#{data.registration.userRole}">
+                <p:ajax update="@this" process="@this" />
+                <f:selectItem
+                  itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/SelectUserRole')}"
+                  itemValue="" noSelectionOption="true" />
+                <f:selectItems
+                  value="#{registrationReviewBean.userRoles}" var="role"
+                  itemValue="#{role}" itemLabel="#{role.name}" />
+              </p:selectOneMenu>
+              <p:message for="userRole" />
+            </div>
+            <div class="field col-2 md:col-2" />
+            <div class="field col-10 md:col-4">
+              <p:outputLabel
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/AdminDecision')}"
+                for="adminDecision" />
+              <p:selectOneRadio id="adminDecision"
+                layout="pageDirection" required="true"
+                styleClass="w-full"
+                value="#{data.registration.adminDecision}">
+                <f:selectItems
+                  value="#{registrationReviewBean.adminDecisions}"
+                  var="decision" itemValue="#{decision}"
+                  itemLabel="#{decision.cmsName}" />
+                <p:ajax process="@this" update="adminPanel" />
+              </p:selectOneRadio>
+              <p:message for="adminDecision" />
+
+            </div>
+            <div class="field col-12">
+              <p:outputLabel
+                value="#{ivy.cms.co('/Dialogs/RegistrationApproval/Comment')}"
+                for="comment" />
+              <p:inputTextarea id="comment" rows="4" autoResize="true"
+                required="#{data.registration.adminDecision eq 'REJECT_ACCESS'}"
+                styleClass="w-full" value="#{data.registration.comment}" />
+              <p:message for="comment" />
+
+            </div>
+            <div class="field col-12">
+              <p:selectBooleanCheckbox id="validatedConfirm"
+                value="#{registrationReviewBean.isValidationConfirmation}"
+                styleClass="w-full"
+                itemLabel="#{ivy.cms.co('/Dialogs/RegistrationApproval/ValidationConfirmation')}" />
+              <p:message for="validatedConfirm" />
+              <div class="command-btns">
+                <p:commandLink id="cancel"
+                  actionListener="#{logic.cancel}" process="@this"
+                  value="#{ivy.cms.co('/Labels/Cancel')}" />
+                <p:commandButton id="submit"
+                  actionListener="#{logic.proceed}"
+                  value="#{ivy.cms.co('/Labels/Submit')}" update="form"
+                  process="form" />
+              </div>
+            </div>
+          </h:panelGroup>
+        </p:fieldset>
+        <br />
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</h:body>
+
+</html>

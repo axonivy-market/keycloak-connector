@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
+<cc:interface componentType="IvyComponent">
+  <cc:attribute name="registration" required="true" />
+  <cc:attribute name="readOnly" default="false" />
+</cc:interface>
+
+<cc:implementation>
+  <div class="formgrid grid">
+    <div class="field col-12 md:col-6">
+      <p:outputLabel
+        value="#{ivy.cms.co('/Labels/FirstName')}"
+        for="firstName" />
+      <p:inputText id="firstName" required="true" styleClass="w-full"
+        disabled="#{cc.attrs.readOnly}"
+        value="#{cc.attrs.registration.firstName}" />
+      <p:message for="firstName" />
+    </div>
+    <div class="field col-12 md:col-6">
+      <p:outputLabel
+        value="#{ivy.cms.co('/Labels/LastName')}"
+        for="lastName" />
+      <p:inputText id="lastName" required="true" styleClass="w-full"
+        disabled="#{cc.attrs.readOnly}"
+        value="#{cc.attrs.registration.lastName}" />
+      <p:message for="lastName" />
+    </div>
+    <div class="field col-12 md:col-6">
+      <p:outputLabel
+        value="#{ivy.cms.co('/Labels/Email')}"
+        for="emailAddress" />
+      <p:inputText id="emailAddress" required="true" styleClass="w-full"
+        disabled="#{cc.attrs.readOnly}"
+        validatorMessage="#{ivy.cms.co('/uk.phd.core/Validation/invalidEmail')}"
+        value="#{cc.attrs.registration.email}">
+        <f:validateRegex for="emailAddress"
+          pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+      </p:inputText>
+      <p:message for="emailAddress" />
+    </div>
+    <div class="field col-12 md:col-6">
+      <p:outputLabel
+        value="#{ivy.cms.co('/Labels/ContactNumber')}"
+        for="contactNumber" />
+      <p:inputText id="contactNumber" required="true"
+        disabled="#{cc.attrs.readOnly}" styleClass="w-full"
+        value="#{cc.attrs.registration.phoneNumber}" />
+      <p:message for="contactNumber" />
+    </div>
+    <h:panelGroup rendered="#{readOnly}">
+      <div class="field col-12 md:col-6">
+        <p:outputLabel
+          value="#{ivy.cms.co('/Labels/CompanyName')}"
+          for="companyName" />
+        <p:inputText id="companyName" styleClass="w-full"
+          disabled="#{cc.attrs.readOnly}" required="true"
+          value="#{cc.attrs.registration.companyName}" />
+        <p:message for="companyName" />
+      </div>
+      <div class="field col-12 md:col-6 field-chips">
+        <p:outputLabel
+          value="#{ivy.cms.co('/Labels/AccountNumber')}"
+          for="accountNumbers" />
+        <p:chips id="accountNumbers" styleClass="w-full" required="true"
+          disabled="#{cc.attrs.readOnly}"
+          value="#{cc.attrs.registration.accountNumbers}" />
+        <p:message for="accountNumbers" />
+      </div>
+    </h:panelGroup>
+    <div class="field col-12">
+      <p:outputLabel
+        value="#{ivy.cms.co('/Labels/AdditionalInfo')}"
+        for="additionalInformation" />
+      <p:inputTextarea id="additionalInformation" rows="4"
+        disabled="#{cc.attrs.readOnly}" styleClass="w-full"
+        counter="display" maxlength="500" autoResize="true"
+        counterTemplate="{1}/{2}"
+        value="#{cc.attrs.registration.additionalInformation}" />
+      <h:outputText id="display" class="block"
+        rendered="#{not isReadOnly}" />
+    </div>
+  </div>
+</cc:implementation>
+</html>

@@ -1,0 +1,71 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "1956FD935A877D40",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.connector.keycloak.connector.UserRegistration.UserRegistrationData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start(Registration)",
+      "config" : {
+        "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "registration", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+          ],
+          "map" : {
+            "out.registration" : "param.registration"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "application", "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration", "desc" : "" }
+          ],
+          "map" : { }
+        },
+        "guid" : "1956FD935A8DE68E"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "register(String)",
+      "config" : {
+        "signature" : "register",
+        "input" : {
+          "params" : [
+            { "name" : "application", "type" : "String", "desc" : "" }
+          ],
+          "map" : { }
+        },
+        "guid" : "195707FD3AC64C3E"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 152 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 152 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    } ]
+}

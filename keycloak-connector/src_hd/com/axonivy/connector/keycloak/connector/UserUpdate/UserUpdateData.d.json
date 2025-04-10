@@ -1,0 +1,13 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "UserUpdateData",
+  "namespace" : "com.axonivy.connector.keycloak.connector.UserUpdate",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "registration",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
+  }, {
+    "name" : "registrationId",
+    "type" : "String"
+  } ]
+}

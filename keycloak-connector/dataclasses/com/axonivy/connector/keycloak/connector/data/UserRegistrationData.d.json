@@ -1,0 +1,44 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "UserRegistrationData",
+  "namespace" : "com.axonivy.connector.keycloak.connector.data",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "isValidRegistration",
+    "type" : "Boolean"
+  }, {
+    "name" : "registration",
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
+  }, {
+    "name" : "registrationId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "requestState",
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState"
+  }, {
+    "name" : "keycloakUser",
+    "type" : "org.keycloak.www.client.UserRepresentation"
+  }, {
+    "name" : "isFailedInCreatingKeycloakUser",
+    "type" : "Boolean"
+  }, {
+    "name" : "taskName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "caseName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "userId",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "realmName",
+    "type" : "String"
+  }, {
+    "name" : "mail",
+    "type" : "com.axonivy.connector.keycloak.mail.Mail"
+  } ]
+}

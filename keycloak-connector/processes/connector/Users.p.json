@@ -1,0 +1,636 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "1956EF44E043680E",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.keycloak.connector.data.UsersData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "createUser(String,UserRepresentation)",
+      "config" : {
+        "signature" : "createUser",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "user", "type" : "org.keycloak.www.client.UserRepresentation", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName",
+            "out.user" : "param.user"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" },
+            { "name" : "userId", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "result.error" : "in.#error",
+            "result.userId" : "in.#userId"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 41, "y" : 57 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 456, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "create new user",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users",
+          "templateParams" : {
+            "realm" : "in.realmName"
+          }
+        },
+        "body" : {
+          "entity" : {
+            "type" : "org.keycloak.www.client.UserRepresentation",
+            "map" : {
+              "param" : "in.user"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "code" : [
+              "import com.axonivy.connector.keycloak.utils.UserUtils;",
+              "import com.axonivy.connector.keycloak.service.UserServices;",
+              "in.userId = UserUtils.extractUserId(response);"
+            ]
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 64 }
+      },
+      "boundaries" : [ {
+          "id" : "f5",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 320, "y" : 104 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f6", "to" : "f1", "via" : [ { "x" : 456, "y" : 104 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "CallSubStart",
+      "name" : "getUsers(String,UserQuery)",
+      "config" : {
+        "signature" : "getUsers",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userQuery", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName",
+            "out.userQuery" : "param.userQuery"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "users", "type" : "List<org.keycloak.www.client.UserRepresentation>", "desc" : "" },
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+          ],
+          "map" : {
+            "result.users" : "in.#users"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 232 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f8" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "RestClientCall",
+      "name" : "get users",
+      "config" : {
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "ivy.var.keycloakConnector.url" : ""
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "email" : "in.userQuery.#eMail is initialized ? in.userQuery.#eMail : null",
+            "emailVerified" : "in.userQuery.#emailVerified is initialized ? in.userQuery.#emailVerified : null",
+            "enabled" : "in.userQuery.#enabled is initialized ? in.userQuery.#enabled : null",
+            "exact" : "in.userQuery.#exact is initialized ? in.userQuery.#exact : null",
+            "first" : "in.userQuery.#first is initialized ? in.userQuery.#first : null",
+            "firstName" : "in.userQuery.#firstName is initialized ? in.userQuery.#firstName : null",
+            "idpAlias" : "in.userQuery.#idpAlias is initialized ? in.userQuery.#idpAlias : null",
+            "idpUserId" : "in.userQuery.#idpUserId is initialized ? in.userQuery.#idpUserId : null",
+            "lastName" : "in.userQuery.#lastName is initialized ? in.userQuery.#lastName : null",
+            "max" : "in.userQuery.#max is initialized ? in.userQuery.#max : null",
+            "q" : "in.userQuery.#q is initialized ? in.userQuery.#q : null",
+            "search" : "in.userQuery.#search is initialized ? in.userQuery.#search : null",
+            "username" : "in.userQuery.#username is initialized ? in.userQuery.#username : null"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "java.util.List<org.keycloak.www.client.UserRepresentation>",
+            "map" : {
+              "out.users" : "result"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 232 }
+      },
+      "boundaries" : [ {
+          "id" : "f12",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 320, "y" : 272 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f13", "to" : "f10", "via" : [ { "x" : 456, "y" : 272 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f11", "to" : "f10" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 456, "y" : 232 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f14",
+      "type" : "CallSubStart",
+      "name" : "deleteUser(String,String)",
+      "config" : {
+        "signature" : "deleteUser",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userId", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName",
+            "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.responseStatusCode"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 408 }
+      },
+      "connect" : [
+        { "id" : "f18", "to" : "f15" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "RestClientCall",
+      "name" : "delete user",
+      "config" : {
+        "method" : "DELETE",
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users/{user-id}",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "user-id" : "in.userId"
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "email" : "",
+            "emailVerified" : "",
+            "enabled" : "",
+            "exact" : "",
+            "first" : "",
+            "firstName" : "",
+            "idpAlias" : "",
+            "idpUserId" : "",
+            "lastName" : "",
+            "max" : "",
+            "q" : "",
+            "search" : "",
+            "username" : ""
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 408 }
+      },
+      "boundaries" : [ {
+          "id" : "f16",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 320, "y" : 448 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f19", "to" : "f17", "via" : [ { "x" : 456, "y" : 448 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f20", "to" : "f17" }
+      ]
+    }, {
+      "id" : "f17",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 456, "y" : 408 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f21",
+      "type" : "CallSubStart",
+      "name" : "updateUserStatus(String,String,UserRepresentation)",
+      "config" : {
+        "signature" : "updateUserStatus",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "user", "type" : "org.keycloak.www.client.UserRepresentation", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName",
+            "out.user" : "param.user",
+            "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.responseStatusCode"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 568 },
+        "labelOffset" : { "x" : 65, "y" : 57 }
+      },
+      "connect" : [
+        { "id" : "f25", "to" : "f22" }
+      ]
+    }, {
+      "id" : "f22",
+      "type" : "RestClientCall",
+      "name" : "update user",
+      "config" : {
+        "method" : "PUT",
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users/{user-id}",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "user-id" : "in.userId"
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "email" : "",
+            "emailVerified" : "",
+            "enabled" : "",
+            "exact" : "",
+            "first" : "",
+            "firstName" : "",
+            "idpAlias" : "",
+            "idpUserId" : "",
+            "lastName" : "",
+            "max" : "",
+            "q" : "",
+            "search" : "",
+            "username" : ""
+          }
+        },
+        "body" : {
+          "entity" : {
+            "type" : "org.keycloak.www.client.UserRepresentation",
+            "map" : {
+              "param" : "in.user"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 568 }
+      },
+      "boundaries" : [ {
+          "id" : "f23",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 320, "y" : 608 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f27", "to" : "f24", "via" : [ { "x" : 456, "y" : 608 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f26", "to" : "f24" }
+      ]
+    }, {
+      "id" : "f24",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 456, "y" : 568 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f28",
+      "type" : "CallSubStart",
+      "name" : "updatePassword(String,String,CredentialRepresentation)",
+      "config" : {
+        "signature" : "updatePassword",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userId", "type" : "String", "desc" : "" },
+            { "name" : "credential", "type" : "org.keycloak.www.client.CredentialRepresentation", "desc" : "" }
+          ],
+          "map" : {
+            "out.credential" : "param.credential",
+            "out.realmName" : "param.realmName",
+            "out.userId" : "param.userId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "responseStatusCode", "type" : "Number", "desc" : "" }
+          ],
+          "map" : {
+            "result.responseStatusCode" : "in.#responseStatusCode"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 736 },
+        "labelOffset" : { "x" : 57, "y" : 57 }
+      },
+      "connect" : [
+        { "id" : "f34", "to" : "f29" }
+      ]
+    }, {
+      "id" : "f29",
+      "type" : "RestClientCall",
+      "name" : "reset password",
+      "config" : {
+        "method" : "PUT",
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users/{user-id}/reset-password",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "user-id" : "in.userId"
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "email" : "",
+            "emailVerified" : "",
+            "enabled" : "",
+            "exact" : "",
+            "first" : "",
+            "firstName" : "",
+            "idpAlias" : "",
+            "idpUserId" : "",
+            "lastName" : "",
+            "max" : "",
+            "q" : "",
+            "search" : "",
+            "username" : ""
+          }
+        },
+        "body" : {
+          "raw" : "<%= in.credential %>",
+          "entity" : {
+            "type" : "org.keycloak.www.client.CredentialRepresentation",
+            "map" : {
+              "param" : "in.credential"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.responseStatusCode" : "response.getStatus()"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 736 }
+      },
+      "boundaries" : [ {
+          "id" : "f30",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 320, "y" : 778 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f32", "to" : "f31", "via" : [ { "x" : 456, "y" : 776 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f33", "to" : "f31" }
+      ]
+    }, {
+      "id" : "f31",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 456, "y" : 736 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f35",
+      "type" : "CallSubStart",
+      "name" : "getUsersByMail(String,UserQuery)",
+      "config" : {
+        "signature" : "getUsersByMail",
+        "input" : {
+          "params" : [
+            { "name" : "realmName", "type" : "String", "desc" : "" },
+            { "name" : "userQuery", "type" : "com.axonivy.connector.keycloak.bo.UserQuery", "desc" : "" }
+          ],
+          "map" : {
+            "out.realmName" : "param.realmName",
+            "out.userQuery" : "param.userQuery"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "users", "type" : "List<org.keycloak.www.client.UserRepresentation>", "desc" : "" },
+            { "name" : "error", "type" : "ch.ivyteam.ivy.bpm.error.BpmError", "desc" : "" }
+          ],
+          "map" : {
+            "result.users" : "in.#users"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 616, "y" : 840 }
+      },
+      "connect" : [
+        { "id" : "f39", "to" : "f36" }
+      ]
+    }, {
+      "id" : "f36",
+      "type" : "RestClientCall",
+      "name" : "get users",
+      "config" : {
+        "target" : {
+          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "path" : "/admin/realms/{realm}/users",
+          "templateParams" : {
+            "realm" : "in.realmName",
+            "ivy.var.keycloakConnector.url" : ""
+          },
+          "queryParams" : {
+            "briefRepresentation" : "",
+            "email" : "in.userQuery.eMail",
+            "emailVerified" : "",
+            "enabled" : "",
+            "exact" : "",
+            "first" : "",
+            "firstName" : "",
+            "idpAlias" : "",
+            "idpUserId" : "",
+            "lastName" : "",
+            "max" : "",
+            "q" : "",
+            "search" : "",
+            "username" : ""
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "java.util.List<org.keycloak.www.client.UserRepresentation>",
+            "map" : {
+              "out.users" : "result"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 808, "y" : 840 }
+      },
+      "boundaries" : [ {
+          "id" : "f37",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 840, "y" : 880 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f40", "to" : "f38", "via" : [ { "x" : 976, "y" : 880 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f41", "to" : "f38" }
+      ]
+    }, {
+      "id" : "f38",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 976, "y" : 840 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}

@@ -1,0 +1,15 @@
+# Dear Bug Hunter
+# This credential is intentionally included for educational purposes only and does not provide access to any production systems
+# Please do not submit it as part of our bug bounty program
+services:  
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1
+    command: start-dev --import-realm
+    ports:
+     - 8090:8080
+    environment:
+     KC_BOOTSTRAP_ADMIN_USERNAME: admin
+     KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+     KC_HOSTNAME: http://localhost:8090
+    volumes:
+     - ./ivytestrealm.json:/opt/keycloak/data/import/ivytestrealm.json
