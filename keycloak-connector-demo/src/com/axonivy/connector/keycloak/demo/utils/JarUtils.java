@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
@@ -18,7 +19,6 @@ import org.primefaces.model.StreamedContent;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class JarUtils {
   private static final String AVAILABLE_THEME_PATH = "META-INF/keycloak-themes.json";
@@ -40,12 +40,10 @@ public class JarUtils {
       JsonNode rootNode = mapper.readTree(themesInputStream);
       JsonNode themesNode = rootNode.path("themes");
       if (themesNode.isArray()) {
-        for (JsonNode themeNode : themesNode) {
-          JsonNode nameNode = themeNode.path("name");
-          if (nameNode.isTextual()) {
-            themes.add(nameNode.asText());
-          }
-        }
+        themesNode.forEach(themeNode -> {
+          Optional.ofNullable(themeNode.path("name")).filter(JsonNode::isTextual).map(JsonNode::asText)
+              .ifPresent(themes::add);
+        });
       }
     }
     return themes;
@@ -67,7 +65,7 @@ public class JarUtils {
         writeEntryToZipStream(zipOutputStream, content.getBytes(StandardCharsets.UTF_8),
             CUSTOM_THEME_LOGIN_TEMPLATE_PATH);
       }
-      
+
       // Create entry for custom theme property
       String propertyContent = String.format(THEME_PROPERTIES_CONTENT, referencesTheme);
       writeEntryToZipStream(zipOutputStream, propertyContent.getBytes(StandardCharsets.UTF_8),

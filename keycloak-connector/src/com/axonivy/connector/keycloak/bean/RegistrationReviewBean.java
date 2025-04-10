@@ -20,8 +20,6 @@ import com.axonivy.connector.keycloak.utils.VariableUtils;
 public class RegistrationReviewBean {
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
-  private AdminDecision adminDecision;
-  private String comment;
   private Boolean isValidationConfirmation;
   private List<Role> userRoles;
 
@@ -30,10 +28,6 @@ public class RegistrationReviewBean {
     String realmsName = VariableUtils.getVariable(KeycloakVariable.REALM_NAME);
     var keycloakRoles = new RoleServices().getRolesFromRealms(realmsName);
     userRoles = RoleUtils.convertToSimpleKeyCloakRoles(keycloakRoles);
-  }
-
-  public void submit() {
-
   }
 
   public String getErrorSummary() {
@@ -52,25 +46,10 @@ public class RegistrationReviewBean {
     this.errorMessage = errorMessage;
   }
 
-  public AdminDecision getAdminDecision() {
-    return adminDecision;
-  }
-
-  public void setAdminDecision(AdminDecision adminDecision) {
-    this.adminDecision = adminDecision;
-  }
-
   public AdminDecision[] getAdminDecisions() {
     return AdminDecision.values();
   }
 
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
 
   public Boolean getIsValidationConfirmation() {
     return isValidationConfirmation;
