@@ -2,11 +2,11 @@
 Variables:
   keyCloakConnector:
     # url to connect to keycloak instance e.g. "http://localhost:8090"
-    url: "http://localhost:8090"
+    url: ""
     # username of keycloak admin user
-    username: "admin"
+    username: ""
     # password of keycloak admin user
-    password: "admin"
-    realmName: "master"
+    password: ""
+    realmName: ""
     # email which would send confirmation for applicant
     mailSender: ""
