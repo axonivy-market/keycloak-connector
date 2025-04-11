@@ -64,7 +64,8 @@
             "  .makeCurrentTaskPersistent().send(RequestConstants.REGISTRATION_APPROVAL_SIGNAL);",
             "ivy.task.name = ivy.cms.co(\"/Tasks/UserRegistration/Name\");"
           ]
-        }
+        },
+        "sudo" : true
       },
       "visual" : {
         "at" : { "x" : 672, "y" : 432 },
@@ -164,7 +165,8 @@
             "in.registration = new Registration();",
             "ivy.task.name = ivy.cms.co(\"/Tasks/UserRegistration/Name\");"
           ]
-        }
+        },
+        "sudo" : true
       },
       "visual" : {
         "at" : { "x" : 208, "y" : 264 }
