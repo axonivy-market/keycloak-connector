@@ -9,21 +9,6 @@ Additionally, the Keycloak login theme can be customized and modified to ensure 
 
 ## Demo
 
-#### Use Case: Modify registration link in keycloak login form
-1. Start `Configuration Management` process with role of Keycloak admin.
-
-2. Upload the Theme JAR: Upload the Keycloak theme JAR file to the system to access the existing default theme configurations.
-
-3. Select the Target Theme: Choose the specific theme you wish to customize, focusing on the login form registration link.
-
-4. Update the Registration URL: Enter the desired URL to which users should be redirected when selecting the registration option.
-![config page view](images/config-management.png)
-
-5. Generate the Custom Theme: Click the `Generate Login Theme` button to create a customized version from target theme with custom navigation to provided registration url.
-
-6. Apply customized theme for login page: Extract & copy `custom-theme` folder that we downloaded to `themes` folder of keycloak & apply it for realm login page.
-![theme selection](images/theme-selection.png)
-
 #### Use Case: Register new user account
 1. User Registration Initiation: From the Keycloak login page, users select the registration option, which directs them to a secure registration form.
 
@@ -42,11 +27,28 @@ Additionally, the Keycloak login theme can be customized and modified to ensure 
 
 ## Setup
 
-- If an existing keycloak instance is unavailable, you can quickly set up a new instance using a Docker container. A sample Docker Compose file is provided at the following path: `keycloak-connector-demo/docker/docker-compose.yaml`. This setup is intended for demonstration and testing purposes. To start the container, provide the admin password config in `keycloak-connector-demo/docker/docker-compose.yaml` and execute the command:
+### Modify registration link in keycloak login form 
+1. Start `Configuration Management` process with role of Keycloak admin.
+
+2. Upload the Theme JAR: Upload the Keycloak theme JAR file to the system to access the existing default theme configurations.
+
+3. Select the Target Theme: Choose the specific theme you wish to customize, focusing on the login form registration link.
+
+4. Update the Registration URL: Enter the desired URL to which users should be redirected when selecting the registration option.
+![config page view](images/config-management.png)
+
+5. Generate the Custom Theme: Click the `Generate Login Theme` button to create a customized version from target theme with custom navigation to provided registration url.
+
+6. Apply customized theme for login page: Extract & copy `custom-theme` folder that we downloaded to `themes` folder of keycloak & apply it for realm login page.
+![theme selection](images/theme-selection.png)
+
+- If you don't have access to an existing Keycloak instance, you can quickly spin up a new one using Docker. Below is a sample Docker Compose configuration you can use:
 
 ```
-docker-compose up -d
+@docker-compose.yaml@
 ```
+
+This setup is intended for demonstration and testing purposes. To get started, make sure to provide the admin password config. Then, launch the container with the command `docker-compose up -d`. You can find the file at the following path: `keycloak-connector-demo/docker/docker-compose.yaml`
 
 ```
 @variables.yaml@
