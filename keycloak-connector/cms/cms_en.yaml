@@ -16,7 +16,7 @@ Dialogs:
   UserManagement:
     Title: User Management
   UserRegistration:
-    ConfirmationMessage: Thanks for submitting a new user registration on our application portal.
+    ConfirmationMessage: Thank you for submitting a new user registration through our application portal
     DuplicatedApplicationMessage: A registration linked to this email is already in progress. Please wait for completion before submitting a new request.
     DuplicatedApplicationSummary: Registration in Progress
     DuplicatedUserMailMessage: An account with this email already exists. If you forgot your password, you can reset it.
