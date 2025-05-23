@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
   keyCloakConnector:
-    # url to connect to keycloak instance e.g. "http://localhost:8090"
     url: ""
+    # url to connect to Keycloak instance, e.g. "http://localhost:8090" or any other available port
     # username of keycloak admin user
     username: ""
     # password of keycloak admin user

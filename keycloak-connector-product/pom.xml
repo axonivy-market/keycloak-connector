@@ -6,6 +6,7 @@
   <packaging>pom</packaging>
 
   <properties>
+    <docker.yaml.file>../keycloak-connector-demo/docker/docker-compose.yaml</docker.yaml.file>
     <variables.yaml.file>../keycloak-connector/config/variables.yaml</variables.yaml.file>
   </properties>
 
@@ -42,12 +43,29 @@
                 <copy todir="${project.build.directory}">
                   <fileset dir="../../" includes="doc/**" />
                 </copy>
-                <copy file="README.md" tofile="${project.build.directory}/README.md" />
-                <loadfile property="variables.yaml" srcFile="${variables.yaml.file}" encoding="UTF-8" failonerror="false" />
-                <replace file="${project.build.directory}/README.md" token="@variables.yaml@" value="${variables.yaml}" />
-                <copy file="README_DE.md" tofile="${project.build.directory}/README_DE.md" />
-                <replace file="${project.build.directory}/README_DE.md" token="@variables.yaml@" value="${variables.yaml}" />
-              </target>
+                <loadfile property="docker-compose.yaml"
+                  srcFile="${docker.yaml.file}" encoding="UTF-8"
+                  failonerror="false" />
+                <loadfile property="variables.yaml"
+                  srcFile="${variables.yaml.file}" encoding="UTF-8"
+                  failonerror="false" />
+                <copy file="README.md"
+                  tofile="${project.build.directory}/README.md" />
+                <replace file="${project.build.directory}/README.md">
+                  <replacefilter token="@variables.yaml@"
+                    value="${variables.yaml}" />
+                  <replacefilter token="@docker-compose.yaml@"
+                    value="${docker-compose.yaml}" />
+                </replace>
+                <copy file="README_DE.md"
+                  tofile="${project.build.directory}/README_DE.md" />
+                <replace file="${project.build.directory}/README_DE.md">
+                  <replacefilter token="@variables.yaml@"
+                    value="${variables.yaml}" />
+                  <replacefilter token="@docker-compose.yaml@"
+                    value="${docker-compose.yaml}" />
+                </replace>
+              </target>	
             </configuration>
             <goals>
               <goal>run</goal>
