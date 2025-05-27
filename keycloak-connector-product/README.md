@@ -19,6 +19,10 @@ Additionally, the Keycloak login theme can be customized and modified to ensure 
 3. Administrative Approval Process: An administrator reviews application details and decides whether to approve or reject the request. If approved, the admin can assign `user role` to define the user's access permission in Keycloak.
 ![role-assignment](images/role-assignment.png)
 
+
+To grant access to approved users, you need to define role groups in your Keycloak realm.
+![create-group-name](images/create-role-group.png)
+
 4. User Account Provisioning: For approved applications, a new user account is created in Keycloak. A confirmation email is sent to the user, including a temporary password and instructions for their first login.
 ![confirmation-mail](images/confirmation-mail.png)
 
@@ -32,10 +36,14 @@ Administrators can:
 For advanced or full user management, administrators can use the **Keycloak Admin Console**.
 ![manage-action](images/user-list.png)
 
+
 > [!IMPORTANT]
-> In a server environment, users can choose option "Log in with Keycloak". After choosing to register, they will be redirected from the login page to a secure external registration form.
+> In a server environment, users can choose option "Log in with Keycloak". 
+> After choosing to register, they will be redirected from the login page to a secure external registration form.
 
 ## Setup
+
+### Create Keycloak instance
 If you don't have access to an existing Keycloak instance, you can quickly spin up a new one using Docker. Below is a sample Docker Compose configuration you can use:
 
 ```
@@ -48,20 +56,24 @@ This setup is intended for demonstration and testing purposes. To get started, m
 @variables.yaml@
 ```
 
-### Create role groups for admin approval process
-To grant access to approved users, you need to define roles in your Keycloak realm.
-![create-group-name](images/create-role-group.png)
-
-
 ### Override the default "Register" link on the login form
 ![config-registration-URL](images/config-registration-url.png)
+
+> [!NOTE]
+> The following steps are optional and only needed if you want to customize the registration link and theme.
+>
+> To display the Register link on the login page, make sure **User Registration** is enabled in your Keycloak realm settings.
+> ![turn-on-register](images/turn-on-register.png)
 
 You can personalize the Keycloak registration page, particularly the registration link, by modifying an existing theme `keycloak.v2`. This custom form collects necessary information to better support administrative approval and custom workflows. Follow the steps below:
 
 1. Start `Configuration Management` process with role of Keycloak admin.
 
-2. Upload the Theme JAR: Upload a Keycloak theme JAR file to load the available themes and their configurations. The theme JAR file is typically located in the Keycloak container at *opt/keycloak/lib/lib/main* with name starts with *org.keycloak.keycloak-themes*. For testing, you can use the provided sample theme JAR:
-![custom-theme](doc/org.keycloak.keycloak-themes-26.1.5.jar)
+2. Upload the Theme JAR: Upload a Keycloak theme JAR file to load the available themes and their configurations. The theme JAR file is typically located in the Keycloak container at *opt/keycloak/lib/lib/main* with a file name starting like *org.keycloak.keycloak-themes<version>.jar*.
+
+You can copy it from the container to your local machine using:
+
+`docker cp <container_id_or_name>:/opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes<version>.jar <path_on_local_machine>`
 
 3. Select the Target Theme: Choose the theme you want to customize from the loaded list. This will serve as the base or reference for your new theme. The available themes shown are extracted from the uploaded JAR file.
 
@@ -70,5 +82,11 @@ You can personalize the Keycloak registration page, particularly the registratio
 
 5. Generate the Custom Theme: Click the `Generate Login Theme` button to create a new theme based on your selected reference theme, with the updated logic to redirect users to the custom registration URL.
 
-6. Apply customized theme for login page: Extract & copy `custom-theme` folder that we downloaded to the Keycloak container's theme directory *opt/keycloak/themes*. Then, configure your realm to use this new theme for the login page.
+6. Apply customized theme for login page: Extract the `custom-theme` folder you downloaded, and copy it into the Keycloak container's theme directory at *opt/keycloak/themes*.
+
+You can do this using the following command:
+
+`docker cp <path_on_local_machine>/custom-theme <container_id_or_name>:/opt/keycloak/themes`
+
+Then, configure your realm to use this new theme for the login page.
 ![theme-selection](images/theme-selection.png)
