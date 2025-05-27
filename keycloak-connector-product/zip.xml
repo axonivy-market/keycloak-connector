@@ -12,7 +12,6 @@
       <includes>
         <include>product.json</include>
         <include>**/*.png</include>
-        <include>**/*.jar</include>
       </includes>
     </fileSet>
     <fileSet>
