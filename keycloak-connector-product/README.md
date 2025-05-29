@@ -41,7 +41,7 @@ Administrators can start process `Processes/UserRegistration/mangement.ivp` to:
 - Perform key actions such as reset, lock or delete user
 ![manage-action](images/manage-actions.png)
 
-For advanced or full user management, administrators can use the **Keycloak Admin Console** to check status of users.
+For advanced or full user management, administrators can use the **Keycloak Admin Console**.
 ![manage-action](images/user-list.png)
 
 
@@ -62,7 +62,7 @@ You can use sample `docker-compose.yaml` file below:
 > [!NOTE]
 > This sample yaml file is placed at the folder `docker` in the KeyCloak Connector Demo IAR file.
 >
-> You can download this IAR file at https://market.axonivy.com/keycloak-connector.
+> You can download this IAR file at ![Keycloak Connector](https://market.axonivy.com/keycloak-connector).
 >
 > After this IAR file is downloaded, please extract and use the JAR file in folder `docker`.
 
@@ -102,13 +102,15 @@ You can personalize the Keycloak registration page, particularly the registratio
 
 2. Upload the Theme JAR: Upload a Keycloak theme JAR file to load the available themes and their configurations. 
 
-A sample Keycloak JAR file is placed at the folder `themes` in the KeyCloak Connector Demo IAR file. You can download this IAR file at https://market.axonivy.com/keycloak-connector. After this IAR file is downloaded, please extract and use the JAR file in folder `themes`.
+A sample Keycloak JAR file is placed at the folder `themes` in the KeyCloak Connector Demo IAR file. You can download this IAR file at ![Keycloak Connector](https://market.axonivy.com/keycloak-connector). After this IAR file is downloaded, please extract and use the JAR file in folder `themes`.
 
 If you don't want to use this JAR, you can follow these steps to get another JAR file.
 
 The theme JAR file is typically located in the Keycloak container at *opt/keycloak/lib/lib/main* with a file name starting like *org.keycloak.keycloak-themes<version>.jar*.
 
-You can copy it from the docker container to your local machine using: `docker cp <container_id>:/opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes<version>.jar <path_on_local_machine>`
+You can copy it from the docker container to your local machine using: 
+
+`docker cp <container_id>:/opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes<version>.jar <path_on_local_machine>`
 
 E.g. `docker cp <container_id>:/opt/keycloak/lib/lib/main/org.keycloak.keycloak-themes-26.1.5.jar <path_on_local_machine>`
 
