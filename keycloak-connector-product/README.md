@@ -62,7 +62,7 @@ You can use sample `docker-compose.yaml` file below:
 > [!NOTE]
 > This sample yaml file is placed at the folder `docker` in the KeyCloak Connector Demo IAR file.
 >
-> You can download this IAR file at ![Keycloak Connector](https://market.axonivy.com/keycloak-connector).
+> You can download this IAR file at [Keycloak Connector](https://market.axonivy.com/keycloak-connector).
 >
 > After this IAR file is downloaded, please extract and use the JAR file in folder `docker`.
 
@@ -102,7 +102,7 @@ You can personalize the Keycloak registration page, particularly the registratio
 
 2. Upload the Theme JAR: Upload a Keycloak theme JAR file to load the available themes and their configurations. 
 
-A sample Keycloak JAR file is placed at the folder `themes` in the KeyCloak Connector Demo IAR file. You can download this IAR file at ![Keycloak Connector](https://market.axonivy.com/keycloak-connector). After this IAR file is downloaded, please extract and use the JAR file in folder `themes`.
+A sample Keycloak JAR file is placed at the folder `themes` in the KeyCloak Connector Demo IAR file. You can download this IAR file at [Keycloak Connector](https://market.axonivy.com/keycloak-connector). After this IAR file is downloaded, please extract and use the JAR file in folder `themes`.
 
 If you don't want to use this JAR, you can follow these steps to get another JAR file.
 
