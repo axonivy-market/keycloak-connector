@@ -16,9 +16,9 @@ An administrator is assigned an Axon Ivy task in which this account can be appro
 ### Register a user and assign them to a group in Keycloak
 1. User Registration:
 
-Applicant start process `Processes/UserRegistration/register.ivp` first.
+Applicant starts process `Processes/UserRegistration/register.ivp` first.
 
-Applicant complete the required fields and submit their application for reviewing.
+Applicant completes the required fields and submit their application for reviewing.
 
 ![registration-form-view](images/registration-form.png)
 
