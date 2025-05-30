@@ -9,12 +9,16 @@ Additionally, the Keycloak login theme can be customized and modified to ensure 
 
 ## Demo
 
-### Register user and assign user to group on the KeyCloak
+In this demo, a use case is presented in which a user applies for a Keycloak account - initiated from an Axon Ivy process.
+
+An administrator is assigned an Axon Ivy task in which this account can be approved. The account is then automatically created in Keycloak and assigned to a group.
+
+### Register a user and assign them to a group in Keycloak
 1. User Registration:
 
-Applicants start process `Processes/UserRegistration/register.ivp` first.
+Applicant start process `Processes/UserRegistration/register.ivp` first.
 
-Applicants complete the required fields and submit their application for reviewing.
+Applicant complete the required fields and submit their application for reviewing.
 
 ![registration-form-view](images/registration-form.png)
 
@@ -23,7 +27,7 @@ Applicants complete the required fields and submit their application for reviewi
 
 3. Administrative Approval Process: An administrator reviews application details and decides whether to approve or reject the request. If approved, the admin can select `user role` to assign this user to group in Keycloak.
 
-If there is no option for `user role`, read the note in the note below.
+If there is no option for `user role`, read the note below.
 
 ![role-assignment](images/role-assignment.png)
 
