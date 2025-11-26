@@ -75,7 +75,7 @@ Keycloak-Verwaltungskonsole **** verwenden.
 > anmelden” wählen. Nach der Auswahl der Registrierung werden sie von der
 > Anmeldeseite zu einem sicheren externen Registrierungsformular weitergeleitet.
 
-## Einrichtung
+## Setup
 
 ### Einrichten der Keycloak-Instanz
 `Wenn Sie keinen Zugriff auf eine bestehende Keycloak-Instanz haben, können Sie
