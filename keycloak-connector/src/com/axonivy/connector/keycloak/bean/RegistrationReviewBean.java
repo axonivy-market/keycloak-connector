@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.axonivy.connector.keycloak.enums.AdminDecision;
 import com.axonivy.connector.keycloak.enums.KeycloakVariable;
