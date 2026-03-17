@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "1956FD5515A893D4",
   "config" : {
     "data" : "com.axonivy.connector.keycloak.connector.data.UserRegistrationData"
@@ -399,9 +399,9 @@
     }, {
       "id" : "f38",
       "type" : "RequestStart",
-      "name" : "mangement",
+      "name" : "management",
       "config" : {
-        "signature" : "mangement",
+        "signature" : "management",
         "permission" : {
           "anonymous" : false,
           "roles" : [
