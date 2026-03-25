@@ -39,7 +39,7 @@ If there is no option for `user role`, read the note below.
 ![confirmation-mail](images/confirmation-mail.png)
 
 ### User management
-Administrators can start process `Processes/UserRegistration/mangement.ivp` to:
+Administrators can start process `Processes/UserRegistration/management.ivp` to:
 - View the list of registered users, access detailed user information
 ![manage-user](images/manage-user.png)
 - Perform key actions such as reset, lock or delete user
