@@ -1,36 +1,29 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "GroupsData",
   "namespace" : "connector.data",
-  "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "realmName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "realmName"
   }, {
     "name" : "groups",
-    "type" : "List<org.keycloak.www.client.GroupRepresentation>"
+    "type" : "List<org.keycloak.www.client.GroupRepresentation>",
+    "modifiers" : [ ]
   }, {
     "name" : "group",
-    "type" : "org.keycloak.www.client.GroupRepresentation"
+    "type" : "org.keycloak.www.client.GroupRepresentation",
+    "modifiers" : [ ]
   }, {
     "name" : "error",
-    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError",
+    "modifiers" : [ ]
   }, {
     "name" : "responseStatusCode",
-    "type" : "Number",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "Number"
   }, {
-    "name" : "userId",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "userId"
   }, {
-    "name" : "groupId",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "groupId"
   }, {
-    "name" : "errorMessage",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "errorMessage"
   } ]
 }

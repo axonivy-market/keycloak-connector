@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
   "id" : "195944233A7A20E5",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -49,7 +49,7 @@
       "name" : "get groups",
       "config" : {
         "target" : {
-          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "clientId" : "Keycloak-Keycloak-Admin-REST-API",
           "path" : "/admin/realms/{realm}/groups",
           "templateParams" : {
             "realm" : "in.realmName",
@@ -139,7 +139,7 @@
       "config" : {
         "method" : "PUT",
         "target" : {
-          "clientId" : "72e7f221-b3d8-4d70-9d2c-3d5ef73d7ac5",
+          "clientId" : "Keycloak-Keycloak-Admin-REST-API",
           "path" : "/admin/realms/{realm}/users/{user-id}/groups/{groupId}",
           "templateParams" : {
             "realm" : "in.realmName",
