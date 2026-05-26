@@ -1,16 +1,18 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "AuthenticationData",
   "namespace" : "com.axonivy.connector.keycloak.connector.data",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "tokenRequest",
-    "type" : "com.axonivy.connector.keycloak.bo.TokenRequest"
+    "type" : "com.axonivy.connector.keycloak.bo.TokenRequest",
+    "modifiers" : [ ]
   }, {
     "name" : "token",
-    "type" : "org.keycloak.www.client.AuthAccessToken"
+    "type" : "org.keycloak.www.client.AuthAccessToken",
+    "modifiers" : [ ]
   }, {
     "name" : "error",
-    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError",
+    "modifiers" : [ ]
   } ]
 }

@@ -1,17 +1,16 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "RegistrationApprovalData",
   "namespace" : "com.axonivy.connector.keycloak.connector.RegistrationApproval",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "registration",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration",
+    "modifiers" : [ ]
   }, {
-    "name" : "registrationId",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "registrationId"
   }, {
     "name" : "requestState",
-    "type" : "com.axonivy.connector.keycloak.enums.RequestState"
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState",
+    "modifiers" : [ ]
   } ]
 }

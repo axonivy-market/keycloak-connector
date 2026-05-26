@@ -1,31 +1,36 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "UsersData",
   "namespace" : "com.axonivy.connector.keycloak.connector.data",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "realmName",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "user",
-    "type" : "org.keycloak.www.client.UserRepresentation"
+    "type" : "org.keycloak.www.client.UserRepresentation",
+    "modifiers" : [ ]
   }, {
     "name" : "users",
-    "type" : "List<org.keycloak.www.client.UserRepresentation>"
+    "type" : "List<org.keycloak.www.client.UserRepresentation>",
+    "modifiers" : [ ]
   }, {
     "name" : "userId",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "userQuery",
-    "type" : "com.axonivy.connector.keycloak.bo.UserQuery"
+    "type" : "com.axonivy.connector.keycloak.bo.UserQuery",
+    "modifiers" : [ ]
   }, {
     "name" : "error",
-    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError",
+    "modifiers" : [ ]
   }, {
     "name" : "responseStatusCode",
-    "type" : "Number"
+    "type" : "Number",
+    "modifiers" : [ ]
   }, {
     "name" : "credential",
-    "type" : "org.keycloak.www.client.CredentialRepresentation"
+    "type" : "org.keycloak.www.client.CredentialRepresentation",
+    "modifiers" : [ ]
   } ]
 }
