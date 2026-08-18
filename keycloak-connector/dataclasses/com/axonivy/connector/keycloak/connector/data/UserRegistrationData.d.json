@@ -1,44 +1,41 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "UserRegistrationData",
   "namespace" : "com.axonivy.connector.keycloak.connector.data",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "isValidRegistration",
-    "type" : "Boolean"
+    "type" : "Boolean",
+    "modifiers" : [ ]
   }, {
     "name" : "registration",
-    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration"
+    "type" : "com.axonivy.connector.keycloak.persistence.entities.Registration",
+    "modifiers" : [ ]
   }, {
-    "name" : "registrationId",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "registrationId"
   }, {
     "name" : "requestState",
-    "type" : "com.axonivy.connector.keycloak.enums.RequestState"
+    "type" : "com.axonivy.connector.keycloak.enums.RequestState",
+    "modifiers" : [ ]
   }, {
     "name" : "keycloakUser",
-    "type" : "org.keycloak.www.client.UserRepresentation"
+    "type" : "org.keycloak.www.client.UserRepresentation",
+    "modifiers" : [ ]
   }, {
     "name" : "isFailedInCreatingKeycloakUser",
-    "type" : "Boolean"
+    "type" : "Boolean",
+    "modifiers" : [ ]
   }, {
-    "name" : "taskName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "taskName"
   }, {
-    "name" : "caseName",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "caseName"
   }, {
-    "name" : "userId",
-    "type" : "String",
-    "modifiers" : [ "PERSISTENT" ]
+    "name" : "userId"
   }, {
     "name" : "realmName",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "mail",
-    "type" : "com.axonivy.connector.keycloak.mail.Mail"
+    "type" : "com.axonivy.connector.keycloak.mail.Mail",
+    "modifiers" : [ ]
   } ]
 }
