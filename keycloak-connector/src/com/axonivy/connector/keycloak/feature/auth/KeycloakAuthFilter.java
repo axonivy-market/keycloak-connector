@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.core.HttpHeaders;
 
 import org.keycloak.www.client.AuthAccessToken;
 import org.keycloak.www.client.OpenidconnectTokenBody.GrantTypeEnum;

@@ -1,5 +1,6 @@
 package com.axonivy.connector.keycloak.demo.bean;
 
+import java.io.Serializable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -9,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.jar.JarFile;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
@@ -18,8 +19,8 @@ import org.primefaces.model.file.UploadedFile;
 import com.axonivy.connector.keycloak.demo.utils.JarUtils;
 
 @ViewScoped
-@ManagedBean
-public class AdminManagementBean {
+@Named
+public class AdminManagementBean implements Serializable {
   private static final String TEMP_FILE_NAME = "keycloakThemes";
   private static final String JAR_EXTENTION = "keycloakThemes";
   private UploadedFile file;

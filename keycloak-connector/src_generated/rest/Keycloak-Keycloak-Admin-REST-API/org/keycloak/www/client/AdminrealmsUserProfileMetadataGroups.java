@@ -25,7 +25,7 @@ import java.util.Map;
  * AdminrealmsUserProfileMetadataGroups
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2025-03-11T12:00:50.005853600+07:00[Asia/Bangkok]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2025-03-11T12:00:50.005853600+07:00[Asia/Bangkok]")
 
 public class AdminrealmsUserProfileMetadataGroups {
   @JsonProperty("name")

@@ -1,10 +1,11 @@
 package com.axonivy.connector.keycloak.bean;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import java.io.Serializable;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PF;
@@ -16,8 +17,8 @@ import com.axonivy.connector.keycloak.utils.FaceContexts;
 import ch.ivyteam.ivy.environment.Ivy;
 
 @ViewScoped
-@ManagedBean
-public class UserRegistrationBean {
+@Named
+public class UserRegistrationBean implements Serializable {
   private Registration application;
   public static final String SHOW_DIALOG_SCRIPT = "PF('error-message').show()";
   private String errorMessage = StringUtils.EMPTY;

@@ -3,20 +3,22 @@ package com.axonivy.connector.keycloak.converter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.axonivy.connector.keycloak.bean.RegistrationReviewBean;
 import com.axonivy.connector.keycloak.persistence.entities.Role;
 import com.axonivy.connector.keycloak.utils.FaceContexts;
+import jakarta.enterprise.context.ApplicationScoped;
 
-@FacesConverter(value = "roleConverter")
-public class RoleConverter implements Converter {
+@FacesConverter(value = "roleConverter", managed = true)
+@ApplicationScoped
+public class RoleConverter implements Converter<Object> {
 
   @Override
   public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
