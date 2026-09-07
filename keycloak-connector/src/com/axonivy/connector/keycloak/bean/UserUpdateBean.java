@@ -1,10 +1,11 @@
 package com.axonivy.connector.keycloak.bean;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
 import com.axonivy.connector.keycloak.enums.KeycloakVariable;
 import com.axonivy.connector.keycloak.enums.UserStatus;
@@ -14,9 +15,9 @@ import com.axonivy.connector.keycloak.service.UserServices;
 import com.axonivy.connector.keycloak.utils.FaceContexts;
 import com.axonivy.connector.keycloak.utils.VariableUtils;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class UserUpdateBean {
+public class UserUpdateBean implements Serializable {
   private String userId;
   private UserServices service;
   private String realmName;

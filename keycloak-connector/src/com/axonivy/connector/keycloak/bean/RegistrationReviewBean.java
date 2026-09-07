@@ -1,10 +1,11 @@
 package com.axonivy.connector.keycloak.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,8 +17,8 @@ import com.axonivy.connector.keycloak.utils.RoleUtils;
 import com.axonivy.connector.keycloak.utils.VariableUtils;
 
 @ViewScoped
-@ManagedBean
-public class RegistrationReviewBean {
+@Named
+public class RegistrationReviewBean implements Serializable {
   private String errorMessage = StringUtils.EMPTY;
   private String errorSummary = StringUtils.EMPTY;
   private Boolean isValidationConfirmation;

@@ -3,7 +3,7 @@ package com.axonivy.connector.keycloak.utils;
 import java.net.URI;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.keycloak.www.client.AdminrealmsCredentials;
